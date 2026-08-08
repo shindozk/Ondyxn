@@ -5,107 +5,252 @@
              x:DataType="vm:BrowserViewModel"
              Background="Transparent">
 
-    <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <StackPanel Spacing="24" HorizontalAlignment="Center" MaxWidth="600">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <StackPanel HorizontalAlignment="Center" MaxWidth="860" Margin="0,24,0,24">
 
-            <!-- Brand name with globe icon -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
-                <Border Width="44" Height="44" CornerRadius="22"
-                        Background="#50FFFFFF"
-                        BorderBrush="#30FFFFFF" BorderThickness="1">
-                    <PathIcon Data="{StaticResource IconLink}"
-                              Width="22" Height="22"
-                              Foreground="White"
-                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <!-- ====== HEADER: greeting + time ====== -->
+            <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+                <StackPanel Grid.Column="0" Spacing="4">
+                    <TextBlock Text="{Binding Greeting}"
+                               FontSize="30" FontWeight="Bold"
+                               Foreground="White"/>
+                    <TextBlock Text="{Binding DateText}"
+                               FontSize="14"
+                               Foreground="#B0FFFFFF"/>
+                </StackPanel>
+                <Border Grid.Column="1"
+                        Background="#30000000"
+                        BorderBrush="#20FFFFFF" BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="14,8"
+                        VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <PathIcon Data="{StaticResource IconClock}" Width="14" Height="14"
+                                  Foreground="#A0FFFFFF"/>
+                        <TextBlock Text="14:32"
+                                   FontSize="16" FontWeight="SemiBold"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
                 </Border>
-                <TextBlock Text="Ondyxn"
-                           FontSize="40" FontWeight="Bold"
-                           Foreground="White"
-                           VerticalAlignment="Center"/>
-            </StackPanel>
+            </Grid>
 
-            <!-- Search bar -->
+            <!-- ====== SEARCH BAR ====== -->
             <Border Background="#40000000"
-                    CornerRadius="28"
-                    Padding="18,12"
-                    BorderBrush="#20FFFFFF" BorderThickness="1">
+                    CornerRadius="22"
+                    Padding="14,8"
+                    BorderBrush="#20FFFFFF" BorderThickness="1"
+                    Margin="0,0,0,20">
                 <Grid ColumnDefinitions="Auto,*,Auto">
                     <PathIcon Grid.Column="0"
                               Data="{StaticResource IconSearch}"
-                              Width="18" Height="18"
+                              Width="16" Height="16"
                               Foreground="#90FFFFFF"
-                              VerticalAlignment="Center"
-                              Margin="0,0,12,0"/>
+                              VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <TextBox Grid.Column="1"
-                             Background="Transparent"
-                             BorderThickness="0"
-                             FontSize="15"
-                             FontFamily="Inter, Segoe UI"
-                             Watermark="Search or type a URL"
+                             Background="Transparent" BorderThickness="0"
+                             FontSize="14"
+                             Watermark="Search the web or enter address"
                              Foreground="White"
-                             VerticalContentAlignment="Center"
-                             Padding="0"/>
-                    <Button Grid.Column="2"
-                            Classes="icon-btn"
-                            Command="{Binding ToggleBookmarkCommand}"
-                            ToolTip.Tip="Bookmark"
-                            Margin="8,0,0,0">
-                        <PathIcon Data="{StaticResource IconStar}" Width="18" Height="18"
-                                  Foreground="#90FFFFFF"/>
-                    </Button>
+                             VerticalContentAlignment="Center"/>
+                    <Border Grid.Column="2"
+                            Width="32" Height="32" CornerRadius="16"
+                            Background="#3000D4FF"
+                            Cursor="Hand">
+                        <PathIcon Data="{StaticResource IconSearch}" Width="14" Height="14"
+                                  Foreground="White"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
                 </Grid>
             </Border>
 
-            <!-- Quick links (3 circles) -->
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        Spacing="32"
-                        Margin="0,12,0,0">
+            <!-- ====== QUICK LINKS (6 circles) ====== -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        Spacing="20" Margin="0,0,0,24">
+                <!-- Home / New Tab -->
+                <StackPanel Spacing="6">
+                    <Border Classes="quick-link">
+                        <PathIcon Data="{StaticResource IconHome}" Width="20" Height="20"
+                                  Foreground="White"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="New Tab" FontSize="10" Foreground="#A0FFFFFF" HorizontalAlignment="Center"/>
+                </StackPanel>
                 <!-- Google -->
-                <StackPanel Spacing="8">
-                    <Border Width="56" Height="56" CornerRadius="28"
-                            Background="#30FFFFFF"
-                            BorderBrush="#20FFFFFF" BorderThickness="1"
-                            Cursor="Hand">
-                        <TextBlock Text="G" FontSize="22" FontWeight="Bold"
+                <StackPanel Spacing="6">
+                    <Border Classes="quick-link">
+                        <TextBlock Text="G" FontSize="18" FontWeight="Bold"
                                    Foreground="#4285F4"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <TextBlock Text="Google" FontSize="12"
-                               Foreground="#C0FFFFFF"
-                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Google" FontSize="10" Foreground="#A0FFFFFF" HorizontalAlignment="Center"/>
                 </StackPanel>
-
                 <!-- GitHub -->
-                <StackPanel Spacing="8">
-                    <Border Width="56" Height="56" CornerRadius="28"
-                            Background="#30FFFFFF"
-                            BorderBrush="#20FFFFFF" BorderThickness="1"
-                            Cursor="Hand">
-                        <TextBlock Text="G" FontSize="22" FontWeight="Bold"
+                <StackPanel Spacing="6">
+                    <Border Classes="quick-link">
+                        <TextBlock Text="G" FontSize="18" FontWeight="Bold"
                                    Foreground="#1DB954"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <TextBlock Text="GitHub" FontSize="12"
-                               Foreground="#C0FFFFFF"
-                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="GitHub" FontSize="10" Foreground="#A0FFFFFF" HorizontalAlignment="Center"/>
                 </StackPanel>
-
                 <!-- YouTube -->
-                <StackPanel Spacing="8">
-                    <Border Width="56" Height="56" CornerRadius="28"
-                            Background="#30FFFFFF"
-                            BorderBrush="#20FFFFFF" BorderThickness="1"
-                            Cursor="Hand">
-                        <TextBlock Text="Y" FontSize="22" FontWeight="Bold"
+                <StackPanel Spacing="6">
+                    <Border Classes="quick-link">
+                        <TextBlock Text="Y" FontSize="18" FontWeight="Bold"
                                    Foreground="#FF0000"
                                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
-                    <TextBlock Text="YouTube" FontSize="12"
-                               Foreground="#C0FFFFFF"
-                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="YouTube" FontSize="10" Foreground="#A0FFFFFF" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <!-- Reddit -->
+                <StackPanel Spacing="6">
+                    <Border Classes="quick-link">
+                        <TextBlock Text="R" FontSize="18" FontWeight="Bold"
+                                   Foreground="#FF4500"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="Reddit" FontSize="10" Foreground="#A0FFFFFF" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <!-- Add -->
+                <StackPanel Spacing="6">
+                    <Border Classes="quick-link" Cursor="Hand">
+                        <PathIcon Data="{StaticResource IconPlus}" Width="18" Height="18"
+                                  Foreground="#80FFFFFF"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <TextBlock Text="Add" FontSize="10" Foreground="#A0FFFFFF" HorizontalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
+
+            <!-- ====== BENTO GRID ====== -->
+            <Grid ColumnDefinitions="2*,*"
+                  Margin="0,0,0,12">
+                <!-- Weather widget (large) -->
+                <Border Grid.Column="0" Classes="glass-card" Padding="20" Margin="0,0,6,0">
+                    <StackPanel Orientation="Horizontal" Spacing="14">
+                        <Border Width="40" Height="40" CornerRadius="11"
+                                Background="#1500D4FF">
+                            <PathIcon Data="{StaticResource IconWeather}" Width="18" Height="18"
+                                      Foreground="#00D4FF"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="22°C"
+                                       FontSize="24" FontWeight="SemiBold"
+                                       Foreground="White"/>
+                            <TextBlock Text="Partly Cloudy" FontSize="13" Foreground="White"/>
+                            <TextBlock Text="Humidity 60% | Wind 12 km/h" FontSize="11" Foreground="#C0FFFFFF"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Privacy Shield -->
+                <Border Grid.Column="1" Classes="glass-card" Padding="18" Margin="6,0,0,0">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#10FFE0B0">
+                            <PathIcon Data="{StaticResource IconShieldCheck}" Width="17" Height="17"
+                                      Foreground="#4ADE80"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Privacy Shield" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="89 trackers blocked" FontSize="11" Foreground="#A0FFFFFF"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Bento row 2 -->
+            <Grid ColumnDefinitions="*,*,*" Margin="0,0,0,12">
+                <!-- Top Sites -->
+                <Border Grid.Column="0" Classes="glass-card" Padding="18" Margin="0,0,6,0">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#1000D4FF">
+                            <PathIcon Data="{StaticResource IconGlobe}" Width="17" Height="17"
+                                      Foreground="#00D4FF"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Most Visited" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="5 sites this week" FontSize="11" Foreground="#A0FFFFFF"
+                                   TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Bookmarks -->
+                <Border Grid.Column="1" Classes="glass-card" Padding="18" Margin="6,0,6,0">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#20FBBF24">
+                            <PathIcon Data="{StaticResource IconBookmark}" Width="17" Height="17"
+                                      Foreground="#FBBF24"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Bookmarks" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="12 saved" FontSize="11" Foreground="#A0FFFFFF"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Reading List -->
+                <Border Grid.Column="2" Classes="glass-card" Padding="18">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#207C3AED">
+                            <PathIcon Data="{StaticResource IconReading}" Width="17" Height="17"
+                                      Foreground="#A855F7"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Reading List" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="3 unread" FontSize="11" Foreground="#A0FFFFFF"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Bento row 3 -->
+            <Grid ColumnDefinitions="*,*,*">
+                <!-- Downloads -->
+                <Border Grid.Column="0" Classes="glass-card" Padding="18" Margin="0,0,6,0">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#10ADEFFF">
+                            <PathIcon Data="{StaticResource IconDownloads}" Width="17" Height="17"
+                                      Foreground="#4ADE80"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Downloads" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="0 active" FontSize="11" Foreground="#A0FFFFFF"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- History -->
+                <Border Grid.Column="1" Classes="glass-card" Padding="18" Margin="6,0,6,0">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#1000D4FF">
+                            <PathIcon Data="{StaticResource IconHistory}" Width="17" Height="17"
+                                      Foreground="#00D4FF"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="History" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="View all" FontSize="11" Foreground="#A0FFFFFF"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Music / Now Playing -->
+                <Border Grid.Column="2" Classes="glass-card" Padding="18">
+                    <StackPanel Spacing="10">
+                        <Border Width="36" Height="36" CornerRadius="10"
+                                Background="#207C3AED">
+                            <PathIcon Data="{StaticResource IconMusic}" Width="17" Height="17"
+                                      Foreground="#A855F7"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="Music" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock Text="Nothing playing" FontSize="11" Foreground="#A0FFFFFF"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </StackPanel>
-    </Panel>
+    </ScrollViewer>
 </UserControl>

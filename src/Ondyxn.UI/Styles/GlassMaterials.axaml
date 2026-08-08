@@ -143,4 +143,74 @@
         <Setter Property="Background" Value="#14FFFFFF"/>
         <Setter Property="BorderBrush" Value="#14FFFFFF"/>
     </Style>
+
+    <!-- ========== Sidebar button (44x44) ========== -->
+    <Style Selector="ToggleButton.side-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#90FFFFFF"/>
+        <Setter Property="Width" Value="44"/>
+        <Setter Property="Height" Value="44"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0,2"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="ToggleButton.side-btn:pointerover">
+        <Setter Property="Background" Value="#15FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style Selector="ToggleButton.side-btn:checked">
+        <Setter Property="Background" Value="#1800D4FF"/>
+        <Setter Property="Foreground" Value="#00D4FF"/>
+    </Style>
+
+    <!-- ========== Tab new button ========== -->
+    <Style Selector="Button.tab-new-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#90FFFFFF"/>
+        <Setter Property="Width" Value="26"/>
+        <Setter Property="Height" Value="26"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style Selector="Button.tab-new-btn:pointerover">
+        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- ========== Quick link circles ========== -->
+    <Style Selector="Border.quick-link">
+        <Setter Property="Width" Value="52"/>
+        <Setter Property="Height" Value="52"/>
+        <Setter Property="CornerRadius" Value="26"/>
+        <Setter Property="Background" Value="#30FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#20FFFFFF"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Border.quick-link:pointerover">
+        <Setter Property="Background" Value="#45FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#35FFFFFF"/>
+    </Style>
+
+    <!-- ========== Bento glass card (for new tab page) ========== -->
+    <Style Selector="Border.glass-card:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="#16FFFFFF"/>
+    </Style>
+    <Style Selector="Border.glass-card:pointerover">
+        <Setter Property="Background" Value="#14FFFFFF"/>
+    </Style>
 </Styles>

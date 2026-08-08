@@ -6,7 +6,9 @@
 
     <Border Classes="omnibox"
             Padding="14,0"
-            Height="38">
+            Height="34"
+            MaxWidth="420"
+            HorizontalAlignment="Center">
 
         <Grid ColumnDefinitions="Auto,*,Auto">
             
