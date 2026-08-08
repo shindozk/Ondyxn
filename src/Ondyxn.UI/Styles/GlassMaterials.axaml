@@ -1,10 +1,10 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- ========== Glass card ========== -->
+    <!-- ========== Liquid Glass Card ========== -->
     <Style Selector="Border.glass-card">
-        <Setter Property="Background" Value="#0EFFFFFF"/>
-        <Setter Property="BorderBrush" Value="#0AFFFFFF"/>
+        <Setter Property="Background" Value="#0AFFFFFF"/>
+        <Setter Property="BorderBrush" Value="#08FFFFFF"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="16"/>
     </Style>
@@ -19,50 +19,50 @@
     </Style>
 
     <Style Selector="Border.bento-card:pointerover">
-        <Setter Property="Background" Value="#16FFFFFF"/>
+        <Setter Property="Background" Value="#14FFFFFF"/>
     </Style>
 
     <!-- ========== Glass pill ========== -->
     <Style Selector="Border.glass-pill">
-        <Setter Property="Background" Value="#0AFFFFFF"/>
-        <Setter Property="BorderBrush" Value="#08FFFFFF"/>
+        <Setter Property="Background" Value="#08FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#06FFFFFF"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="CornerRadius" Value="10"/>
     </Style>
 
-    <!-- ========== Tool button (toolbar, compact) ========== -->
+    <!-- ========== Tool button (liquid glass) ========== -->
     <Style Selector="Button.tool-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#B0FFFFFF"/>
-        <Setter Property="Width" Value="26"/>
-        <Setter Property="Height" Value="26"/>
-        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Foreground" Value="#A0FFFFFF"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Opacity" Value="0.85"/>
+        <Setter Property="Opacity" Value="0.8"/>
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.12"/>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.15"/>
             </Transitions>
         </Setter>
     </Style>
 
     <Style Selector="Button.tool-btn:pointerover">
-        <Setter Property="Background" Value="#18FFFFFF"/>
+        <Setter Property="Background" Value="#12FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Opacity" Value="1"/>
     </Style>
 
     <Style Selector="Button.tool-btn:pressed">
-        <Setter Property="Background" Value="#25FFFFFF"/>
+        <Setter Property="Background" Value="#1AFFFFFF"/>
     </Style>
 
-    <!-- ========== Icon button (generic, 32x32) ========== -->
+    <!-- ========== Icon button (generic) ========== -->
     <Style Selector="Button.icon-btn">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
@@ -78,26 +78,27 @@
     </Style>
 
     <Style Selector="Button.icon-btn:pointerover">
-        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Background" Value="#18FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
     <Style Selector="Button.icon-btn:pressed">
-        <Setter Property="Background" Value="#30FFFFFF"/>
+        <Setter Property="Background" Value="#22FFFFFF"/>
     </Style>
 
-    <!-- ========== Window control buttons ========== -->
+    <!-- ========== Window control buttons (liquid glass) ========== -->
     <Style Selector="Button.window-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#90FFFFFF"/>
-        <Setter Property="Width" Value="42"/>
-        <Setter Property="Height" Value="32"/>
+        <Setter Property="Foreground" Value="#80FFFFFF"/>
+        <Setter Property="Width" Value="38"/>
+        <Setter Property="Height" Value="28"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.12"/>
@@ -106,7 +107,7 @@
     </Style>
 
     <Style Selector="Button.window-btn:pointerover">
-        <Setter Property="Background" Value="#18FFFFFF"/>
+        <Setter Property="Background" Value="#12FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
@@ -144,45 +145,58 @@
         <Setter Property="BorderBrush" Value="#14FFFFFF"/>
     </Style>
 
-    <!-- ========== Sidebar button (44x44) ========== -->
+    <!-- ========== Sidebar button (liquid glass) ========== -->
     <Style Selector="ToggleButton.side-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#90FFFFFF"/>
-        <Setter Property="Width" Value="44"/>
-        <Setter Property="Height" Value="44"/>
+        <Setter Property="Foreground" Value="#80FFFFFF"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0,2"/>
+        <Setter Property="Margin" Value="0,1"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.12"/>
+            </Transitions>
+        </Setter>
     </Style>
+
     <Style Selector="ToggleButton.side-btn:pointerover">
-        <Setter Property="Background" Value="#15FFFFFF"/>
+        <Setter Property="Background" Value="#10FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
+
     <Style Selector="ToggleButton.side-btn:checked">
-        <Setter Property="Background" Value="#1800D4FF"/>
+        <Setter Property="Background" Value="#1200D4FF"/>
         <Setter Property="Foreground" Value="#00D4FF"/>
     </Style>
 
-    <!-- ========== Tab new button ========== -->
+    <!-- ========== Tab new button (liquid glass) ========== -->
     <Style Selector="Button.tab-new-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#90FFFFFF"/>
-        <Setter Property="Width" Value="26"/>
-        <Setter Property="Height" Value="26"/>
-        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Foreground" Value="#80FFFFFF"/>
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.12"/>
+            </Transitions>
+        </Setter>
     </Style>
+
     <Style Selector="Button.tab-new-btn:pointerover">
-        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Background" Value="#15FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
@@ -191,8 +205,8 @@
         <Setter Property="Width" Value="52"/>
         <Setter Property="Height" Value="52"/>
         <Setter Property="CornerRadius" Value="26"/>
-        <Setter Property="Background" Value="#30FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#20FFFFFF"/>
+        <Setter Property="Background" Value="#25FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#18FFFFFF"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Transitions">
@@ -201,16 +215,17 @@
             </Transitions>
         </Setter>
     </Style>
+
     <Style Selector="Border.quick-link:pointerover">
-        <Setter Property="Background" Value="#45FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#35FFFFFF"/>
+        <Setter Property="Background" Value="#35FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#28FFFFFF"/>
     </Style>
 
-    <!-- ========== Bento glass card (for new tab page) ========== -->
+    <!-- ========== Glass card pointerover ========== -->
     <Style Selector="Border.glass-card:pointerover /template/ ContentPresenter">
-        <Setter Property="Background" Value="#16FFFFFF"/>
+        <Setter Property="Background" Value="#14FFFFFF"/>
     </Style>
     <Style Selector="Border.glass-card:pointerover">
-        <Setter Property="Background" Value="#14FFFFFF"/>
+        <Setter Property="Background" Value="#12FFFFFF"/>
     </Style>
 </Styles>

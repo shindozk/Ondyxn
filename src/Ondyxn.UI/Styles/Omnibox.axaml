@@ -1,11 +1,11 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- ========== Omnibox Container ========== -->
+    <!-- ========== Omnibox Container (liquid glass) ========== -->
     <Style Selector="Border.omnibox">
-        <Setter Property="Background" Value="#18FFFFFF"/>
-        <Setter Property="CornerRadius" Value="20"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="#12FFFFFF"/>
+        <Setter Property="CornerRadius" Value="18"/>
+        <Setter Property="BorderBrush" Value="#0AFFFFFF"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Transitions">
             <Transitions>
@@ -16,22 +16,23 @@
     </Style>
 
     <Style Selector="Border.omnibox:pointerover">
-        <Setter Property="Background" Value="#22FFFFFF"/>
+        <Setter Property="Background" Value="#18FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#12FFFFFF"/>
     </Style>
 
-    <!-- Focus state: subtle glow -->
+    <!-- Focus state -->
     <Style Selector="Border.omnibox:focus-within">
-        <Setter Property="Background" Value="#25FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#30FFFFFF"/>
+        <Setter Property="Background" Value="#1AFFFFFF"/>
+        <Setter Property="BorderBrush" Value="#20FFFFFF"/>
     </Style>
 
     <!-- ========== URL Display Text ========== -->
     <Style Selector="TextBlock#UrlDisplay">
-        <Setter Property="Foreground" Value="#E0FFFFFF"/>
-        <Setter Property="Opacity" Value="0.9"/>
+        <Setter Property="Foreground" Value="#D0FFFFFF"/>
+        <Setter Property="Opacity" Value="0.85"/>
         <Setter Property="Transitions">
             <Transitions>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.15"/>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
             </Transitions>
         </Setter>
     </Style>
@@ -46,12 +47,12 @@
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Foreground" Value="#E0FFFFFF"/>
-        <Setter Property="CaretBrush" Value="#4ADE80"/>
-        <Setter Property="SelectionBrush" Value="#4000D4FF"/>
+        <Setter Property="CaretBrush" Value="#00D4FF"/>
+        <Setter Property="SelectionBrush" Value="#3000D4FF"/>
         <Setter Property="Padding" Value="0"/>
     </Style>
 
-    <!-- Remove all default TextBox template styling -->
+    <!-- Remove default TextBox template styling -->
     <Style Selector="Border.omnibox TextBox#UrlTextBox /template/ Border#PART_BorderElement">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -61,8 +62,7 @@
 
     <!-- Watermark text -->
     <Style Selector="Border.omnibox TextBox#UrlTextBox /template/ TextBlock#PART_WatermarkTextBlock">
-        <Setter Property="Foreground" Value="#50FFFFFF"/>
+        <Setter Property="Foreground" Value="#40FFFFFF"/>
         <Setter Property="FontStyle" Value="Normal"/>
     </Style>
-
 </Styles>
