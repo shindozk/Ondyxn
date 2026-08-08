@@ -130,11 +130,9 @@
                 </Grid>
             </Border>
 
-            <!-- ===== SIDEBAR (liquid glass) ===== -->
+            <!-- ===== SIDEBAR (fully transparent) ===== -->
             <Border DockPanel.Dock="Left" Width="48"
-                    Background="#12FFFFFF"
-                    BorderBrush="#08FFFFFF"
-                    BorderThickness="0,0,1,0"
+                    Background="Transparent"
                     IsVisible="{Binding IsSidebarVisible}">
                 <DockPanel>
                     <!-- Top: main nav -->
@@ -178,11 +176,9 @@
                 </DockPanel>
             </Border>
 
-            <!-- ===== ADDRESS BAR ROW (liquid glass) ===== -->
+            <!-- ===== ADDRESS BAR ROW (fully transparent) ===== -->
             <Border DockPanel.Dock="Top" Height="44"
-                    Background="#10FFFFFF"
-                    BorderBrush="#08FFFFFF"
-                    BorderThickness="0,1,0,0">
+                    Background="Transparent">
                 <Grid ColumnDefinitions="Auto,*,Auto"
                       VerticalAlignment="Center"
                       Margin="6,0">
