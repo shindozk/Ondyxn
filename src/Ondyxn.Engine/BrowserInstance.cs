@@ -139,6 +139,54 @@ public class BrowserInstance : IBrowserInstance
         _browser.ShowDeveloperTools();
     }
 
+    private double _zoomLevel = 0;
+    public double ZoomLevel => _zoomLevel;
+
+    public void ZoomIn()
+    {
+        if (_zoomLevel < 5.0)
+        {
+            _zoomLevel += 0.1;
+            ApplyZoom();
+        }
+    }
+
+    public void ZoomOut()
+    {
+        if (_zoomLevel > -5.0)
+        {
+            _zoomLevel -= 0.1;
+            ApplyZoom();
+        }
+    }
+
+    public void ZoomReset()
+    {
+        _zoomLevel = 0;
+        ApplyZoom();
+    }
+
+    public void SetZoom(double level)
+    {
+        _zoomLevel = Math.Clamp(level, -5.0, 5.0);
+        ApplyZoom();
+    }
+
+    private void ApplyZoom()
+    {
+        try
+        {
+            // Use JavaScript to apply zoom since AvaloniaCefBrowser doesn't expose GetBrowser()
+            var zoomPercent = 100 + (_zoomLevel * 20); // Convert zoom level to percentage
+            var script = $"document.body.style.zoom = '{zoomPercent}%';";
+            _ = EvaluateJavaScriptAsync(script);
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogWarning(ex, "[{Id}] Failed to set zoom level", Id);
+        }
+    }
+
     private void OnAddressChanged(object? sender, string address)
     {
         _url = address;

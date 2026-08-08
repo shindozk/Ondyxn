@@ -107,6 +107,11 @@ public partial class TabViewModel : ObservableObject, IDisposable
         _browserInstance.ShowDevTools();
     }
 
+    public void ZoomIn() => _browserInstance.ZoomIn();
+    public void ZoomOut() => _browserInstance.ZoomOut();
+    public void ZoomReset() => _browserInstance.ZoomReset();
+    public double ZoomLevel => _browserInstance.ZoomLevel;
+
     private static string ExtractTitleFromUrl(string url)
     {
         try

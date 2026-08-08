@@ -68,7 +68,11 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="vm:TabViewModel">
                                         <Border Classes="tab-pill"
-                                                Classes.active="{Binding IsActive}">
+                                                Classes.active="{Binding IsActive}"
+                                                Tag="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).Tabs}"
+                                                PointerPressed="OnTabPointerPressed"
+                                                PointerMoved="OnTabPointerMoved"
+                                                PointerReleased="OnTabPointerReleased">
                                             <Grid ColumnDefinitions="16,Auto,Auto,12" Margin="6,0">
                                                 <!-- Favicon -->
                                                 <Panel Grid.Column="0" VerticalAlignment="Center"

@@ -47,6 +47,21 @@ public interface IBrowserInstance : IDisposable
     /// <summary>Whether the browser can go forward.</summary>
     bool CanGoForward { get; }
 
+    /// <summary>Zoom in the page.</summary>
+    void ZoomIn();
+
+    /// <summary>Zoom out the page.</summary>
+    void ZoomOut();
+
+    /// <summary>Reset zoom to default level.</summary>
+    void ZoomReset();
+
+    /// <summary>Set zoom to a specific level.</summary>
+    void SetZoom(double level);
+
+    /// <summary>Current zoom level.</summary>
+    double ZoomLevel { get; }
+
     /// <summary>Raised when the page starts loading.</summary>
     event EventHandler<string>? LoadingStarted;
 

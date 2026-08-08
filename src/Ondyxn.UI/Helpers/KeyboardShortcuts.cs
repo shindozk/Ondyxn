@@ -58,15 +58,15 @@ public static class KeyboardShortcuts
                     return true;
 
                 case Key.OemPlus: // Zoom in
-                    // TODO: Implement zoom
+                    vm.ZoomInCommand.Execute(null);
                     return true;
 
                 case Key.OemMinus: // Zoom out
-                    // TODO: Implement zoom
+                    vm.ZoomOutCommand.Execute(null);
                     return true;
 
                 case Key.D0: // Reset zoom
-                    // TODO: Implement zoom reset
+                    vm.ZoomResetCommand.Execute(null);
                     return true;
 
                 case Key.H: // Toggle sidebar (history)

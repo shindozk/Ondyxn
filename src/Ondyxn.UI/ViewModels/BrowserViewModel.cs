@@ -42,11 +42,14 @@ public partial class BrowserViewModel : ObservableObject
 
     private readonly Engine.Services.OmniboxResolver _omniboxResolver;
 
+    private readonly ISessionService _sessionService;
+
     public BrowserViewModel(
         IBookmarkService bookmarkService,
         IHistoryService historyService,
         IDownloadService downloadService,
         ISettingsService settingsService,
+        ISessionService sessionService,
         Engine.Services.OmniboxResolver omniboxResolver,
         Engine.Services.FaviconService faviconService,
         CefBootstrap cefBootstrap,
@@ -56,6 +59,7 @@ public partial class BrowserViewModel : ObservableObject
         _historyService = historyService;
         _downloadService = downloadService;
         _settingsService = settingsService;
+        _sessionService = sessionService;
         _omniboxResolver = omniboxResolver;
         _faviconService = faviconService;
         _cefBootstrap = cefBootstrap;
@@ -63,7 +67,66 @@ public partial class BrowserViewModel : ObservableObject
         _settings = settingsService.Current;
         UpdateGreeting();
 
+        // Restore session on startup if enabled
+        _ = RestoreSessionAsync();
+    }
+
+    private async Task RestoreSessionAsync()
+    {
+        try
+        {
+            if (_settings.RestoreSessionOnStartup)
+            {
+                var sessions = await _sessionService.GetSavedSessionsAsync();
+                var lastSession = sessions.FirstOrDefault();
+                if (lastSession is not null && lastSession.Tabs.Count > 0)
+                {
+                    foreach (var tabSnapshot in lastSession.Tabs.OrderBy(t => t.Order))
+                    {
+                        CreateNewTab(tabSnapshot.Url);
+                    }
+                    // Close the initial new tab if we restored tabs
+                    if (Tabs.Count > 1 && Tabs[0].Url == "ondyxn://newtab")
+                    {
+                        CloseTab(Tabs[0]);
+                    }
+                    _logger.LogInformation("Session restored with {Count} tabs", lastSession.Tabs.Count);
+                    return;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to restore session");
+        }
+
+        // Default: create new tab
         CreateNewTab("ondyxn://newtab");
+    }
+
+    public async Task SaveSessionAsync()
+    {
+        try
+        {
+            var session = new Ondyxn.Core.Models.SessionModel
+            {
+                Name = "Last Session",
+                IsPrivate = IsPrivateMode,
+                Tabs = Tabs.Select((tab, index) => new Ondyxn.Core.Models.TabSnapshot
+                {
+                    Url = tab.Url,
+                    Title = tab.Title,
+                    Order = index,
+                    IsPinned = tab.IsPinned
+                }).ToList()
+            };
+            await _sessionService.SaveSessionAsync(session);
+            _logger.LogInformation("Session saved with {Count} tabs", Tabs.Count);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to save session");
+        }
     }
 
     [RelayCommand]
@@ -239,6 +302,24 @@ public partial class BrowserViewModel : ObservableObject
     }
 
     [RelayCommand]
+    private void ZoomIn()
+    {
+        ActiveTab?.ZoomIn();
+    }
+
+    [RelayCommand]
+    private void ZoomOut()
+    {
+        ActiveTab?.ZoomOut();
+    }
+
+    [RelayCommand]
+    private void ZoomReset()
+    {
+        ActiveTab?.ZoomReset();
+    }
+
+    [RelayCommand]
     private void CloseCurrentTab()
     {
         CloseTab(ActiveTab);
@@ -260,6 +341,20 @@ public partial class BrowserViewModel : ObservableObject
         var currentIndex = Tabs.IndexOf(ActiveTab!);
         var prevIndex = (currentIndex - 1 + Tabs.Count) % Tabs.Count;
         ActiveTab = Tabs[prevIndex];
+    }
+
+    /// <summary>
+    /// Move a tab from one position to another (for drag-and-drop reordering).
+    /// </summary>
+    public void MoveTab(int oldIndex, int newIndex)
+    {
+        if (oldIndex < 0 || oldIndex >= Tabs.Count || newIndex < 0 || newIndex >= Tabs.Count)
+            return;
+        if (oldIndex == newIndex) return;
+
+        var tab = Tabs[oldIndex];
+        Tabs.Move(oldIndex, newIndex);
+        _logger.LogDebug("Tab moved from {OldIndex} to {NewIndex}", oldIndex, newIndex);
     }
 
     partial void OnIsNewTabPageChanged(bool value)
