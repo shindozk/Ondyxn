@@ -6,7 +6,7 @@
 
 [![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Avalonia](https://img.shields.io/badge/Avalonia-11-purple?style=for-the-badge)](https://avaloniaui.net/)
-[![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![CEF](https://img.shields.io/badge/CEF-Chromium-4285F4?style=for-the-badge)](https://bitbucket.org/chromiumembedded/cef/)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
@@ -51,7 +51,7 @@
 
 ## 📋 Prerequisites
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) or later
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
 - Windows 10/11 (macOS and Linux support in development)
 
 ## 🛠️ Building from Source
