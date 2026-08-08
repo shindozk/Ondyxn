@@ -28,8 +28,7 @@
         <DockPanel LastChildFill="True">
 
             <!-- ===== TAB STRIP (liquid glass, fully transparent) ===== -->
-            <Border DockPanel.Dock="Top" Height="36"
-                    Background="Transparent">
+            <Border DockPanel.Dock="Top" Height="36">
                 <Grid ColumnDefinitions="Auto,*,Auto">
                     <!-- LEFT: Logo (glass orb) -->
                     <Border Grid.Column="0" Width="30" Height="30"
@@ -132,7 +131,6 @@
 
             <!-- ===== SIDEBAR (fully transparent) ===== -->
             <Border DockPanel.Dock="Left" Width="48"
-                    Background="Transparent"
                     IsVisible="{Binding IsSidebarVisible}">
                 <DockPanel>
                     <!-- Top: main nav -->
@@ -177,8 +175,7 @@
             </Border>
 
             <!-- ===== ADDRESS BAR ROW (fully transparent) ===== -->
-            <Border DockPanel.Dock="Top" Height="44"
-                    Background="Transparent">
+            <Border DockPanel.Dock="Top" Height="44">
                 <Grid ColumnDefinitions="Auto,*,Auto"
                       VerticalAlignment="Center"
                       Margin="6,0">
@@ -239,8 +236,7 @@
             </Border>
 
             <!-- ===== STATUS BAR (minimal) ===== -->
-            <Border DockPanel.Dock="Bottom" Height="22"
-                    Background="Transparent">
+            <Border DockPanel.Dock="Bottom" Height="22">
                 <Grid ColumnDefinitions="*,Auto">
                     <TextBlock Grid.Column="0"
                                Text="{Binding StatusText}"
@@ -257,8 +253,9 @@
             <!-- ===== CONTENT: CEF browser or New Tab page ===== -->
             <Panel>
                 <!-- Browser with rounded corners -->
+                <!-- NOTE: No Background on this Border! Background makes it hit-testable -->
+                <!-- and intercepts pointer events before they reach the CEF browser. -->
                 <Border CornerRadius="12"
-                        Background="Transparent"
                         ClipToBounds="True"
                         Margin="4,2,4,4"
                         IsVisible="{Binding IsNewTabPage, Converter={x:Static BoolConverters.Not}}">

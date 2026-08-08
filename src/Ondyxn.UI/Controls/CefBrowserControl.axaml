@@ -1,13 +1,16 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Ondyxn.UI.Controls.CefBrowserControl"
-             Background="Transparent">
+             x:Class="Ondyxn.UI.Controls.CefBrowserControl">
 
-    <!-- 
-        Background="Transparent" is REQUIRED for hit-testing in Avalonia.
-        Without it, the control is non-interactive and mouse events won't reach children.
-        The AvaloniaCefBrowser handles its own rendering via CEF, so this transparent
-        background won't show visually but enables the hit-test pipeline.
+    <!--
+        NO Background set here or on the Panel!
+        
+        In Avalonia, controls with a Background are hit-testable, meaning they
+        intercept pointer events BEFORE they reach child controls. Since we want
+        events to pass directly to the AvaloniaCefBrowser (which handles its own
+        input via CEF's native event loop), we must NOT set Background on any
+        parent container. The AvaloniaCefBrowser control itself is already hit-testable
+        because it renders its own content via CEF's off-screen rendering.
     -->
-    <Panel x:Name="BrowserHost" Background="Transparent"/>
+    <Panel x:Name="BrowserHost"/>
 </UserControl>

@@ -1,6 +1,4 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Threading;
 using Microsoft.Extensions.Logging;
 using Ondyxn.Engine;
@@ -9,7 +7,11 @@ namespace Ondyxn.UI.Controls;
 
 /// <summary>
 /// Hosts an AvaloniaCefBrowser control inside the Avalonia visual tree.
-/// Properly forwards pointer, keyboard, and focus events to the CEF browser.
+/// 
+/// IMPORTANT: This control must NOT set Background, as Avalonia treats controls
+/// with a Background as hit-testable, which intercepts pointer events before
+/// they reach the CEF browser. The AvaloniaCefBrowser handles its own input
+/// via CEF's native event loop.
 /// </summary>
 public partial class CefBrowserControl : UserControl
 {
@@ -20,12 +22,6 @@ public partial class CefBrowserControl : UserControl
     public CefBrowserControl()
     {
         InitializeComponent();
-
-        // Ensure this control is focusable for keyboard events
-        Focusable = true;
-
-        // When user clicks on the browser area, ensure CEF gets focus
-        PointerPressed += OnPointerPressed;
     }
 
     /// <summary>
@@ -48,13 +44,10 @@ public partial class CefBrowserControl : UserControl
             _logger.LogInformation("Browser control type: {Type}", control?.GetType().Name ?? "null");
             if (control is not null)
             {
-                // Ensure the CEF browser control is focusable
-                control.Focusable = true;
-
                 BrowserHost.Children.Add(control);
                 _logger.LogInformation("Browser control added. Children count: {Count}", BrowserHost.Children.Count);
 
-                // Give initial focus to the browser
+                // Give initial focus to the browser after it's attached
                 Dispatcher.UIThread.Post(() =>
                 {
                     control.Focus();
@@ -71,7 +64,6 @@ public partial class CefBrowserControl : UserControl
         if (_browserInstance is null) return;
 
         _logger.LogInformation("Detaching browser {Id}", _browserInstance.Id);
-
         Dispatcher.UIThread.Post(() =>
         {
             BrowserHost.Children.Clear();
@@ -84,16 +76,4 @@ public partial class CefBrowserControl : UserControl
     /// Gets the currently attached browser instance.
     /// </summary>
     public BrowserInstance? CurrentBrowser => _browserInstance;
-
-    private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
-    {
-        // When user clicks on the browser area, ensure CEF gets focus
-        if (_browserInstance?.BrowserControl is { } browser && !browser.IsFocused)
-        {
-            Dispatcher.UIThread.Post(() =>
-            {
-                browser.Focus();
-            });
-        }
-    }
 }
