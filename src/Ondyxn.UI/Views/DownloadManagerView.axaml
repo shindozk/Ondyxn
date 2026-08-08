@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="using:Ondyxn.Core.Models"
+             x:Class="Ondyxn.UI.Views.DownloadManagerView"
+             Background="Transparent">
+
+    <Border Background="#0A000000" BorderBrush="#08FFFFFF" BorderThickness="1,0,0,0">
+        <DockPanel>
+            <!-- Header -->
+            <StackPanel DockPanel.Dock="Top" Margin="12,12,12,8">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0" Text="Downloads" FontSize="16" FontWeight="SemiBold" Foreground="White"/>
+                    <Button Grid.Column="1" Classes="tool-btn" Width="24" Height="24"
+                            ToolTip.Tip="Clear completed">
+                        <PathIcon Data="{StaticResource IconClose}" Width="10" Height="10"/>
+                    </Button>
+                </Grid>
+                <TextBlock Text="0 active downloads" FontSize="11" Foreground="#60FFFFFF" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Downloads list -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="12,0">
+                    <ItemsControl x:Name="DownloadsList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:DownloadModel">
+                                <Border Padding="10,8" CornerRadius="8" Margin="0,2"
+                                        Background="#08FFFFFF" BorderBrush="#06FFFFFF" BorderThickness="1">
+                                    <StackPanel Spacing="6">
+                                        <!-- File info -->
+                                        <Grid ColumnDefinitions="Auto,*,Auto">
+                                            <!-- Icon -->
+                                            <Border Grid.Column="0" Width="32" Height="32" CornerRadius="8"
+                                                    Background="#1000D4FF" Margin="0,0,8,0">
+                                                <PathIcon Data="{StaticResource IconDownloads}" Width="14" Height="14"
+                                                          Foreground="#00D4FF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <!-- File name and URL -->
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding FileName}" FontSize="12" FontWeight="Medium"
+                                                           Foreground="#E0FFFFFF" TextTrimming="CharacterEllipsis" MaxWidth="180"/>
+                                                <TextBlock Text="{Binding Url}" FontSize="10" Foreground="#60FFFFFF"
+                                                           TextTrimming="CharacterEllipsis" MaxWidth="180"/>
+                                            </StackPanel>
+                                            <!-- Status -->
+                                            <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                                <TextBlock Text="{Binding Progress, StringFormat='{}{0:F0}%'}"
+                                                           FontSize="11" Foreground="#00D4FF" HorizontalAlignment="Right"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        <!-- Progress bar -->
+                                        <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100"
+                                                     Height="4" Foreground="#00D4FF" Background="#15FFFFFF"/>
+                                        <!-- Action buttons -->
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="4">
+                                            <Button Classes="tool-btn" Width="24" Height="24" ToolTip.Tip="Open file">
+                                                <PathIcon Data="{StaticResource IconStar}" Width="10" Height="10"/>
+                                            </Button>
+                                            <Button Classes="tool-btn" Width="24" Height="24" ToolTip.Tip="Show in folder">
+                                                <PathIcon Data="{StaticResource IconDownloads}" Width="10" Height="10"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Empty state -->
+                    <StackPanel HorizontalAlignment="Center" Margin="0,40" Spacing="8">
+                        <PathIcon Data="{StaticResource IconDownloads}" Width="32" Height="32"
+                                  Foreground="#30FFFFFF" HorizontalAlignment="Center"/>
+                        <TextBlock Text="No downloads yet" FontSize="13" Foreground="#50FFFFFF" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Files you download will appear here" FontSize="11" Foreground="#40FFFFFF" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+    </Border>
+</UserControl>

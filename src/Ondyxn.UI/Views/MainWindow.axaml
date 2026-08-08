@@ -179,6 +179,14 @@
                 </DockPanel>
             </Border>
 
+            <!-- ===== LOADING PROGRESS BAR ===== -->
+            <Border DockPanel.Dock="Top" Height="2" IsVisible="{Binding IsLoading}">
+                <ProgressBar x:Name="LoadingProgressBar"
+                             Value="100" Minimum="0" Maximum="100"
+                             Foreground="#00D4FF" Background="Transparent"
+                             IsIndeterminate="True"/>
+            </Border>
+
             <!-- ===== ADDRESS BAR ROW (fully transparent) ===== -->
             <Border DockPanel.Dock="Top" Height="44">
                 <Grid ColumnDefinitions="Auto,*,Auto"

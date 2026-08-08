@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Ondyxn.UI.Views.ClearBrowsingDataDialog"
+        Title="Clear Browsing Data"
+        Width="420" Height="480"
+        WindowStartupLocation="CenterOwner"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        SystemDecorations="None">
+
+    <Border Background="#E0101018" BorderBrush="#20FFFFFF" BorderThickness="1" CornerRadius="12">
+        <DockPanel>
+            <!-- Title bar -->
+            <Border DockPanel.Dock="Top" Height="40" Background="#08FFFFFF">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0" Text="Clear Browsing Data"
+                               FontSize="14" FontWeight="SemiBold" Foreground="White"
+                               VerticalAlignment="Center" Margin="16,0"/>
+                    <Button Grid.Column="1" Classes="window-btn" Width="32" Height="28"
+                            Click="OnCloseClick" Margin="0,0,8,0">
+                        <PathIcon Data="{StaticResource IconClose}" Width="8" Height="8"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Content -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="16,12">
+                <StackPanel Spacing="16">
+                    <!-- Time range -->
+                    <StackPanel Spacing="6">
+                        <TextBlock Text="Time range" FontSize="12" FontWeight="SemiBold" Foreground="#C0FFFFFF"/>
+                        <ComboBox x:Name="TimeRangeComboBox" SelectedIndex="0" Background="#10FFFFFF" Foreground="White">
+                            <ComboBoxItem Content="Last hour"/>
+                            <ComboBoxItem Content="Last 24 hours"/>
+                            <ComboBoxItem Content="Last 7 days"/>
+                            <ComboBoxItem Content="Last 4 weeks"/>
+                            <ComboBoxItem Content="All time"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <!-- Data types -->
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Data to clear" FontSize="12" FontWeight="SemiBold" Foreground="#C0FFFFFF"/>
+
+                        <CheckBox x:Name="BrowsingHistoryCheck" IsChecked="True" Content="Browsing history"
+                                  Foreground="#C0FFFFFF"/>
+                        <CheckBox x:Name="CookiesCheck" IsChecked="True" Content="Cookies and other site data"
+                                  Foreground="#C0FFFFFF"/>
+                        <CheckBox x:Name="CacheCheck" IsChecked="True" Content="Cached images and files"
+                                  Foreground="#C0FFFFFF"/>
+                        <CheckBox x:Name="PasswordsCheck" IsChecked="False" Content="Passwords"
+                                  Foreground="#C0FFFFFF"/>
+                        <CheckBox x:Name="FormFillCheck" IsChecked="False" Content="Autofill form data"
+                                  Foreground="#C0FFFFFF"/>
+                        <CheckBox x:Name="SiteSettingsCheck" IsChecked="False" Content="Site settings"
+                                  Foreground="#C0FFFFFF"/>
+                    </StackPanel>
+
+                    <!-- Info -->
+                    <Border Background="#10FFFFFF" CornerRadius="8" Padding="12,8">
+                        <TextBlock Text="Clearing this data will sign you out of most sites."
+                                   FontSize="11" Foreground="#80FFFFFF" TextWrapping="Wrap"/>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Buttons -->
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right"
+                        Spacing="8" Margin="16,12">
+                <Button Content="Cancel" Classes="tool-btn" Padding="16,8"
+                        Click="OnCloseClick" Foreground="#C0FFFFFF"/>
+                <Button Content="Clear data" Classes="accent-btn" Padding="16,8"
+                        Click="OnClearClick"/>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</Window>

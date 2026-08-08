@@ -51,6 +51,7 @@ public static class ServiceRegister
         services.AddSingleton<IDownloadService, DownloadRepository>();
         services.AddSingleton<ISessionService, SessionRepository>();
         services.AddSingleton<ISettingsService, SettingsRepository>();
+        services.AddSingleton<ISecurityService, SecurityService>();
 
         // ViewModels
         services.AddTransient<BrowserViewModel>();
