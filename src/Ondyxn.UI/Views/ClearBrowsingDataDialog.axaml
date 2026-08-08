@@ -1,5 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
         x:Class="Ondyxn.UI.Views.ClearBrowsingDataDialog"
         Title="Clear Browsing Data"
         Width="420" Height="480"
@@ -29,7 +30,8 @@
                     <!-- Time range -->
                     <StackPanel Spacing="6">
                         <TextBlock Text="Time range" FontSize="12" FontWeight="SemiBold" Foreground="#C0FFFFFF"/>
-                        <ComboBox x:Name="TimeRangeComboBox" SelectedIndex="0" Background="#10FFFFFF" Foreground="White">
+                        <ComboBox x:Name="TimeRangeComboBox" SelectedIndex="0"
+                                  >
                             <ComboBoxItem Content="Last hour"/>
                             <ComboBoxItem Content="Last 24 hours"/>
                             <ComboBoxItem Content="Last 7 days"/>
@@ -42,22 +44,17 @@
                     <StackPanel Spacing="10">
                         <TextBlock Text="Data to clear" FontSize="12" FontWeight="SemiBold" Foreground="#C0FFFFFF"/>
 
-                        <CheckBox x:Name="BrowsingHistoryCheck" IsChecked="True" Content="Browsing history"
-                                  Foreground="#C0FFFFFF"/>
-                        <CheckBox x:Name="CookiesCheck" IsChecked="True" Content="Cookies and other site data"
-                                  Foreground="#C0FFFFFF"/>
-                        <CheckBox x:Name="CacheCheck" IsChecked="True" Content="Cached images and files"
-                                  Foreground="#C0FFFFFF"/>
-                        <CheckBox x:Name="PasswordsCheck" IsChecked="False" Content="Passwords"
-                                  Foreground="#C0FFFFFF"/>
-                        <CheckBox x:Name="FormFillCheck" IsChecked="False" Content="Autofill form data"
-                                  Foreground="#C0FFFFFF"/>
-                        <CheckBox x:Name="SiteSettingsCheck" IsChecked="False" Content="Site settings"
-                                  Foreground="#C0FFFFFF"/>
+                        <CheckBox x:Name="BrowsingHistoryCheck" IsChecked="True" Content="Browsing history"/>
+                        <CheckBox x:Name="CookiesCheck" IsChecked="True" Content="Cookies and other site data"/>
+                        <CheckBox x:Name="CacheCheck" IsChecked="True" Content="Cached images and files"/>
+                        <CheckBox x:Name="PasswordsCheck" IsChecked="False" Content="Passwords"/>
+                        <CheckBox x:Name="FormFillCheck" IsChecked="False" Content="Autofill form data"/>
+                        <CheckBox x:Name="SiteSettingsCheck" IsChecked="False" Content="Site settings"/>
                     </StackPanel>
 
                     <!-- Info -->
-                    <Border Background="#10FFFFFF" CornerRadius="8" Padding="12,8">
+                    <Border Background="#10FFFFFF" CornerRadius="8" Padding="12,8"
+                                 BorderBrush="#08FFFFFF" BorderThickness="1">
                         <TextBlock Text="Clearing this data will sign you out of most sites."
                                    FontSize="11" Foreground="#80FFFFFF" TextWrapping="Wrap"/>
                     </Border>

@@ -3,6 +3,7 @@
         xmlns:vm="using:Ondyxn.UI.ViewModels"
         xmlns:views="using:Ondyxn.UI.Views"
         xmlns:controls="using:Ondyxn.UI.Controls"
+        xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
         x:Class="Ondyxn.UI.Views.MainWindow"
         x:DataType="vm:BrowserViewModel"
         Title="Ondyxn"
@@ -27,10 +28,10 @@
 
         <DockPanel LastChildFill="True">
 
-            <!-- ===== TAB STRIP (liquid glass, fully transparent) ===== -->
+            <!-- ===== TAB STRIP ===== -->
             <Border DockPanel.Dock="Top" Height="40">
                 <Grid ColumnDefinitions="Auto,*,Auto">
-                    <!-- LEFT: Logo (glass orb) -->
+                    <!-- LEFT: Logo -->
                     <Border Grid.Column="0" Width="32" Height="32"
                             CornerRadius="16"
                             Background="#15FFFFFF"
@@ -52,7 +53,7 @@
                         </Panel>
                     </Border>
 
-                    <!-- CENTER: Tabs (glass pills) -->
+                    <!-- CENTER: Tabs -->
                     <ScrollViewer Grid.Column="1"
                                   HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Disabled"
@@ -116,7 +117,7 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <!-- RIGHT: window controls (minimal) -->
+                    <!-- RIGHT: window controls -->
                     <StackPanel Grid.Column="2" Orientation="Horizontal"
                                 VerticalAlignment="Center" Margin="0,0,4,0">
                         <Button Classes="window-btn" Click="Minimize_Click">
@@ -132,7 +133,7 @@
                 </Grid>
             </Border>
 
-            <!-- ===== SIDEBAR (fully transparent) ===== -->
+            <!-- ===== SIDEBAR ===== -->
             <Border DockPanel.Dock="Left" Width="48"
                     IsVisible="{Binding IsSidebarVisible}">
                 <DockPanel>
@@ -144,6 +145,7 @@
                             <PathIcon Data="{StaticResource IconHome}" Width="15" Height="15"/>
                         </ToggleButton>
                         <ToggleButton Classes="side-btn"
+                                      Command="{Binding ToggleSidebarCommand}"
                                       ToolTip.Tip="Bookmarks">
                             <PathIcon Data="{StaticResource IconBookmarks}" Width="15" Height="15"/>
                         </ToggleButton>
@@ -179,14 +181,14 @@
             </Border>
 
             <!-- ===== LOADING PROGRESS BAR ===== -->
-            <Border DockPanel.Dock="Top" Height="2" IsVisible="{Binding IsLoading}">
+            <Border DockPanel.Dock="Top" Height="3" IsVisible="{Binding IsLoading}">
                 <ProgressBar x:Name="LoadingProgressBar"
                              Value="100" Minimum="0" Maximum="100"
                              Foreground="#00D4FF" Background="Transparent"
                              IsIndeterminate="True"/>
             </Border>
 
-            <!-- ===== ADDRESS BAR ROW (fully transparent) ===== -->
+            <!-- ===== ADDRESS BAR ROW ===== -->
             <Border DockPanel.Dock="Top" Height="48">
                 <Grid ColumnDefinitions="Auto,*,Auto"
                       VerticalAlignment="Center"
@@ -247,7 +249,7 @@
                 </Grid>
             </Border>
 
-            <!-- ===== STATUS BAR (minimal) ===== -->
+            <!-- ===== STATUS BAR ===== -->
             <Border DockPanel.Dock="Bottom" Height="24">
                 <Grid ColumnDefinitions="*,Auto">
                     <TextBlock Grid.Column="0"

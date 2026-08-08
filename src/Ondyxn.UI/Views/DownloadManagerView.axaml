@@ -1,6 +1,7 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:models="using:Ondyxn.Core.Models"
+             
              x:Class="Ondyxn.UI.Views.DownloadManagerView"
              Background="Transparent">
 
@@ -24,8 +25,8 @@
                     <ItemsControl x:Name="DownloadsList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="models:DownloadModel">
-                                <Border Padding="10,8" CornerRadius="8" Margin="0,2"
-                                        Background="#08FFFFFF" BorderBrush="#06FFFFFF" BorderThickness="1">
+                                <Border Padding="12,10" Margin="0,2"
+                                         Background="#15FFFFFF" BorderBrush="#10FFFFFF" BorderThickness="1" CornerRadius="12">
                                     <StackPanel Spacing="6">
                                         <!-- File info -->
                                         <Grid ColumnDefinitions="Auto,*,Auto">
@@ -43,14 +44,13 @@
                                                            TextTrimming="CharacterEllipsis" MaxWidth="180"/>
                                             </StackPanel>
                                             <!-- Status -->
-                                            <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                                <TextBlock Text="{Binding Progress, StringFormat='{}{0:F0}%'}"
-                                                           FontSize="11" Foreground="#00D4FF" HorizontalAlignment="Right"/>
-                                            </StackPanel>
+                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                                       Text="{Binding Progress, StringFormat='{}{0:F0}%'}"
+                                                       FontSize="11" Foreground="#00D4FF"/>
                                         </Grid>
                                         <!-- Progress bar -->
                                         <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100"
-                                                     Height="4" Foreground="#00D4FF" Background="#15FFFFFF"/>
+                                                     Height="4"/>
                                         <!-- Action buttons -->
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="4">
                                             <Button Classes="tool-btn" Width="24" Height="24" ToolTip.Tip="Open file">

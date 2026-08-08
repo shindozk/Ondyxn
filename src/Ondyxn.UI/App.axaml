@@ -1,15 +1,16 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              x:Class="Ondyxn.UI.App"
              RequestedThemeVariant="Dark">
 
     <Application.Styles>
-        <FluentTheme />
-        <StyleInclude Source="avares://Ondyxn.UI/Styles/GlassMaterials.axaml"/>
+        <!-- Material Design Theme (replaces FluentTheme) -->
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Cyan" SecondaryColor="Purple" />
+
+        <!-- Custom styles that work alongside Material -->
         <StyleInclude Source="avares://Ondyxn.UI/Styles/TabStrip.axaml"/>
         <StyleInclude Source="avares://Ondyxn.UI/Styles/Omnibox.axaml"/>
-        <StyleInclude Source="avares://Ondyxn.UI/Styles/BentoCards.axaml"/>
-        <StyleInclude Source="avares://Ondyxn.UI/Styles/Sidebar.axaml"/>
     </Application.Styles>
 
     <Application.Resources>
