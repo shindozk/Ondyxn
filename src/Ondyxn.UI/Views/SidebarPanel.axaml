@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Ondyxn.UI.ViewModels"
+             x:Class="Ondyxn.UI.Views.SidebarPanel"
+             x:DataType="vm:SidebarViewModel"
+             Background="Transparent"
+             Width="280">
+
+    <Border Background="#0A000000" BorderBrush="#08FFFFFF" BorderThickness="1,0,0,0">
+        <DockPanel>
+            <!-- Close button -->
+            <Button DockPanel.Dock="Top"
+                    Classes="icon-btn"
+                    HorizontalAlignment="Right"
+                    Margin="0,8,8,0"
+                    Command="{Binding $parent[UserControl].((vm:BrowserViewModel)DataContext).ToggleSidebarCommand}">
+                <PathIcon Data="{StaticResource IconClose}" Width="12" Height="12"/>
+            </Button>
+
+            <!-- Tab selector -->
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="4" Margin="12,8">
+                <Button Classes="tool-btn" Width="70" Height="28"
+                        Tag="0"
+                        Click="OnSectionClick">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="{StaticResource IconBookmark}" Width="12" Height="12"/>
+                        <TextBlock Text="Bookmarks" FontSize="11" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Classes="tool-btn" Width="70" Height="28"
+                        Tag="1"
+                        Click="OnSectionClick">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="{StaticResource IconHistory}" Width="12" Height="12"/>
+                        <TextBlock Text="History" FontSize="11" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Classes="tool-btn" Width="70" Height="28"
+                        Tag="2"
+                        Click="OnSectionClick">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <PathIcon Data="{StaticResource IconDownloads}" Width="12" Height="12"/>
+                        <TextBlock Text="Downloads" FontSize="11" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <!-- Content area -->
+            <Panel>
+                <!-- Bookmarks panel -->
+                <Border Padding="12" IsVisible="False" x:Name="BookmarksPanel">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Bookmarks" FontSize="14" FontWeight="SemiBold" Foreground="#00D4FF" Margin="0,0,0,4"/>
+                        <TextBlock Text="No bookmarks yet" FontSize="12" Foreground="#60FFFFFF" HorizontalAlignment="Center" Margin="0,20"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- History panel -->
+                <Border Padding="12" IsVisible="False" x:Name="HistoryPanel">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="History" FontSize="14" FontWeight="SemiBold" Foreground="#00D4FF" Margin="0,0,0,4"/>
+                        <TextBlock Text="No history yet" FontSize="12" Foreground="#60FFFFFF" HorizontalAlignment="Center" Margin="0,20"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Downloads panel -->
+                <Border Padding="12" IsVisible="False" x:Name="DownloadsPanel">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Downloads" FontSize="14" FontWeight="SemiBold" Foreground="#00D4FF" Margin="0,0,0,4"/>
+                        <TextBlock Text="No downloads" FontSize="12" Foreground="#60FFFFFF" HorizontalAlignment="Center" Margin="0,20"/>
+                    </StackPanel>
+                </Border>
+            </Panel>
+        </DockPanel>
+    </Border>
+</UserControl>

@@ -263,6 +263,9 @@
                 </Border>
                 <views:NewTabPage DataContext="{Binding}"
                                   IsVisible="{Binding IsNewTabPage}"/>
+                <!-- Find in page overlay -->
+                <controls:FindInPage x:Name="FindInPageControl"
+                                    Margin="4,2,4,4"/>
             </Panel>
         </DockPanel>
     </Panel>

@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Ondyxn.UI.ViewModels"
+             x:Class="Ondyxn.UI.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Background="Transparent">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="20" MaxWidth="600" Margin="0,24,0,24" HorizontalAlignment="Center">
+
+            <TextBlock Text="Settings"
+                       FontSize="28" FontWeight="Bold" Foreground="White"/>
+
+            <Border Classes="glass-card" Padding="20">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Appearance" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+                    <Grid ColumnDefinitions="Auto,Auto">
+                        <TextBlock Grid.Column="0" Text="Theme" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" MinWidth="140"
+                                  SelectedIndex="0"
+                                  Foreground="White" Background="#10FFFFFF">
+                            <ComboBoxItem Content="System"/>
+                            <ComboBoxItem Content="Light"/>
+                            <ComboBoxItem Content="Dark"/>
+                        </ComboBox>
+                        <TextBlock Grid.Column="0" Text="Accent Color" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center" Margin="0,8,0,0"/>
+                        <TextBox Grid.Column="1" MinWidth="140"
+                                 Text="{Binding AccentColor}"
+                                 Background="#10FFFFFF" Foreground="White" Margin="0,8,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="glass-card" Padding="20">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Search Engine" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Grid.Column="0" Text="Default Search" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" MinWidth="200"
+                                  SelectedIndex="0"
+                                  Foreground="White" Background="#10FFFFFF">
+                            <ComboBoxItem Content="Google"/>
+                            <ComboBoxItem Content="DuckDuckGo"/>
+                            <ComboBoxItem Content="Bing"/>
+                            <ComboBoxItem Content="Brave"/>
+                        </ComboBox>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*" Margin="0,8,0,0">
+                        <TextBlock Grid.Column="0" Text="Home Page" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" MinWidth="200"
+                                 Text="{Binding HomePage}"
+                                 Background="#10FFFFFF" Foreground="White"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="glass-card" Padding="20">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Privacy and Security" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+                    <CheckBox Content="Enable Ad Blocking"
+                              IsChecked="{Binding EnableAdBlocking}"
+                              Foreground="#C0FFFFFF"/>
+                    <CheckBox Content="Enable Tracker Blocking"
+                              IsChecked="{Binding EnableTrackerBlocking}"
+                              Foreground="#C0FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="glass-card" Padding="20">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Performance" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+                    <CheckBox Content="Hardware Acceleration"
+                              IsChecked="{Binding EnableHardwareAcceleration}"
+                              Foreground="#C0FFFFFF"/>
+                    <CheckBox Content="Smooth Scrolling"
+                              IsChecked="{Binding EnableSmoothScrolling}"
+                              Foreground="#C0FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <Border Classes="glass-card" Padding="20">
+                <StackPanel Spacing="14">
+                    <TextBlock Text="Startup" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+                    <CheckBox Content="Restore previous session on startup"
+                              IsChecked="{Binding RestoreSessionOnStartup}"
+                              Foreground="#C0FFFFFF"/>
+                    <CheckBox Content="Show sidebar"
+                              IsChecked="{Binding ShowSidebar}"
+                              Foreground="#C0FFFFFF"/>
+                </StackPanel>
+            </Border>
+
+            <Button Classes="accent-btn"
+                    Content="Save Settings"
+                    HorizontalAlignment="Center"
+                    Padding="40,10"
+                    FontSize="14"
+                    Command="{Binding SaveCommand}"/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

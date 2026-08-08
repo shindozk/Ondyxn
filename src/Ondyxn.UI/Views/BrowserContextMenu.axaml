@@ -1,0 +1,43 @@
+<MenuFlyout xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            x:Class="Ondyxn.UI.Views.BrowserContextMenu">
+
+    <MenuItem Header="Back" x:Name="MenuItemBack">
+        <MenuItem.Icon>
+            <PathIcon Data="{StaticResource IconBack}" Width="14" Height="14"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Forward" x:Name="MenuItemForward">
+        <MenuItem.Icon>
+            <PathIcon Data="{StaticResource IconForward}" Width="14" Height="14"/>
+        </MenuItem.Icon>
+    </MenuItem>
+    <MenuItem Header="Reload" x:Name="MenuItemReload">
+        <MenuItem.Icon>
+            <PathIcon Data="{StaticResource IconReload}" Width="14" Height="14"/>
+        </MenuItem.Icon>
+    </MenuItem>
+
+    <Separator/>
+
+    <MenuItem Header="Open link in new tab" x:Name="MenuItemOpenNewTab"/>
+    <MenuItem Header="Open link in new window" x:Name="MenuItemOpenNewWindow"/>
+    <MenuItem Header="Copy link address" x:Name="MenuItemCopyLink"/>
+
+    <Separator/>
+
+    <MenuItem Header="Save image as..." x:Name="MenuItemSaveImage" IsVisible="False"/>
+    <MenuItem Header="Copy image" x:Name="MenuItemCopyImage" IsVisible="False"/>
+    <MenuItem Header="Open image in new tab" x:Name="MenuItemOpenImage" IsVisible="False"/>
+
+    <Separator/>
+
+    <MenuItem Header="Save page as..." x:Name="MenuItemSavePage"/>
+    <MenuItem Header="View page source" x:Name="MenuItemViewSource"/>
+    <MenuItem Header="Inspect element" x:Name="MenuItemInspect"/>
+
+    <Separator/>
+
+    <MenuItem Header="Print..." x:Name="MenuItemPrint"/>
+    <MenuItem Header="Find in page" x:Name="MenuItemFind"/>
+</MenuFlyout>

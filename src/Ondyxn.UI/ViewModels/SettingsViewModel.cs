@@ -23,6 +23,8 @@ public partial class SettingsViewModel : ObservableObject
     [ObservableProperty] private string _searchEngine;
     [ObservableProperty] private bool _enableSmoothScrolling;
 
+    public IAsyncRelayCommand SaveCommand { get; }
+
     public SettingsViewModel(ISettingsService settingsService)
     {
         _settingsService = settingsService;
@@ -37,9 +39,9 @@ public partial class SettingsViewModel : ObservableObject
         _homePage = s.HomePage;
         _searchEngine = s.SearchEngine;
         _enableSmoothScrolling = s.EnableSmoothScrolling;
+        SaveCommand = new AsyncRelayCommand(SaveAsync);
     }
 
-    [RelayCommand]
     private async Task SaveAsync()
     {
         await _settingsService.UpdateAsync(s =>
@@ -55,6 +57,22 @@ public partial class SettingsViewModel : ObservableObject
             s.SearchEngine = SearchEngine;
             s.EnableSmoothScrolling = EnableSmoothScrolling;
         });
-        // UpdateAsync already calls SaveAsync internally
+    }
+
+    [RelayCommand]
+    private void Cancel()
+    {
+        // Reload current settings to discard changes
+        var s = _settingsService.Current;
+        SelectedTheme = s.Theme;
+        AccentColor = s.AccentColor;
+        EnableAdBlocking = s.EnableAdBlocking;
+        EnableTrackerBlocking = s.EnableTrackerBlocking;
+        EnableHardwareAcceleration = s.EnableHardwareAcceleration;
+        RestoreSessionOnStartup = s.RestoreSessionOnStartup;
+        ShowSidebar = s.ShowSidebar;
+        HomePage = s.HomePage;
+        SearchEngine = s.SearchEngine;
+        EnableSmoothScrolling = s.EnableSmoothScrolling;
     }
 }
