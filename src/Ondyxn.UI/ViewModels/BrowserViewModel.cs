@@ -35,6 +35,7 @@ public partial class BrowserViewModel : ObservableObject
     [ObservableProperty] private BrowserSettings _settings;
     [ObservableProperty] private bool _isNewTabPage = true;
     [ObservableProperty] private bool _isBrowserVisible = false;
+    [ObservableProperty] private bool _isSettingsVisible = false;
     [ObservableProperty] private string _greeting = string.Empty;
     [ObservableProperty] private string _dateText = string.Empty;
 
@@ -273,6 +274,12 @@ public partial class BrowserViewModel : ObservableObject
     private void ToggleSidebar()
     {
         IsSidebarVisible = !IsSidebarVisible;
+    }
+
+    [RelayCommand]
+    private void ToggleSettings()
+    {
+        IsSettingsVisible = !IsSettingsVisible;
     }
 
     [RelayCommand]

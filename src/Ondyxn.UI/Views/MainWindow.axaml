@@ -171,6 +171,7 @@
                             <PathIcon Data="{StaticResource IconIncognito}" Width="15" Height="15"/>
                         </ToggleButton>
                         <ToggleButton Classes="side-btn"
+                                      Command="{Binding ToggleSettingsCommand}"
                                       ToolTip.Tip="Settings">
                             <PathIcon Data="{StaticResource IconSettings}" Width="15" Height="15"/>
                         </ToggleButton>
@@ -270,6 +271,25 @@
                 <!-- Find in page overlay -->
                 <controls:FindInPage x:Name="FindInPageControl"
                                     Margin="4,2,4,4"/>
+                <!-- Settings page overlay -->
+                <Border IsVisible="{Binding IsSettingsVisible}"
+                        Background="#E0000000"
+                        CornerRadius="12"
+                        ClipToBounds="True"
+                        Margin="4,2,4,4">
+                    <Panel>
+                        <views:SettingsPage x:Name="SettingsPageControl"/>
+                        <!-- Close settings button -->
+                        <Button Classes="tool-btn"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0,12,12,0"
+                                Command="{Binding ToggleSettingsCommand}"
+                                ToolTip.Tip="Close settings (Esc)">
+                            <PathIcon Data="{StaticResource IconClose}" Width="14" Height="14"/>
+                        </Button>
+                    </Panel>
+                </Border>
             </Panel>
         </DockPanel>
     </Panel>

@@ -120,10 +120,15 @@ public static class KeyboardShortcuts
                     vm.OpenDevToolsCommand.Execute(null);
                     return true;
 
-                case Key.Escape: // Close find in page
+                case Key.Escape: // Close find in page or settings
                     if (findInPage is { IsVisible: true })
                     {
                         findInPage.Hide();
+                        return true;
+                    }
+                    if (vm.IsSettingsVisible)
+                    {
+                        vm.IsSettingsVisible = false;
                         return true;
                     }
                     break;
