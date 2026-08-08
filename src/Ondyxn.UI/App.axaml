@@ -1,0 +1,43 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Ondyxn.UI.App"
+             RequestedThemeVariant="Dark">
+
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/GlassMaterials.axaml"/>
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/TabStrip.axaml"/>
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/Omnibox.axaml"/>
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/BentoCards.axaml"/>
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/Sidebar.axaml"/>
+    </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://Ondyxn.UI/Styles/Icons.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Accent -->
+            <SolidColorBrush x:Key="OndyxnAccent" Color="#00D4FF"/>
+            <SolidColorBrush x:Key="OndyxnAccentLight" Color="#40E0FF"/>
+            <SolidColorBrush x:Key="OndyxnAccentDark" Color="#009CC0"/>
+
+            <!-- Text (for non-transparent areas) -->
+            <SolidColorBrush x:Key="OndyxnTextPrimary" Color="#E8ECF4"/>
+            <SolidColorBrush x:Key="OndyxnTextSecondary" Color="#8892A4"/>
+            <SolidColorBrush x:Key="OndyxnTextTertiary" Color="#5A6478"/>
+
+            <!-- Status -->
+            <SolidColorBrush x:Key="OndyxnSuccess" Color="#4ADE80"/>
+            <SolidColorBrush x:Key="OndyxnWarning" Color="#FBBF24"/>
+            <SolidColorBrush x:Key="OndyxnError" Color="#F87171"/>
+
+            <!-- Gradients -->
+            <LinearGradientBrush x:Key="OndyxnAccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Color="#00D4FF" Offset="0"/>
+                <GradientStop Color="#7C3AED" Offset="1"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

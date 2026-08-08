@@ -1,0 +1,209 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Ondyxn.UI.ViewModels"
+        xmlns:views="using:Ondyxn.UI.Views"
+        xmlns:controls="using:Ondyxn.UI.Controls"
+        x:Class="Ondyxn.UI.Views.MainWindow"
+        x:DataType="vm:BrowserViewModel"
+        Title="Ondyxn"
+        Width="1280" Height="800"
+        MinWidth="900" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True"
+        SystemDecorations="None">
+
+    <Panel>
+        <!-- Full background image -->
+        <Image Source="avares://Ondyxn.UI/Assets/background.jpg"
+               Stretch="UniformToFill"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               IsHitTestVisible="False"/>
+        
+        <!-- Dark overlay to make wallpaper darker -->
+        <Rectangle Fill="#40000000"
+                   IsHitTestVisible="False"/>
+
+        <DockPanel LastChildFill="True">
+
+            <!-- ===== TOP BAR (tab strip + toolbar + window controls) ===== -->
+            <Border DockPanel.Dock="Top"
+                    Background="Transparent"
+                    Padding="0,0,0,0">
+
+                <Grid RowDefinitions="Auto,Auto">
+
+                    <!-- Row 0: Tabs and window controls -->
+                    <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
+                        
+                        <!-- LEFT: Navigation buttons + Logo -->
+                        <StackPanel Grid.Column="0" Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Spacing="2"
+                                    Margin="8,6,0,6">
+                            
+                            <!-- Back button -->
+                            <Button Classes="tool-btn" Command="{Binding GoBackCommand}"
+                                    ToolTip.Tip="Back">
+                                <PathIcon Data="{StaticResource IconBack}" Width="14" Height="14"/>
+                            </Button>
+                            
+                            <!-- Forward button -->
+                            <Button Classes="tool-btn" Command="{Binding GoForwardCommand}"
+                                    ToolTip.Tip="Forward">
+                                <PathIcon Data="{StaticResource IconForward}" Width="14" Height="14"/>
+                            </Button>
+                            
+                            <!-- Refresh button -->
+                            <Button Classes="tool-btn" Command="{Binding ReloadCommand}"
+                                    ToolTip.Tip="Reload">
+                                <PathIcon Data="{StaticResource IconReload}" Width="14" Height="14"/>
+                            </Button>
+                            
+                            <!-- Home button -->
+                            <Button Classes="tool-btn" Command="{Binding GoHomeCommand}"
+                                    ToolTip.Tip="Home">
+                                <PathIcon Data="{StaticResource IconHome}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- Divider -->
+                            <Border Width="1" Height="18" Background="#20FFFFFF" Margin="4,0"/>
+
+                            <!-- Logo -->
+                            <Border Width="24" Height="24" CornerRadius="12"
+                                    Background="#25FFFFFF"
+                                    Margin="4,0,0,0">
+                                <PathIcon Data="{StaticResource IconLogo}"
+                                          Width="14" Height="14"
+                                          Foreground="White"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- CENTER: Tab pills -->
+                        <Border Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <ItemsControl ItemsSource="{Binding Tabs}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" Spacing="4"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:TabViewModel">
+                                        <Border Classes="tab-pill"
+                                                Classes.active="{Binding IsActive}">
+                                            <Panel>
+                                                <Grid ColumnDefinitions="Auto,16,Auto" Margin="10,0,6,0">
+                                                    
+                                                    <!-- Favicon -->
+                                                    <PathIcon Grid.Column="0"
+                                                              Data="{StaticResource IconLogo}"
+                                                              Width="14" Height="14"
+                                                              Foreground="#B0FFFFFF"
+                                                              VerticalAlignment="Center"
+                                                              Margin="0,0,6,0"/>
+
+                                                    <!-- Tab title -->
+                                                    <TextBlock Grid.Column="2"
+                                                               Text="{Binding Title}"
+                                                               FontSize="12"
+                                                               Foreground="White"
+                                                               VerticalAlignment="Center"
+                                                               TextTrimming="CharacterEllipsis"
+                                                               MaxWidth="140"/>
+                                                </Grid>
+                                                
+                                                <!-- Close button overlay -->
+                                                <Button Classes="tab-close"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,0,4,0"
+                                                        Command="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).CloseTabCommand}"
+                                                        CommandParameter="{Binding}">
+                                                    <PathIcon Data="{StaticResource IconClose}" Width="8" Height="8"/>
+                                                </Button>
+                                            </Panel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+
+                        <!-- RIGHT: New tab + Window controls -->
+                        <StackPanel Grid.Column="2" Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,4,0">
+                            
+                            <!-- New tab button -->
+                            <Button Classes="tool-btn" Command="{Binding CreateNewTabCommand}"
+                                    ToolTip.Tip="New tab (Ctrl+T)"
+                                    Margin="0,0,8,0">
+                                <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- Window controls -->
+                            <Button Classes="window-btn" Click="Minimize_Click"
+                                    ToolTip.Tip="Minimize">
+                                <PathIcon Data="{StaticResource IconMinimize}" Width="10" Height="10"/>
+                            </Button>
+                            <Button Classes="window-btn" Click="Maximize_Click"
+                                    ToolTip.Tip="Maximize">
+                                <PathIcon Data="{StaticResource IconMaximize}" Width="10" Height="10"/>
+                            </Button>
+                            <Button Classes="window-btn window-btn-close" Click="Close_Click"
+                                    ToolTip.Tip="Close">
+                                <PathIcon Data="{StaticResource IconClose}" Width="10" Height="10"/>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Row 1: Omnibox / Address bar -->
+                    <Border Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Padding="0,4,0,8">
+                        <controls:Omnibox x:Name="OmniboxControl"
+                                         Width="560"
+                                         Height="36"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- ===== STATUS BAR (bottom) ===== -->
+            <Border DockPanel.Dock="Bottom" Height="24"
+                    Background="Transparent">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBlock Grid.Column="0"
+                               Text="{Binding StatusText}"
+                               VerticalAlignment="Center"
+                               Margin="12,0"
+                               FontSize="11"
+                               Foreground="#90FFFFFF"/>
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding ActiveTab.Url}"
+                               FontSize="11"
+                               Foreground="#70FFFFFF"
+                               MaxWidth="300"
+                               TextTrimming="CharacterEllipsis"
+                               VerticalAlignment="Center"
+                               Margin="0,0,12,0"/>
+                </Grid>
+            </Border>
+
+            <!-- ===== CONTENT: CEF browser or New Tab page ===== -->
+            <Panel>
+                <!-- Browser with rounded corners -->
+                <Border CornerRadius="12"
+                        Background="Transparent"
+                        ClipToBounds="True"
+                        Margin="8,0,8,8"
+                        IsVisible="{Binding IsBrowserVisible}">
+                    <controls:CefBrowserControl x:Name="CefBrowserHost"/>
+                </Border>
+                <views:NewTabPage DataContext="{Binding}"
+                                  IsVisible="{Binding IsNewTabPage}"/>
+            </Panel>
+        </DockPanel>
+    </Panel>
+</Window>

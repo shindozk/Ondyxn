@@ -1,0 +1,60 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ========== Tab pill (default) ========== -->
+    <Style Selector="Border.tab-pill">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="MaxWidth" Value="180"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <!-- Hover state -->
+    <Style Selector="Border.tab-pill:pointerover">
+        <Setter Property="Background" Value="#18FFFFFF"/>
+    </Style>
+
+    <!-- ========== Active tab pill (highlighted) ========== -->
+    <Style Selector="Border.tab-pill.active">
+        <Setter Property="Background" Value="#20FFFFFF"/>
+    </Style>
+
+    <Style Selector="Border.tab-pill.active:pointerover">
+        <Setter Property="Background" Value="#28FFFFFF"/>
+    </Style>
+
+    <!-- ========== Tab close button ========== -->
+    <Style Selector="Button.tab-close">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#90FFFFFF"/>
+        <Setter Property="Width" Value="18"/>
+        <Setter Property="Height" Value="18"/>
+        <Setter Property="CornerRadius" Value="9"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="Opacity" Value="0"/>
+    </Style>
+
+    <Style Selector="Border.tab-pill:pointerover Button.tab-close">
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+
+    <Style Selector="Button.tab-close:pointerover">
+        <Setter Property="Background" Value="#30FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.tab-close:pressed">
+        <Setter Property="Background" Value="#40FFFFFF"/>
+    </Style>
+</Styles>

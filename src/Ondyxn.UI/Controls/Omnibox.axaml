@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Ondyxn.UI.ViewModels"
+             x:Class="Ondyxn.UI.Controls.Omnibox"
+             x:DataType="vm:BrowserViewModel">
+
+    <Border Classes="omnibox"
+            Padding="14,0"
+            Height="38">
+
+        <Grid ColumnDefinitions="Auto,*,Auto">
+            
+            <!-- Left side: Lock icon + URL text combined -->
+            <StackPanel Grid.Column="0" 
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Spacing="6">
+                
+                <!-- Lock icon (green for secure) -->
+                <PathIcon Data="{StaticResource IconLock}"
+                          Width="13" Height="13"
+                          Foreground="#4ADE80"
+                          VerticalAlignment="Center"/>
+
+                <!-- URL display (click to edit) -->
+                <TextBlock Name="UrlDisplay"
+                           Text="{Binding OmniboxText}"
+                           FontSize="13.5"
+                           FontFamily="Segoe UI, Inter, system-ui"
+                           Foreground="#E0FFFFFF"
+                           VerticalAlignment="Center"
+                           Cursor="IBeam"
+                           IsHitTestVisible="True"
+                           TextTrimming="CharacterEllipsis"
+                           MaxWidth="400"/>
+                
+                <!-- Hidden TextBox for editing -->
+                <TextBox Name="UrlTextBox"
+                         Text="{Binding OmniboxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsVisible="False"
+                         KeyDown="Omnibox_KeyDown"
+                         Background="Transparent"
+                         BorderThickness="0"
+                         FontSize="13.5"
+                         FontFamily="Segoe UI, Inter, system-ui"
+                         Foreground="#E0FFFFFF"
+                         CaretBrush="#4ADE80"
+                         VerticalContentAlignment="Center"
+                         Padding="0"
+                         MinWidth="300"/>
+            </StackPanel>
+
+            <!-- Right side: Bookmark star -->
+            <Button Grid.Column="2"
+                    Classes="icon-btn"
+                    Width="30" Height="30"
+                    Margin="8,0,0,0"
+                    Command="{Binding ToggleBookmarkCommand}"
+                    ToolTip.Tip="Bookmark this page">
+                <PathIcon Data="{StaticResource IconStar}" 
+                          Width="15" Height="15"
+                          Foreground="#A0FFFFFF"/>
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

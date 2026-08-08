@@ -1,0 +1,135 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ========== Glass card ========== -->
+    <Style Selector="Border.glass-card">
+        <Setter Property="Background" Value="#0EFFFFFF"/>
+        <Setter Property="BorderBrush" Value="#0AFFFFFF"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="16"/>
+    </Style>
+
+    <!-- ========== Bento cards ========== -->
+    <Style Selector="Border.bento-card">
+        <Setter Property="MinHeight" Value="110"/>
+    </Style>
+
+    <Style Selector="Border.bento-large">
+        <Setter Property="MinHeight" Value="140"/>
+    </Style>
+
+    <Style Selector="Border.bento-card:pointerover">
+        <Setter Property="Background" Value="#16FFFFFF"/>
+    </Style>
+
+    <!-- ========== Glass pill ========== -->
+    <Style Selector="Border.glass-pill">
+        <Setter Property="Background" Value="#0AFFFFFF"/>
+        <Setter Property="BorderBrush" Value="#08FFFFFF"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="10"/>
+    </Style>
+
+    <!-- ========== Tool button (toolbar, 28x28) ========== -->
+    <Style Selector="Button.tool-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#C0FFFFFF"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Opacity" Value="0.8"/>
+    </Style>
+
+    <Style Selector="Button.tool-btn:pointerover">
+        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+
+    <Style Selector="Button.tool-btn:pressed">
+        <Setter Property="Background" Value="#30FFFFFF"/>
+    </Style>
+
+    <!-- ========== Icon button (generic, 32x32) ========== -->
+    <Style Selector="Button.icon-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Button.icon-btn:pointerover">
+        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.icon-btn:pressed">
+        <Setter Property="Background" Value="#30FFFFFF"/>
+    </Style>
+
+    <!-- ========== Window control buttons ========== -->
+    <Style Selector="Button.window-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="#90FFFFFF"/>
+        <Setter Property="Width" Value="46"/>
+        <Setter Property="Height" Value="38"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Button.window-btn:pointerover">
+        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.window-btn-close:pointerover">
+        <Setter Property="Background" Value="#E81123"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!-- ========== Accent button ========== -->
+    <Style Selector="Button.accent-btn">
+        <Setter Property="Background" Value="{DynamicResource OndyxnAccent}"/>
+        <Setter Property="Foreground" Value="#FF0B0E14"/>
+        <Setter Property="CornerRadius" Value="18"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style Selector="Button.accent-btn:pointerover">
+        <Setter Property="Background" Value="{DynamicResource OndyxnAccentLight}"/>
+    </Style>
+
+    <!-- ========== Site tile (Top Sites) ========== -->
+    <Style Selector="StackPanel.site-tile">
+        <Setter Property="Spacing" Value="0"/>
+    </Style>
+
+    <Style Selector="Border.site-icon">
+        <Setter Property="Background" Value="#08FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#06FFFFFF"/>
+        <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+
+    <Style Selector="StackPanel.site-tile:pointerover Border.site-icon">
+        <Setter Property="Background" Value="#14FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#14FFFFFF"/>
+    </Style>
+</Styles>
