@@ -17,9 +17,9 @@ A modern, fast, and secure web browser built with Avalonia UI and CefGlue.
 - **Zoom Controls** - Zoom in/out with Ctrl+/- or Ctrl+0 to reset
 - **Developer Tools** - Built-in Chromium DevTools (F12)
 
-## Screenshots
+## Preview
 
-*Screenshots coming soon*
+![Ondyxn Browser Preview](https://i.imgur.com/M9nYzRI.png)
 
 ## Getting Started
 
