@@ -30,12 +30,12 @@
         <Setter Property="CornerRadius" Value="10"/>
     </Style>
 
-    <!-- ========== Tool button (toolbar, 28x28) ========== -->
+    <!-- ========== Tool button (toolbar, compact) ========== -->
     <Style Selector="Button.tool-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#C0FFFFFF"/>
-        <Setter Property="Width" Value="28"/>
-        <Setter Property="Height" Value="28"/>
+        <Setter Property="Foreground" Value="#B0FFFFFF"/>
+        <Setter Property="Width" Value="26"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
@@ -43,17 +43,23 @@
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Opacity" Value="0.8"/>
+        <Setter Property="Opacity" Value="0.85"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.12"/>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="Button.tool-btn:pointerover">
-        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Background" Value="#18FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Opacity" Value="1"/>
     </Style>
 
     <Style Selector="Button.tool-btn:pressed">
-        <Setter Property="Background" Value="#30FFFFFF"/>
+        <Setter Property="Background" Value="#25FFFFFF"/>
     </Style>
 
     <!-- ========== Icon button (generic, 32x32) ========== -->
@@ -84,18 +90,23 @@
     <Style Selector="Button.window-btn">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="#90FFFFFF"/>
-        <Setter Property="Width" Value="46"/>
-        <Setter Property="Height" Value="38"/>
+        <Setter Property="Width" Value="42"/>
+        <Setter Property="Height" Value="32"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.12"/>
+            </Transitions>
+        </Setter>
     </Style>
 
     <Style Selector="Button.window-btn:pointerover">
-        <Setter Property="Background" Value="#20FFFFFF"/>
+        <Setter Property="Background" Value="#18FFFFFF"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 

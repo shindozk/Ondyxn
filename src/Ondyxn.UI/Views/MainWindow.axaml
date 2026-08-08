@@ -27,57 +27,105 @@
 
         <DockPanel LastChildFill="True">
 
-            <!-- ===== TOP BAR (tab strip + toolbar + window controls) ===== -->
+            <!-- ===== TOP BAR (single row: toolbar + tabs + window controls) ===== -->
             <Border DockPanel.Dock="Top"
-                    Background="Transparent"
-                    Padding="0,0,0,0">
+                    Background="#30000000"
+                    Padding="0">
 
                 <Grid RowDefinitions="Auto,Auto">
 
-                    <!-- Row 0: Tabs and window controls -->
+                    <!-- Row 0: Compact toolbar with everything on one line -->
                     <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto">
-                        
-                        <!-- LEFT: Navigation buttons + Logo -->
+
+                        <!-- LEFT: Logo + Navigation + Utility icons -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal"
                                     VerticalAlignment="Center"
-                                    Spacing="2"
-                                    Margin="8,6,0,6">
-                            
-                            <!-- Back button -->
+                                    Spacing="1"
+                                    Margin="6,4,0,4">
+
+                            <!-- Logo -->
+                            <Border Width="26" Height="26" CornerRadius="13"
+                                    Background="#25FFFFFF"
+                                    Margin="4,0,8,0"
+                                    Cursor="Hand">
+                                <PathIcon Data="{StaticResource IconLogo}"
+                                          Width="14" Height="14"
+                                          Foreground="#00D4FF"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                            </Border>
+
+                            <!-- Back -->
                             <Button Classes="tool-btn" Command="{Binding GoBackCommand}"
                                     ToolTip.Tip="Back">
                                 <PathIcon Data="{StaticResource IconBack}" Width="14" Height="14"/>
                             </Button>
-                            
-                            <!-- Forward button -->
+
+                            <!-- Forward -->
                             <Button Classes="tool-btn" Command="{Binding GoForwardCommand}"
                                     ToolTip.Tip="Forward">
                                 <PathIcon Data="{StaticResource IconForward}" Width="14" Height="14"/>
                             </Button>
-                            
-                            <!-- Refresh button -->
+
+                            <!-- Refresh -->
                             <Button Classes="tool-btn" Command="{Binding ReloadCommand}"
                                     ToolTip.Tip="Reload">
                                 <PathIcon Data="{StaticResource IconReload}" Width="14" Height="14"/>
                             </Button>
-                            
-                            <!-- Home button -->
+
+                            <!-- Divider 1 -->
+                            <Border Width="1" Height="16" Background="#20FFFFFF" Margin="4,0"/>
+
+                            <!-- Home -->
                             <Button Classes="tool-btn" Command="{Binding GoHomeCommand}"
                                     ToolTip.Tip="Home">
                                 <PathIcon Data="{StaticResource IconHome}" Width="14" Height="14"/>
                             </Button>
 
-                            <!-- Divider -->
-                            <Border Width="1" Height="18" Background="#20FFFFFF" Margin="4,0"/>
+                            <!-- New Tab -->
+                            <Button Classes="tool-btn" Command="{Binding CreateNewTabCommand}"
+                                    ToolTip.Tip="New tab (Ctrl+T)">
+                                <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14"/>
+                            </Button>
 
-                            <!-- Logo -->
-                            <Border Width="24" Height="24" CornerRadius="12"
-                                    Background="#25FFFFFF"
-                                    Margin="4,0,0,0">
-                                <PathIcon Data="{StaticResource IconLogo}"
-                                          Width="14" Height="14"
-                                          Foreground="White"/>
-                            </Border>
+                            <!-- Bookmark -->
+                            <Button Classes="tool-btn" Command="{Binding ToggleBookmarkCommand}"
+                                    ToolTip.Tip="Bookmark (Ctrl+D)">
+                                <PathIcon Data="{StaticResource IconStar}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- History -->
+                            <Button Classes="tool-btn"
+                                    ToolTip.Tip="History (Ctrl+H)">
+                                <PathIcon Data="{StaticResource IconHistory}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- Downloads -->
+                            <Button Classes="tool-btn" Command="{Binding ToggleDownloadsCommand}"
+                                    ToolTip.Tip="Downloads (Ctrl+J)">
+                                <PathIcon Data="{StaticResource IconDownloads}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- Divider 2 -->
+                            <Border Width="1" Height="16" Background="#20FFFFFF" Margin="4,0"/>
+
+                            <!-- Shield / Ad Block -->
+                            <Button Classes="tool-btn"
+                                    ToolTip.Tip="Ad blocker">
+                                <PathIcon Data="{StaticResource IconShieldCheck}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- Sidebar toggle -->
+                            <Button Classes="tool-btn" Command="{Binding ToggleSidebarCommand}"
+                                    ToolTip.Tip="Sidebar (Ctrl+I)">
+                                <PathIcon Data="{StaticResource IconSidebar}" Width="14" Height="14"/>
+                            </Button>
+
+                            <!-- Settings -->
+                            <Button Classes="tool-btn"
+                                    ToolTip.Tip="Settings">
+                                <PathIcon Data="{StaticResource IconSettings}" Width="14" Height="14"/>
+                            </Button>
                         </StackPanel>
 
                         <!-- CENTER: Tab pills -->
@@ -87,7 +135,7 @@
                             <ItemsControl ItemsSource="{Binding Tabs}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" Spacing="4"/>
+                                        <StackPanel Orientation="Horizontal" Spacing="2"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
@@ -95,12 +143,12 @@
                                         <Border Classes="tab-pill"
                                                 Classes.active="{Binding IsActive}">
                                             <Panel>
-                                                <Grid ColumnDefinitions="Auto,16,Auto" Margin="10,0,6,0">
+                                                <Grid ColumnDefinitions="Auto,16,Auto" Margin="8,0,4,0">
                                                     
                                                     <!-- Favicon -->
                                                     <PathIcon Grid.Column="0"
                                                               Data="{StaticResource IconLogo}"
-                                                              Width="14" Height="14"
+                                                              Width="12" Height="12"
                                                               Foreground="#B0FFFFFF"
                                                               VerticalAlignment="Center"
                                                               Margin="0,0,6,0"/>
@@ -108,21 +156,21 @@
                                                     <!-- Tab title -->
                                                     <TextBlock Grid.Column="2"
                                                                Text="{Binding Title}"
-                                                               FontSize="12"
+                                                               FontSize="11.5"
                                                                Foreground="White"
                                                                VerticalAlignment="Center"
                                                                TextTrimming="CharacterEllipsis"
-                                                               MaxWidth="140"/>
+                                                               MaxWidth="120"/>
                                                 </Grid>
                                                 
                                                 <!-- Close button overlay -->
                                                 <Button Classes="tab-close"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
-                                                        Margin="0,0,4,0"
+                                                        Margin="0,0,2,0"
                                                         Command="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).CloseTabCommand}"
                                                         CommandParameter="{Binding}">
-                                                    <PathIcon Data="{StaticResource IconClose}" Width="8" Height="8"/>
+                                                    <PathIcon Data="{StaticResource IconClose}" Width="7" Height="7"/>
                                                 </Button>
                                             </Panel>
                                         </Border>
@@ -131,19 +179,10 @@
                             </ItemsControl>
                         </Border>
 
-                        <!-- RIGHT: New tab + Window controls -->
+                        <!-- RIGHT: Window controls -->
                         <StackPanel Grid.Column="2" Orientation="Horizontal"
                                     VerticalAlignment="Center"
-                                    Margin="0,0,4,0">
-                            
-                            <!-- New tab button -->
-                            <Button Classes="tool-btn" Command="{Binding CreateNewTabCommand}"
-                                    ToolTip.Tip="New tab (Ctrl+T)"
-                                    Margin="0,0,8,0">
-                                <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14"/>
-                            </Button>
-
-                            <!-- Window controls -->
+                                    Margin="0,0,2,0">
                             <Button Classes="window-btn" Click="Minimize_Click"
                                     ToolTip.Tip="Minimize">
                                 <PathIcon Data="{StaticResource IconMinimize}" Width="10" Height="10"/>
@@ -159,31 +198,31 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- Row 1: Omnibox / Address bar -->
+                    <!-- Row 1: Omnibox / Address bar (centered, second row) -->
                     <Border Grid.Row="1"
                             HorizontalAlignment="Center"
-                            Padding="0,4,0,8">
+                            Padding="0,2,0,6">
                         <controls:Omnibox x:Name="OmniboxControl"
-                                         Width="560"
-                                         Height="36"/>
+                                         Width="520"
+                                         Height="32"/>
                     </Border>
                 </Grid>
             </Border>
 
             <!-- ===== STATUS BAR (bottom) ===== -->
-            <Border DockPanel.Dock="Bottom" Height="24"
-                    Background="Transparent">
+            <Border DockPanel.Dock="Bottom" Height="22"
+                    Background="#20000000">
                 <Grid ColumnDefinitions="*,Auto">
                     <TextBlock Grid.Column="0"
                                Text="{Binding StatusText}"
                                VerticalAlignment="Center"
                                Margin="12,0"
                                FontSize="11"
-                               Foreground="#90FFFFFF"/>
+                               Foreground="#80FFFFFF"/>
                     <TextBlock Grid.Column="1"
                                Text="{Binding ActiveTab.Url}"
                                FontSize="11"
-                               Foreground="#70FFFFFF"
+                               Foreground="#60FFFFFF"
                                MaxWidth="300"
                                TextTrimming="CharacterEllipsis"
                                VerticalAlignment="Center"
@@ -194,10 +233,10 @@
             <!-- ===== CONTENT: CEF browser or New Tab page ===== -->
             <Panel>
                 <!-- Browser with rounded corners -->
-                <Border CornerRadius="12"
+                <Border CornerRadius="10"
                         Background="Transparent"
                         ClipToBounds="True"
-                        Margin="8,0,8,8"
+                        Margin="6,0,6,6"
                         IsVisible="{Binding IsBrowserVisible}">
                     <controls:CefBrowserControl x:Name="CefBrowserHost"/>
                 </Border>
