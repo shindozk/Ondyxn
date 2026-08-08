@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Product>Ondyxn Browser</Product>
+    <Company>Ondyxn</Company>
+    <Authors>Ondyxn Contributors</Authors>
+    <Copyright>Copyright © Ondyxn 2024-2026</Copyright>
+    <Description>A modern, fast, and secure web browser built with Avalonia and CefGlue</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/shindozk/Ondyxn</RepositoryUrl>
+  </PropertyGroup>
+</Project>

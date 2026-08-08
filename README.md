@@ -1,60 +1,34 @@
-<div align="center">
+# Ondyxn Browser
 
-# 🌐 Ondyxn
+A modern, fast, and secure web browser built with Avalonia UI and CefGlue.
 
-**A modern, open-source web browser built with Avalonia UI and CefGlue**
+[![Build](https://github.com/shindozk/Ondyxn/actions/workflows/build.yml/badge.svg)](https://github.com/shindozk/Ondyxn/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![.NET 10](https://img.shields.io/badge/.NET-10.0-purple)](https://dotnet.microsoft.com/download/dotnet/10.0)
 
-[![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
-[![Avalonia](https://img.shields.io/badge/Avalonia-11-purple?style=for-the-badge)](https://avaloniaui.net/)
-[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
-[![CEF](https://img.shields.io/badge/CEF-Chromium-4285F4?style=for-the-badge)](https://bitbucket.org/chromiumembedded/cef/)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+## Features
 
-<img src="docs/preview.png" alt="Ondyxn Preview" width="800"/>
+- **Modern UI** - Clean, glass-morphism design with smooth animations
+- **Tab Management** - Drag-and-drop reordering, tab groups, pin tabs
+- **Ad Blocking** - Native ad blocker with EasyList filter support
+- **Security** - HTTPS enforcement, tracker blocking, site permissions
+- **Session Restore** - Automatically restore tabs on startup
+- **Find in Page** - Quick search with Ctrl+F
+- **Zoom Controls** - Zoom in/out with Ctrl+/- or Ctrl+0 to reset
+- **Developer Tools** - Built-in Chromium DevTools (F12)
 
-*A lightweight, fast, and customizable browser with a modern interface*
+## Screenshots
 
-</div>
+*Screenshots coming soon*
 
----
+## Getting Started
 
-## ✨ Features
+### Prerequisites
 
-- 🎨 **Modern UI** — Glassmorphism design with rounded corners and blur effects
-- 🔖 **Tab System** — Easily manage multiple tabs
-- 📑 **New Tab Page** — Customizable homepage with quick links
-- 🔍 **Smart Omnibox** — Address bar with integrated search
-- 📥 **Download Manager** — Track and manage your downloads
-- 🔖 **Bookmarks** — Save and organize your favorite sites
-- 📜 **History** — Browse through your visit history
-- 🛡️ **Ad Blocking** — Built-in ad protection
-- ⌨️ **Keyboard Shortcuts** — Boost productivity with Chrome-like shortcuts
-- 🌙 **Private Mode** — Browse without saving data
-- 📊 **DevTools** — Built-in developer tools (F12)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
+- Windows 10/11, macOS, or Linux
 
-## 🚀 Keyboard Shortcuts
-
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+T` | New tab |
-| `Ctrl+W` | Close tab |
-| `Ctrl+Tab` | Next tab |
-| `Ctrl+Shift+Tab` | Previous tab |
-| `Ctrl+L` | Focus address bar |
-| `Ctrl+R` | Reload page |
-| `Ctrl+J` | Open downloads |
-| `Ctrl+D` | Add bookmark |
-| `F5` | Reload page |
-| `F12` | Open DevTools |
-| `Alt+←` | Go back |
-| `Alt+→` | Go forward |
-
-## 📋 Prerequisites
-
-- [.NET 10.0 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
-- Windows 10/11 (macOS and Linux support in development)
-
-## 🛠️ Building from Source
+### Building from Source
 
 ```bash
 # Clone the repository
@@ -64,72 +38,84 @@ cd Ondyxn
 # Restore dependencies
 dotnet restore
 
-# Build the project
+# Build the solution
 dotnet build
 
-# Run the browser
+# Run the application
 dotnet run --project src/Ondyxn
 ```
 
-## 📁 Project Structure
+### Using Build Scripts
+
+```bash
+# Windows (PowerShell)
+.\scripts\build.ps1
+
+# Linux/macOS
+./scripts/build.sh
+```
+
+## Project Structure
 
 ```
 Ondyxn/
-├── src/
-│   ├── Ondyxn/                    # Main entry point
-│   ├── Ondyxn.Core/               # Shared models, interfaces, and enums
-│   ├── Ondyxn.Data/               # Data layer (SQLite + Entity Framework)
-│   ├── Ondyxn.Engine/             # CEF integration (CefGlue) and browser services
-│   ├── Ondyxn.UI/                 # User interface (Avalonia XAML)
-│   └── Ondyxn.Tests/              # Unit tests
-├── docs/                          # Documentation and images
-├── Ondyxn.sln                     # Solution file
-└── README.md
+├── .github/                 # GitHub workflows and templates
+│   ├── workflows/           # CI/CD workflows
+│   └── ISSUE_TEMPLATE/      # Issue templates
+├── assets/                  # Static assets
+│   └── images/              # Image assets
+├── docs/                    # Documentation
+├── scripts/                 # Build and utility scripts
+├── src/                     # Source code
+│   ├── Ondyxn/              # Main application entry point
+│   ├── Ondyxn.Core/         # Core models and interfaces
+│   ├── Ondyxn.Data/         # Data access layer (EF Core + SQLite)
+│   ├── Ondyxn.Engine/       # CEF browser engine integration
+│   └── Ondyxn.UI/           # Avalonia UI layer
+├── tests/                   # Unit and integration tests
+├── tools/                   # Development tools
+├── .editorconfig            # Code style configuration
+├── Directory.Build.props    # Shared project properties
+├── Directory.Packages.props # Central package management
+├── global.json              # .NET SDK version
+├── nuget.config             # NuGet package sources
+└── README.md                # This file
 ```
 
-### 🏗️ Architecture
+## Keyboard Shortcuts
 
-| Layer | Responsibility |
-|-------|---------------|
-| **Ondyxn.Core** | Data models, interfaces, and enums |
-| **Ondyxn.Data** | SQLite persistence via Entity Framework |
-| **Ondyxn.Engine** | CefGlue integration, network handlers, navigation |
-| **Ondyxn.UI** | Avalonia interface, ViewModels, custom controls |
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+T | New tab |
+| Ctrl+W | Close tab |
+| Ctrl+Tab | Next tab |
+| Ctrl+Shift+Tab | Previous tab |
+| Ctrl+L | Focus address bar |
+| Ctrl+R | Reload page |
+| Ctrl+F | Find in page |
+| Ctrl+D | Bookmark page |
+| Ctrl++ | Zoom in |
+| Ctrl+- | Zoom out |
+| Ctrl+0 | Reset zoom |
+| F5 | Reload |
+| F11 | Fullscreen |
+| F12 | Developer Tools |
+| Escape | Close overlays |
 
-## 🧪 Testing
+## Architecture
 
-```bash
-# Run all tests
-dotnet test
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed architecture documentation.
 
-# Run specific tests
-dotnet test src/Ondyxn.Tests
-```
+## Contributing
 
-## 🤝 Contributing
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-Contributions are very welcome! Follow these steps:
+## License
 
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📄 License
+## Acknowledgments
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Useful Links
-
-- [Avalonia UI](https://avaloniaui.net/) — Cross-platform UI framework
-- [CefGlue](https://github.com/nickvdyck/cefglue) — CEF bindings for .NET
-- [CefGlue.Avalonia](https://github.com/nickvdyck/cefglue) — CefGlue integration with Avalonia
-
----
-
-<div align="center">
-
-Made with ❤️ by [shindozk](https://github.com/shindozk)
-
-</div>
+- [Avalonia UI](https://avaloniaui.net/) - Cross-platform UI framework
+- [CefGlue](https://github.com/nickvdyck/cef) - .NET bindings for CEF
+- [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/NetCommunityToolkit) - MVVM toolkit
