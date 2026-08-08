@@ -2,9 +2,9 @@
 
 # 🌐 Ondyxn
 
-**Um navegador moderno e open-source construído com Avalonia UI e CefGlue**
+**A modern, open-source web browser built with Avalonia UI and CefGlue**
 
-[![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/pt-br/dotnet/csharp/)
+[![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white)](https://docs.microsoft.com/en-us/dotnet/csharp/)
 [![Avalonia](https://img.shields.io/badge/Avalonia-11-purple?style=for-the-badge)](https://avaloniaui.net/)
 [![.NET](https://img.shields.io/badge/.NET-9.0-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![CEF](https://img.shields.io/badge/CEF-Chromium-4285F4?style=for-the-badge)](https://bitbucket.org/chromiumembedded/cef/)
@@ -12,124 +12,124 @@
 
 <img src="docs/preview.png" alt="Ondyxn Preview" width="800"/>
 
-*Um navegador leve, rápido e personalizável com interface moderna*
+*A lightweight, fast, and customizable browser with a modern interface*
 
 </div>
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- 🎨 **Interface Moderna** — Design glassmorphism com cantos arredondados e efeitos de blur
-- 🔖 **Sistema de Abas** — Gerencie múltiplas abas com facilidade
-- 📑 **Página Nova Aba** — Página inicial personalizada com links rápidos
-- 🔍 **Omnibox Inteligente** — Barra de endereços com pesquisa integrada
-- 📥 **Gerenciador de Downloads** — Acompanhe seus downloads
-- 🔖 **Favoritos** — Salve e organize seus sites preferidos
-- 📜 **Histórico** — Navegue pelo seu histórico de visitas
-- 🛡️ **Bloqueio de Anúncios** — Proteção integrada contra anúncios
-- ⌨️ **Atalhos de Teclado** — Produtividade com atalhos como no Chrome
-- 🌙 **Modo Privado** — Navegue sem salvar dados
-- 📊 **DevTools** — Ferramentas de desenvolvedor integradas (F12)
+- 🎨 **Modern UI** — Glassmorphism design with rounded corners and blur effects
+- 🔖 **Tab System** — Easily manage multiple tabs
+- 📑 **New Tab Page** — Customizable homepage with quick links
+- 🔍 **Smart Omnibox** — Address bar with integrated search
+- 📥 **Download Manager** — Track and manage your downloads
+- 🔖 **Bookmarks** — Save and organize your favorite sites
+- 📜 **History** — Browse through your visit history
+- 🛡️ **Ad Blocking** — Built-in ad protection
+- ⌨️ **Keyboard Shortcuts** — Boost productivity with Chrome-like shortcuts
+- 🌙 **Private Mode** — Browse without saving data
+- 📊 **DevTools** — Built-in developer tools (F12)
 
-## 🚀 Atalhos de Teclado
+## 🚀 Keyboard Shortcuts
 
-| Atalho | Ação |
-|--------|------|
-| `Ctrl+T` | Nova aba |
-| `Ctrl+W` | Fechar aba |
-| `Ctrl+Tab` | Próxima aba |
-| `Ctrl+Shift+Tab` | Aba anterior |
-| `Ctrl+L` | Focar na barra de endereços |
-| `Ctrl+R` | Recarregar página |
-| `Ctrl+J` | Abrir downloads |
-| `Ctrl+D` | Adicionar favorito |
-| `F5` | Recarregar página |
-| `F12` | Abrir DevTools |
-| `Alt+←` | Voltar |
-| `Alt+→` | Avançar |
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+T` | New tab |
+| `Ctrl+W` | Close tab |
+| `Ctrl+Tab` | Next tab |
+| `Ctrl+Shift+Tab` | Previous tab |
+| `Ctrl+L` | Focus address bar |
+| `Ctrl+R` | Reload page |
+| `Ctrl+J` | Open downloads |
+| `Ctrl+D` | Add bookmark |
+| `F5` | Reload page |
+| `F12` | Open DevTools |
+| `Alt+←` | Go back |
+| `Alt+→` | Go forward |
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) ou superior
-- Windows 10/11 (suporte a macOS e Linux em desenvolvimento)
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) or later
+- Windows 10/11 (macOS and Linux support in development)
 
-## 🛠️ Como Compilar
+## 🛠️ Building from Source
 
 ```bash
-# Clone o repositório
+# Clone the repository
 git clone https://github.com/shindozk/Ondyxn.git
 cd Ondyxn
 
-# Restaure as dependências
+# Restore dependencies
 dotnet restore
 
-# Compile o projeto
+# Build the project
 dotnet build
 
-# Execute o navegador
+# Run the browser
 dotnet run --project src/Ondyxn
 ```
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 Ondyxn/
 ├── src/
-│   ├── Ondyxn/                    # Projeto principal (entry point)
-│   ├── Ondyxn.Core/               # Modelos, interfaces e enums compartilhados
-│   ├── Ondyxn.Data/               # Camada de dados (SQLite + Entity Framework)
-│   ├── Ondyxn.Engine/             # Integração CEF (CefGlue) e serviços do navegador
-│   ├── Ondyxn.UI/                 # Interface do usuário (Avalonia XAML)
-│   └── Ondyxn.Tests/              # Testes unitários
-├── docs/                          # Documentação e imagens
+│   ├── Ondyxn/                    # Main entry point
+│   ├── Ondyxn.Core/               # Shared models, interfaces, and enums
+│   ├── Ondyxn.Data/               # Data layer (SQLite + Entity Framework)
+│   ├── Ondyxn.Engine/             # CEF integration (CefGlue) and browser services
+│   ├── Ondyxn.UI/                 # User interface (Avalonia XAML)
+│   └── Ondyxn.Tests/              # Unit tests
+├── docs/                          # Documentation and images
 ├── Ondyxn.sln                     # Solution file
 └── README.md
 ```
 
-### 🏗️ Arquitetura
+### 🏗️ Architecture
 
-| Camada | Responsabilidade |
-|--------|-----------------|
-| **Ondyxn.Core** | Modelos de dados, interfaces e enums |
-| **Ondyxn.Data** | Persistência com SQLite via Entity Framework |
-| **Ondyxn.Engine** | Integração CefGlue, handlers de rede, navegação |
-| **Ondyxn.UI** | Interface Avalonia, ViewModels, controles customizados |
+| Layer | Responsibility |
+|-------|---------------|
+| **Ondyxn.Core** | Data models, interfaces, and enums |
+| **Ondyxn.Data** | SQLite persistence via Entity Framework |
+| **Ondyxn.Engine** | CefGlue integration, network handlers, navigation |
+| **Ondyxn.UI** | Avalonia interface, ViewModels, custom controls |
 
-## 🧪 Testes
+## 🧪 Testing
 
 ```bash
-# Execute todos os testes
+# Run all tests
 dotnet test
 
-# Execute testes específicos
+# Run specific tests
 dotnet test src/Ondyxn.Tests
 ```
 
-## 🤝 Contribuindo
+## 🤝 Contributing
 
-Contribuições são muito bem-vindas! Siga estes passos:
+Contributions are very welcome! Follow these steps:
 
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-## 🔗 Links Úteis
+## 🔗 Useful Links
 
-- [Avalonia UI](https://avaloniaui.net/) — Framework UI cross-platform
-- [CefGlue](https://github.com/nickvdyck/cefglue) — Bindings CEF para .NET
-- [CefGlue.Avalonia](https://github.com/nickvdyck/cefglue) — Integração CefGlue com Avalonia
+- [Avalonia UI](https://avaloniaui.net/) — Cross-platform UI framework
+- [CefGlue](https://github.com/nickvdyck/cefglue) — CEF bindings for .NET
+- [CefGlue.Avalonia](https://github.com/nickvdyck/cefglue) — CefGlue integration with Avalonia
 
 ---
 
 <div align="center">
 
-Feito com ❤️ por [shindozk](https://github.com/shindozk)
+Made with ❤️ by [shindozk](https://github.com/shindozk)
 
 </div>
