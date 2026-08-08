@@ -37,6 +37,8 @@ public partial class BrowserViewModel : ObservableObject
     [ObservableProperty] private bool _isBrowserVisible = false;
     [ObservableProperty] private bool _isSettingsVisible = false;
     [ObservableProperty] private bool _isLoading = false;
+    [ObservableProperty] private int _blockedAdsCount = 0;
+    [ObservableProperty] private int _blockedTrackersCount = 0;
     [ObservableProperty] private string _greeting = string.Empty;
     [ObservableProperty] private string _dateText = string.Empty;
 
