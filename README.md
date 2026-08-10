@@ -1,86 +1,105 @@
 # Ondyxn Browser
 
-A modern, fast, and secure web browser built with Avalonia UI and CefGlue.
+A modern, fast, and secure web browser built with **React Native Windows**, featuring **Material You** design and **Liquid Glass** effects.
 
 [![Build](https://github.com/shindozk/Ondyxn/actions/workflows/build.yml/badge.svg)](https://github.com/shindozk/Ondyxn/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![.NET 10](https://img.shields.io/badge/.NET-10.0-purple)](https://dotnet.microsoft.com/download/dotnet/10.0)
+[![React Native Windows](https://img.shields.io/badge/React%20Native%20Windows-0.78-blue)](https://microsoft.github.io/react-native-windows/)
+
+## Preview
+
+![Ondyxn Browser Preview](https://i.imgur.com/M9nYzRI.png)
 
 ## Features
 
-- **Modern UI** - Clean, glass-morphism design with smooth animations
-- **Tab Management** - Drag-and-drop reordering, tab groups, pin tabs
-- **Ad Blocking** - Native ad blocker with EasyList filter support
+- **Material You Design** - Complete M3 color system, typography, and spacing tokens
+- **Liquid Glass Effects** - Glassmorphism UI with blur, transparency, and gradient overlays
+- **Native Windows Rendering** - Uses Fabric renderer (Windows App SDK Composition)
+- **Tab Management** - Multi-tab browsing with drag-and-drop support
+- **Smart Omnibox** - Search suggestions, URL completion, and security indicators
+- **Sidebar** - Bookmarks, history, and downloads management
+- **Built-in Ad Blocker** - Native ad blocking with EasyList filter support
 - **Security** - HTTPS enforcement, tracker blocking, site permissions
 - **Session Restore** - Automatically restore tabs on startup
 - **Find in Page** - Quick search with Ctrl+F
 - **Zoom Controls** - Zoom in/out with Ctrl+/- or Ctrl+0 to reset
 - **Developer Tools** - Built-in Chromium DevTools (F12)
 
-## Preview
-
-![Ondyxn Browser Preview](https://i.imgur.com/M9nYzRI.png)
-
 ## Getting Started
 
 ### Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or later
-- Windows 10/11, macOS, or Linux
+- [Node.js](https://nodejs.org/) >= 18
+- [Visual Studio BuildTools](https://visualstudio.microsoft.com/) with C++ workload
+- Windows 10/11 SDK
 
-### Building from Source
+### Installation
 
 ```bash
 # Clone the repository
 git clone https://github.com/shindozk/Ondyxn.git
 cd Ondyxn
 
-# Restore dependencies
-dotnet restore
+# Navigate to UI project
+cd src/Ondyxn.UI
 
-# Build the solution
-dotnet build
+# Install dependencies
+npm install
+
+# Initialize Windows native project
+npx react-native init-windows
 
 # Run the application
-dotnet run --project src/Ondyxn
+npm run windows
 ```
 
-### Using Build Scripts
+### Development
 
 ```bash
-# Windows (PowerShell)
-.\scripts\build.ps1
+# Start Metro bundler
+npm start
 
-# Linux/macOS
-./scripts/build.sh
+# Build for Windows (from another terminal)
+npm run windows
 ```
 
 ## Project Structure
 
 ```
 Ondyxn/
-├── .github/                 # GitHub workflows and templates
-│   ├── workflows/           # CI/CD workflows
-│   └── ISSUE_TEMPLATE/      # Issue templates
-├── assets/                  # Static assets
-│   └── images/              # Image assets
-├── docs/                    # Documentation
-├── scripts/                 # Build and utility scripts
-├── src/                     # Source code
-│   ├── Ondyxn/              # Main application entry point
-│   ├── Ondyxn.Core/         # Core models and interfaces
-│   ├── Ondyxn.Data/         # Data access layer (EF Core + SQLite)
-│   ├── Ondyxn.Engine/       # CEF browser engine integration
-│   └── Ondyxn.UI/           # Avalonia UI layer
-├── tests/                   # Unit and integration tests
-├── tools/                   # Development tools
-├── .editorconfig            # Code style configuration
-├── Directory.Build.props    # Shared project properties
-├── Directory.Packages.props # Central package management
-├── global.json              # .NET SDK version
-├── nuget.config             # NuGet package sources
-└── README.md                # This file
+├── src/
+│   ├── Ondyxn.UI/              # React Native Windows UI
+│   │   ├── src/
+│   │   │   ├── components/     # Reusable UI components
+│   │   │   │   ├── Glass.tsx   # Liquid Glass effect component
+│   │   │   │   ├── TabBar.tsx  # Browser tab strip
+│   │   │   │   ├── Omnibox.tsx # Address bar with navigation
+│   │   │   │   └── Sidebar.tsx # Side panel
+│   │   │   ├── screens/        # Page-level components
+│   │   │   │   ├── NewTabPage.tsx
+│   │   │   │   └── SettingsPage.tsx
+│   │   │   └── theme/          # Design system
+│   │   │       ├── colors.ts   # Material You color tokens
+│   │   │       └── typography.ts
+│   │   └── windows/            # Native Windows code (C++)
+│   ├── Ondyxn.Core/            # Core models and interfaces
+│   ├── Ondyxn.Data/            # Data access (SQLite)
+│   └── Ondyxn.Engine/          # Browser engine integration
+├── docs/                       # Documentation
+├── scripts/                    # Build scripts
+├── tests/                      # Unit tests
+└── README.md
 ```
+
+## Tech Stack
+
+- **React Native Windows** 0.78 - Native Windows rendering via Fabric
+- **React** 19 - UI framework
+- **TypeScript** - Type safety
+- **react-native-linear-gradient** - Gradient effects
+- **react-native-reanimated** - Smooth animations
+- **react-native-gesture-handler** - Touch handling
+- **Material Design 3** - Color system, typography, and components
 
 ## Keyboard Shortcuts
 
@@ -102,10 +121,6 @@ Ondyxn/
 | F12 | Developer Tools |
 | Escape | Close overlays |
 
-## Architecture
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed architecture documentation.
-
 ## Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
@@ -116,6 +131,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- [Avalonia UI](https://avaloniaui.net/) - Cross-platform UI framework
-- [CefGlue](https://github.com/nickvdyck/cef) - .NET bindings for CEF
-- [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/NetCommunityToolkit) - MVVM toolkit
+- [React Native Windows](https://microsoft.github.io/react-native-windows/) - Microsoft's React Native for Windows
+- [Material Design 3](https://m3.material.io/) - Google's design system
+- [React Native](https://reactnative.dev/) - Cross-platform mobile framework
