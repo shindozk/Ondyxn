@@ -1,70 +1,84 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:Ondyxn.UI.ViewModels"
-             
              x:Class="Ondyxn.UI.Views.SettingsPage"
              x:DataType="vm:SettingsViewModel"
              Background="Transparent">
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                   VerticalScrollBarVisibility="Auto">
-        <StackPanel Spacing="20" MaxWidth="600" Margin="0,24,0,24" HorizontalAlignment="Center">
+        <StackPanel Spacing="16" MaxWidth="560" Margin="0,24,0,24" HorizontalAlignment="Center">
 
             <TextBlock Text="Settings"
-                       FontSize="28" FontWeight="Bold" Foreground="White"/>
+                       FontSize="24" FontWeight="Light" Foreground="{DynamicResource TextPrimaryBrush}"/>
 
             <!-- Appearance -->
-            <Border Padding="20"
-                     Background="#20FFFFFF" BorderBrush="#15FFFFFF" BorderThickness="1" CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <TextBlock Text="Appearance" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+            <Border Padding="18"
+                     Background="{DynamicResource BgElevatedBrush}"
+                     BorderBrush="{DynamicResource BorderBrush}"
+                     BorderThickness="1"
+                     CornerRadius="12">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Appearance" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     <Grid ColumnDefinitions="Auto,Auto">
-                        <TextBlock Grid.Column="0" Text="Theme" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" MinWidth="140"
-                                  SelectedIndex="0"
-                                  >
+                        <TextBlock Grid.Column="0" Text="Theme" FontSize="13"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" MinWidth="140" SelectedIndex="0">
                             <ComboBoxItem Content="System"/>
                             <ComboBoxItem Content="Light"/>
                             <ComboBoxItem Content="Dark"/>
                         </ComboBox>
-                        <TextBlock Grid.Column="0" Text="Accent Color" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center" Margin="0,8,0,0"/>
+                        <TextBlock Grid.Column="0" Text="Accent Color" FontSize="13"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"
+                                   Margin="0,8,0,0"/>
                         <TextBox Grid.Column="1" MinWidth="140"
                                  Text="{Binding AccentColor}"
-                                  Margin="0,8,0,0"/>
+                                 Margin="0,8,0,0"/>
                     </Grid>
                 </StackPanel>
             </Border>
 
             <!-- Search Engine -->
-            <Border Padding="20"
-                     Background="#20FFFFFF" BorderBrush="#15FFFFFF" BorderThickness="1" CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <TextBlock Text="Search Engine" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+            <Border Padding="18"
+                     Background="{DynamicResource BgElevatedBrush}"
+                     BorderBrush="{DynamicResource BorderBrush}"
+                     BorderThickness="1"
+                     CornerRadius="12">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Search Engine" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     <Grid ColumnDefinitions="Auto,*">
-                        <TextBlock Grid.Column="0" Text="Default Search" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" MinWidth="200"
-                                  SelectedIndex="0"
-                                  >
+                        <TextBlock Grid.Column="0" Text="Default Search" FontSize="13"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" MinWidth="200" SelectedIndex="0"
+                                  SelectionChanged="OnSearchEngineChanged">
                             <ComboBoxItem Content="Google"/>
                             <ComboBoxItem Content="DuckDuckGo"/>
                             <ComboBoxItem Content="Bing"/>
                             <ComboBoxItem Content="Brave"/>
+                            <ComboBoxItem Content="YouTube"/>
+                            <ComboBoxItem Content="Wikipedia"/>
                         </ComboBox>
                     </Grid>
                     <Grid ColumnDefinitions="Auto,*" Margin="0,8,0,0">
-                        <TextBlock Grid.Column="0" Text="Home Page" FontSize="13" Foreground="#C0FFFFFF" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="0" Text="Home Page" FontSize="13"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center"/>
                         <TextBox Grid.Column="1" MinWidth="200"
-                                 Text="{Binding HomePage}"
-                                 />
+                                 Text="{Binding HomePage}"/>
                     </Grid>
                 </StackPanel>
             </Border>
 
             <!-- Privacy and Security -->
-            <Border Padding="20"
-                     Background="#20FFFFFF" BorderBrush="#15FFFFFF" BorderThickness="1" CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <TextBlock Text="Privacy and Security" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+            <Border Padding="18"
+                     Background="{DynamicResource BgElevatedBrush}"
+                     BorderBrush="{DynamicResource BorderBrush}"
+                     BorderThickness="1"
+                     CornerRadius="12">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Privacy &amp; Security" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     <CheckBox Content="Enable Ad Blocking"
                               IsChecked="{Binding EnableAdBlocking}"/>
                     <CheckBox Content="Enable Tracker Blocking"
@@ -73,10 +87,14 @@
             </Border>
 
             <!-- Performance -->
-            <Border Padding="20"
-                     Background="#20FFFFFF" BorderBrush="#15FFFFFF" BorderThickness="1" CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <TextBlock Text="Performance" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+            <Border Padding="18"
+                     Background="{DynamicResource BgElevatedBrush}"
+                     BorderBrush="{DynamicResource BorderBrush}"
+                     BorderThickness="1"
+                     CornerRadius="12">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Performance" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     <CheckBox Content="Hardware Acceleration"
                               IsChecked="{Binding EnableHardwareAcceleration}"/>
                     <CheckBox Content="Smooth Scrolling"
@@ -85,10 +103,14 @@
             </Border>
 
             <!-- Startup -->
-            <Border Padding="20"
-                     Background="#20FFFFFF" BorderBrush="#15FFFFFF" BorderThickness="1" CornerRadius="12">
-                <StackPanel Spacing="14">
-                    <TextBlock Text="Startup" FontSize="15" FontWeight="SemiBold" Foreground="#00D4FF"/>
+            <Border Padding="18"
+                     Background="{DynamicResource BgElevatedBrush}"
+                     BorderBrush="{DynamicResource BorderBrush}"
+                     BorderThickness="1"
+                     CornerRadius="12">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Startup" FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource AccentBrush}"/>
                     <CheckBox Content="Restore previous session on startup"
                               IsChecked="{Binding RestoreSessionOnStartup}"/>
                     <CheckBox Content="Show sidebar"
@@ -100,8 +122,8 @@
             <Button Classes="accent-btn"
                     Content="Save Settings"
                     HorizontalAlignment="Center"
-                    Padding="40,10"
-                    FontSize="14"
+                    Padding="32,10"
+                    FontSize="13"
                     Command="{Binding SaveCommand}"/>
         </StackPanel>
     </ScrollViewer>

@@ -1,58 +1,73 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- ========== Omnibox Container (liquid glass) ========== -->
+    <!-- ================================================================ -->
+    <!-- PREMIUM OMNIBOX / ADDRESS BAR — Arc Browser Inspired            -->
+    <!-- ================================================================ -->
+
     <Style Selector="Border.omnibox">
-        <Setter Property="Background" Value="#12FFFFFF"/>
-        <Setter Property="CornerRadius" Value="18"/>
-        <Setter Property="BorderBrush" Value="#0AFFFFFF"/>
+        <Setter Property="Background" Value="{DynamicResource BgSurfaceBrush}"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="14,0"/>
+        <Setter Property="Height" Value="38"/>
+        <Setter Property="MaxWidth" Value="560"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Transitions">
             <Transitions>
-                <BrushTransition Property="Background" Duration="0:0:0.2"/>
-                <BrushTransition Property="BorderBrush" Duration="0:0:0.2"/>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15"/>
             </Transitions>
         </Setter>
     </Style>
 
     <Style Selector="Border.omnibox:pointerover">
-        <Setter Property="Background" Value="#18FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#12FFFFFF"/>
+        <Setter Property="Background" Value="{DynamicResource BgElevatedBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverBrush}"/>
     </Style>
 
-    <!-- Focus state -->
     <Style Selector="Border.omnibox:focus-within">
-        <Setter Property="Background" Value="#1AFFFFFF"/>
-        <Setter Property="BorderBrush" Value="#20FFFFFF"/>
+        <Setter Property="Background" Value="{DynamicResource BgElevatedBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
     </Style>
 
-    <!-- ========== URL Display Text ========== -->
+    <!-- URL Display Text -->
     <Style Selector="TextBlock#UrlDisplay">
-        <Setter Property="Foreground" Value="#D0FFFFFF"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="FontFamily" Value="Inter, Segoe UI, system-ui"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Opacity" Value="0.85"/>
-        <Setter Property="Transitions">
-            <Transitions>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
-            </Transitions>
-        </Setter>
     </Style>
 
     <Style Selector="TextBlock#UrlDisplay:pointerover">
         <Setter Property="Opacity" Value="1"/>
     </Style>
 
-    <!-- ========== TextBox (edit mode) ========== -->
+    <!-- Lock Icon -->
+    <Style Selector="Border.omnibox PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+        <Setter Property="Width" Value="14"/>
+        <Setter Property="Height" Value="14"/>
+    </Style>
+
+    <!-- TextBox (edit mode) -->
     <Style Selector="Border.omnibox TextBox#UrlTextBox">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="#E0FFFFFF"/>
-        <Setter Property="CaretBrush" Value="#00D4FF"/>
-        <Setter Property="SelectionBrush" Value="#3000D4FF"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource AccentBrush}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource AccentSoftBrush}"/>
         <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontFamily" Value="Inter, Segoe UI, system-ui"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <!-- Remove default TextBox template styling -->
     <Style Selector="Border.omnibox TextBox#UrlTextBox /template/ Border#PART_BorderElement">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -60,9 +75,27 @@
         <Setter Property="CornerRadius" Value="0"/>
     </Style>
 
-    <!-- Watermark text -->
     <Style Selector="Border.omnibox TextBox#UrlTextBox /template/ TextBlock#PART_WatermarkTextBlock">
-        <Setter Property="Foreground" Value="#40FFFFFF"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Opacity" Value="0.5"/>
         <Setter Property="FontStyle" Value="Normal"/>
     </Style>
+
+    <!-- Bookmark Star Button in Omnibox -->
+    <Style Selector="Border.omnibox Button.icon-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="CornerRadius" Value="7"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Border.omnibox Button.icon-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+
 </Styles>

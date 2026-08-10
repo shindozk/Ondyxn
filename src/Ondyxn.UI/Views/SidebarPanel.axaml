@@ -6,7 +6,9 @@
              Background="Transparent"
              Width="280">
 
-    <Border Background="#0A000000" BorderBrush="#08FFFFFF" BorderThickness="1,0,0,0">
+    <Border Background="{DynamicResource BgBaseBrush}"
+            BorderBrush="{DynamicResource BorderSoftBrush}"
+            BorderThickness="1,0,0,0">
         <DockPanel>
             <!-- Close button -->
             <Button DockPanel.Dock="Top"
@@ -19,27 +21,27 @@
 
             <!-- Tab selector -->
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="4" Margin="12,8">
-                <Button Classes="tool-btn" Width="80" Height="30"
-                        Tag="0"
-                        Click="OnSectionClick">
+                <Button Classes="ghost-btn" Width="80" Height="28"
+                        Tag="0" Click="OnSectionClick"
+                        FontSize="11">
                     <StackPanel Orientation="Horizontal" Spacing="4">
-                        <PathIcon Data="{StaticResource IconBookmark}" Width="12" Height="12"/>
+                        <PathIcon Data="{StaticResource IconBookmark}" Width="10" Height="10"/>
                         <TextBlock Text="Bookmarks" FontSize="11" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Classes="tool-btn" Width="80" Height="30"
-                        Tag="1"
-                        Click="OnSectionClick">
+                <Button Classes="ghost-btn" Width="60" Height="28"
+                        Tag="1" Click="OnSectionClick"
+                        FontSize="11">
                     <StackPanel Orientation="Horizontal" Spacing="4">
-                        <PathIcon Data="{StaticResource IconHistory}" Width="12" Height="12"/>
+                        <PathIcon Data="{StaticResource IconHistory}" Width="10" Height="10"/>
                         <TextBlock Text="History" FontSize="11" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Classes="tool-btn" Width="80" Height="30"
-                        Tag="2"
-                        Click="OnSectionClick">
+                <Button Classes="ghost-btn" Width="80" Height="28"
+                        Tag="2" Click="OnSectionClick"
+                        FontSize="11">
                     <StackPanel Orientation="Horizontal" Spacing="4">
-                        <PathIcon Data="{StaticResource IconDownloads}" Width="12" Height="12"/>
+                        <PathIcon Data="{StaticResource IconDownloads}" Width="10" Height="10"/>
                         <TextBlock Text="Downloads" FontSize="11" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -50,27 +52,38 @@
                 <!-- Bookmarks panel -->
                 <Border Padding="12" IsVisible="False" x:Name="BookmarksPanel">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" Text="Bookmarks" FontSize="14" FontWeight="SemiBold" Foreground="#00D4FF" Margin="0,0,0,8"/>
+                        <TextBlock DockPanel.Dock="Top" Text="Bookmarks" FontSize="13"
+                                   FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                                   Margin="0,0,0,8"/>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <ItemsControl x:Name="BookmarksList">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:BookmarkModel">
                                             <Border Padding="10,8" Margin="0,2" Cursor="Hand"
-                                                    Background="#15FFFFFF" BorderBrush="#10FFFFFF" BorderThickness="1"
-                                                    CornerRadius="12">
+                                                    Background="{DynamicResource BgElevatedBrush}"
+                                                    BorderBrush="{DynamicResource BorderBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="8">
                                                 <StackPanel Orientation="Horizontal" Spacing="8">
-                                                    <PathIcon Data="{StaticResource IconBookmark}" Width="12" Height="12" Foreground="#FBBF24"/>
+                                                    <PathIcon Data="{StaticResource IconBookmark}" Width="12" Height="12"
+                                                              Foreground="{DynamicResource WarningBrush}"/>
                                                     <StackPanel VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Title}" FontSize="12" Foreground="#E0FFFFFF" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
-                                                        <TextBlock Text="{Binding Url}" FontSize="10" Foreground="#60FFFFFF" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                                                        <TextBlock Text="{Binding Title}" FontSize="12"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                                                   TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                                                        <TextBlock Text="{Binding Url}" FontSize="10"
+                                                                   Foreground="{DynamicResource TextTertiaryBrush}"
+                                                                   TextTrimming="CharacterEllipsis" MaxWidth="200"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                                <TextBlock Text="No bookmarks yet" FontSize="12" Foreground="#60FFFFFF" HorizontalAlignment="Center" Margin="0,20" IsVisible="False"/>
+                                <TextBlock Text="No bookmarks yet" FontSize="12"
+                                           Foreground="{DynamicResource TextDisabledBrush}"
+                                           HorizontalAlignment="Center" Margin="0,20" IsVisible="False"/>
                             </StackPanel>
                         </ScrollViewer>
                     </DockPanel>
@@ -79,27 +92,38 @@
                 <!-- History panel -->
                 <Border Padding="12" IsVisible="False" x:Name="HistoryPanel">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" Text="History" FontSize="14" FontWeight="SemiBold" Foreground="#00D4FF" Margin="0,0,0,8"/>
+                        <TextBlock DockPanel.Dock="Top" Text="History" FontSize="13"
+                                   FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                                   Margin="0,0,0,8"/>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <ItemsControl x:Name="HistoryList">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:HistoryEntry">
                                             <Border Padding="10,8" Margin="0,2" Cursor="Hand"
-                                                    Background="#15FFFFFF" BorderBrush="#10FFFFFF" BorderThickness="1"
-                                                    CornerRadius="12">
+                                                    Background="{DynamicResource BgElevatedBrush}"
+                                                    BorderBrush="{DynamicResource BorderBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="8">
                                                 <StackPanel Orientation="Horizontal" Spacing="8">
-                                                    <PathIcon Data="{StaticResource IconHistory}" Width="12" Height="12" Foreground="#00D4FF"/>
+                                                    <PathIcon Data="{StaticResource IconHistory}" Width="12" Height="12"
+                                                              Foreground="{DynamicResource AccentBrush}"/>
                                                     <StackPanel VerticalAlignment="Center">
-                                                        <TextBlock Text="{Binding Title}" FontSize="12" Foreground="#E0FFFFFF" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
-                                                        <TextBlock Text="{Binding Url}" FontSize="10" Foreground="#60FFFFFF" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                                                        <TextBlock Text="{Binding Title}" FontSize="12"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                                                   TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                                                        <TextBlock Text="{Binding Url}" FontSize="10"
+                                                                   Foreground="{DynamicResource TextTertiaryBrush}"
+                                                                   TextTrimming="CharacterEllipsis" MaxWidth="200"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                                <TextBlock Text="No history yet" FontSize="12" Foreground="#60FFFFFF" HorizontalAlignment="Center" Margin="0,20" IsVisible="False"/>
+                                <TextBlock Text="No history yet" FontSize="12"
+                                           Foreground="{DynamicResource TextDisabledBrush}"
+                                           HorizontalAlignment="Center" Margin="0,20" IsVisible="False"/>
                             </StackPanel>
                         </ScrollViewer>
                     </DockPanel>
@@ -108,27 +132,36 @@
                 <!-- Downloads panel -->
                 <Border Padding="12" IsVisible="False" x:Name="DownloadsPanel">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" Text="Downloads" FontSize="14" FontWeight="SemiBold" Foreground="#00D4FF" Margin="0,0,0,8"/>
+                        <TextBlock DockPanel.Dock="Top" Text="Downloads" FontSize="13"
+                                   FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"
+                                   Margin="0,0,0,8"/>
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <ItemsControl x:Name="DownloadsList">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="models:DownloadModel">
                                             <Border Padding="10,8" Margin="0,2" Cursor="Hand"
-                                                    Background="#15FFFFFF" BorderBrush="#10FFFFFF" BorderThickness="1"
-                                                    CornerRadius="12">
+                                                    Background="{DynamicResource BgElevatedBrush}"
+                                                    BorderBrush="{DynamicResource BorderBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="8">
                                                 <StackPanel Spacing="4">
                                                     <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <PathIcon Data="{StaticResource IconDownloads}" Width="12" Height="12" Foreground="#4ADE80"/>
-                                                        <TextBlock Text="{Binding FileName}" FontSize="12" Foreground="#E0FFFFFF" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+                                                        <PathIcon Data="{StaticResource IconDownloads}" Width="12" Height="12"
+                                                                  Foreground="{DynamicResource SuccessBrush}"/>
+                                                        <TextBlock Text="{Binding FileName}" FontSize="12"
+                                                                   Foreground="{DynamicResource TextPrimaryBrush}"
+                                                                   TextTrimming="CharacterEllipsis" MaxWidth="200"/>
                                                     </StackPanel>
-                                                    <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Height="4"/>
+                                                    <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Height="3"/>
                                                 </StackPanel>
                                             </Border>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                                <TextBlock Text="No downloads" FontSize="12" Foreground="#60FFFFFF" HorizontalAlignment="Center" Margin="0,20" IsVisible="False"/>
+                                <TextBlock Text="No downloads" FontSize="12"
+                                           Foreground="{DynamicResource TextDisabledBrush}"
+                                           HorizontalAlignment="Center" Margin="0,20" IsVisible="False"/>
                             </StackPanel>
                         </ScrollViewer>
                     </DockPanel>

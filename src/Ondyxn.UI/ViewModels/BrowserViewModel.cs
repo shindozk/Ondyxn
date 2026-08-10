@@ -21,6 +21,7 @@ public partial class BrowserViewModel : ObservableObject
     private readonly IDownloadService _downloadService;
     private readonly ISettingsService _settingsService;
     private readonly Engine.Services.FaviconService _faviconService;
+    private readonly Engine.Services.FaviconLetterService _faviconLetterService;
     private readonly CefBootstrap _cefBootstrap;
     private readonly ILogger<BrowserViewModel> _logger;
 
@@ -41,12 +42,17 @@ public partial class BrowserViewModel : ObservableObject
     [ObservableProperty] private int _blockedTrackersCount = 0;
     [ObservableProperty] private string _greeting = string.Empty;
     [ObservableProperty] private string _dateText = string.Empty;
+    [ObservableProperty] private NewTabViewModel? _newTabViewModel;
+    [ObservableProperty] private DownloadViewModel? _downloadViewModel;
+    [ObservableProperty] private CommandPaletteViewModel? _commandPaletteViewModel;
+    [ObservableProperty] private ThemeMode _currentTheme = ThemeMode.Dark;
 
     public ObservableCollection<TabViewModel> Tabs { get; } = [];
 
     private readonly Engine.Services.OmniboxResolver _omniboxResolver;
 
     private readonly ISessionService _sessionService;
+    private readonly Engine.Handlers.AdBlockHandler _adBlockHandler;
 
     public BrowserViewModel(
         IBookmarkService bookmarkService,
@@ -56,7 +62,9 @@ public partial class BrowserViewModel : ObservableObject
         ISessionService sessionService,
         Engine.Services.OmniboxResolver omniboxResolver,
         Engine.Services.FaviconService faviconService,
+        Engine.Services.FaviconLetterService faviconLetterService,
         CefBootstrap cefBootstrap,
+        Engine.Handlers.AdBlockHandler adBlockHandler,
         ILogger<BrowserViewModel> logger)
     {
         _bookmarkService = bookmarkService;
@@ -66,10 +74,24 @@ public partial class BrowserViewModel : ObservableObject
         _sessionService = sessionService;
         _omniboxResolver = omniboxResolver;
         _faviconService = faviconService;
+        _faviconLetterService = faviconLetterService;
         _cefBootstrap = cefBootstrap;
+        _adBlockHandler = adBlockHandler;
         _logger = logger;
         _settings = settingsService.Current;
         UpdateGreeting();
+        
+        // Initialize NewTabViewModel
+        NewTabViewModel = new NewTabViewModel(settingsService, bookmarkService, historyService, faviconLetterService);
+
+        // Initialize DownloadViewModel
+        DownloadViewModel = new DownloadViewModel(_logger as ILogger<DownloadViewModel>);
+
+        // Initialize CommandPaletteViewModel
+        CommandPaletteViewModel = new CommandPaletteViewModel(this);
+
+        // Apply theme from settings
+        CurrentTheme = _settings.Theme;
 
         // Restore session on startup if enabled
         _ = RestoreSessionAsync();
@@ -142,7 +164,8 @@ public partial class BrowserViewModel : ObservableObject
         var browserInstance = new BrowserInstance(
             targetUrl,
             IsPrivateMode,
-            _logger as ILogger<BrowserInstance>);
+            _logger as ILogger<BrowserInstance>,
+            _adBlockHandler);
         _logger.LogInformation("BrowserInstance created for: {Url}", targetUrl);
 
         var tabVm = new TabViewModel(browserInstance);
@@ -294,7 +317,20 @@ public partial class BrowserViewModel : ObservableObject
     [RelayCommand]
     private void ToggleCommandPalette()
     {
-        IsCommandPaletteOpen = !IsCommandPaletteOpen;
+        CommandPaletteViewModel?.Toggle();
+    }
+
+    [RelayCommand]
+    private void ApplyTheme(string? themeName)
+    {
+        CurrentTheme = themeName switch
+        {
+            "Light" => ThemeMode.Light,
+            "Dark" => ThemeMode.Dark,
+            _ => ThemeMode.System
+        };
+        _ = _settingsService.UpdateAsync(s => s.Theme = CurrentTheme);
+        _logger.LogInformation("Theme changed to: {Theme}", CurrentTheme);
     }
 
     [RelayCommand]
@@ -302,6 +338,30 @@ public partial class BrowserViewModel : ObservableObject
     {
         SelectedSidebarIndex = SelectedSidebarIndex == 3 ? 0 : 3;
         IsSidebarVisible = true;
+    }
+
+    [RelayCommand]
+    private void ToggleBookmarks()
+    {
+        SelectedSidebarIndex = 1;
+        IsSidebarVisible = true;
+        _logger.LogInformation("Toggled bookmarks panel");
+    }
+
+    [RelayCommand]
+    private void ToggleHistory()
+    {
+        SelectedSidebarIndex = 2;
+        IsSidebarVisible = true;
+        _logger.LogInformation("Toggled history panel");
+    }
+
+    [RelayCommand]
+    private void ToggleCollections()
+    {
+        SelectedSidebarIndex = 4;
+        IsSidebarVisible = true;
+        _logger.LogInformation("Toggled collections panel");
     }
 
     [RelayCommand]

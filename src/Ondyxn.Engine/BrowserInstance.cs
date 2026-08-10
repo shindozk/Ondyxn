@@ -29,6 +29,7 @@ public class BrowserInstance : IBrowserInstance
     public string Title => _title;
     public bool IsLoading => _isLoading;
     public bool IsIncognito { get; }
+    public AdBlockHandler? AdBlockHandler => _adBlockHandler;
 
     /// <summary>
     /// The underlying AvaloniaCefBrowser control. Add this to the visual tree to display the browser.

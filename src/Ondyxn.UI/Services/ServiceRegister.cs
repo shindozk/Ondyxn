@@ -38,12 +38,19 @@ public static class ServiceRegister
         // Engine
         services.AddSingleton<CefBootstrap>();
         services.AddSingleton<Engine.Services.FaviconService>();
+        services.AddSingleton<Engine.Services.FaviconLetterService>();
         services.AddSingleton<Engine.Services.OmniboxResolver>(sp =>
         {
             var settings = sp.GetRequiredService<ISettingsService>();
             return new Engine.Services.OmniboxResolver(settings);
         });
         services.AddSingleton<Engine.Handlers.AdBlockHandler>();
+        services.AddSingleton<ThemeManager>(sp =>
+        {
+            var settings = sp.GetRequiredService<ISettingsService>();
+            var logger = sp.GetService<ILoggerFactory>()?.CreateLogger<ThemeManager>();
+            return new ThemeManager(settings, logger);
+        });
 
         // Core services (real implementations with EF Core)
         services.AddSingleton<IBookmarkService, BookmarkRepository>();

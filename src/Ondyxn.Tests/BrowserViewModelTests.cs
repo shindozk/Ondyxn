@@ -3,6 +3,7 @@ using Moq;
 using Ondyxn.Core.Interfaces;
 using Ondyxn.Core.Models;
 using Ondyxn.Engine;
+using Ondyxn.Engine.Handlers;
 using Ondyxn.Engine.Services;
 using Ondyxn.UI.ViewModels;
 
@@ -14,16 +15,20 @@ public class BrowserViewModelTests
     private readonly Mock<IHistoryService> _historyService = new();
     private readonly Mock<IDownloadService> _downloadService = new();
     private readonly Mock<ISettingsService> _settingsService = new();
+    private readonly Mock<ISessionService> _sessionService = new();
     private readonly Mock<ILogger<BrowserViewModel>> _logger = new();
     private readonly OmniboxResolver _omniboxResolver;
     private readonly FaviconService _faviconService = new();
+    private readonly FaviconLetterService _faviconLetterService = new();
     private readonly CefBootstrap _cefBootstrap;
+    private readonly AdBlockHandler _adBlockHandler;
 
     public BrowserViewModelTests()
     {
         _settingsService.Setup(s => s.Current).Returns(new BrowserSettings());
         _omniboxResolver = new OmniboxResolver(_settingsService.Object);
         _cefBootstrap = new CefBootstrap(Mock.Of<ILogger<CefBootstrap>>());
+        _adBlockHandler = new AdBlockHandler(NullLogger<AdBlockHandler>.Instance);
     }
 
     private BrowserViewModel CreateViewModel()
@@ -33,9 +38,12 @@ public class BrowserViewModelTests
             _historyService.Object,
             _downloadService.Object,
             _settingsService.Object,
+            _sessionService.Object,
             _omniboxResolver,
             _faviconService,
+            _faviconLetterService,
             _cefBootstrap,
+            _adBlockHandler,
             _logger.Object);
     }
 

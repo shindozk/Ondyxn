@@ -1,16 +1,14 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
              x:Class="Ondyxn.UI.App"
              RequestedThemeVariant="Dark">
 
     <Application.Styles>
-        <!-- Material Design Theme (replaces FluentTheme) -->
-        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Cyan" SecondaryColor="Purple" />
-
-        <!-- Custom styles that work alongside Material -->
+        <FluentTheme />
         <StyleInclude Source="avares://Ondyxn.UI/Styles/TabStrip.axaml"/>
         <StyleInclude Source="avares://Ondyxn.UI/Styles/Omnibox.axaml"/>
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/Sidebar.axaml"/>
+        <StyleInclude Source="avares://Ondyxn.UI/Styles/Commands.axaml"/>
     </Application.Styles>
 
     <Application.Resources>
@@ -19,26 +17,75 @@
                 <ResourceInclude Source="avares://Ondyxn.UI/Styles/Icons.axaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Accent -->
-            <SolidColorBrush x:Key="OndyxnAccent" Color="#00D4FF"/>
-            <SolidColorBrush x:Key="OndyxnAccentLight" Color="#40E0FF"/>
-            <SolidColorBrush x:Key="OndyxnAccentDark" Color="#009CC0"/>
+            <!-- ================================================================ -->
+            <!-- ONDYXN PREMIUM COLOR SYSTEM — Arc Browser Inspired Dark Theme    -->
+            <!-- ================================================================ -->
 
-            <!-- Text (for non-transparent areas) -->
-            <SolidColorBrush x:Key="OndyxnTextPrimary" Color="#E8ECF4"/>
-            <SolidColorBrush x:Key="OndyxnTextSecondary" Color="#8892A4"/>
-            <SolidColorBrush x:Key="OndyxnTextTertiary" Color="#5A6478"/>
+            <!-- Core Backgrounds (Deep, rich blacks) -->
+            <Color x:Key="OndyxnBgDeep">#0A0A0C</Color>
+            <Color x:Key="OndyxnBgBase">#111113</Color>
+            <Color x:Key="OndyxnBgElevated">#18181B</Color>
+            <Color x:Key="OndyxnBgSurface">#1E1E22</Color>
+            <Color x:Key="OndyxnBgOverlay">#252529</Color>
+            <Color x:Key="OndyxnBgHover">#2A2A2F</Color>
+
+            <!-- Text Colors -->
+            <Color x:Key="OndyxnTextPrimary">#F4F4F5</Color>
+            <Color x:Key="OndyxnTextSecondary">#A1A1AA</Color>
+            <Color x:Key="OndyxnTextTertiary">#71717A</Color>
+            <Color x:Key="OndyxnTextDisabled">#3F3F46</Color>
+
+            <!-- Accent (Vibrant Cyan-Teal) -->
+            <Color x:Key="OndyxnAccent">#06B6D4</Color>
+            <Color x:Key="OndyxnAccentSoft">#06B6D420</Color>
+            <Color x:Key="OndyxnAccentHover">#22D3EE</Color>
+            <Color x:Key="OndyxnAccentDark">#0891B2</Color>
+
+            <!-- Borders (Subtle) -->
+            <Color x:Key="OndyxnBorder">#27272A</Color>
+            <Color x:Key="OndyxnBorderSoft">#1A1A1E</Color>
+            <Color x:Key="OndyxnBorderHover">#3F3F46</Color>
+
+            <!-- Status Colors -->
+            <Color x:Key="OndyxnSuccess">#22C55E</Color>
+            <Color x:Key="OndyxnWarning">#F59E0B</Color>
+            <Color x:Key="OndyxnError">#EF4444</Color>
+            <Color x:Key="OndyxnInfo">#3B82F6</Color>
+
+            <!-- ================================================================ -->
+            <!-- BRUSHES                                                          -->
+            <!-- ================================================================ -->
+
+            <!-- Backgrounds -->
+            <SolidColorBrush x:Key="BgDeepBrush" Color="{DynamicResource OndyxnBgDeep}"/>
+            <SolidColorBrush x:Key="BgBaseBrush" Color="{DynamicResource OndyxnBgBase}"/>
+            <SolidColorBrush x:Key="BgElevatedBrush" Color="{DynamicResource OndyxnBgElevated}"/>
+            <SolidColorBrush x:Key="BgSurfaceBrush" Color="{DynamicResource OndyxnBgSurface}"/>
+            <SolidColorBrush x:Key="BgOverlayBrush" Color="{DynamicResource OndyxnBgOverlay}"/>
+            <SolidColorBrush x:Key="BgHoverBrush" Color="{DynamicResource OndyxnBgHover}"/>
+
+            <!-- Text -->
+            <SolidColorBrush x:Key="TextPrimaryBrush" Color="{DynamicResource OndyxnTextPrimary}"/>
+            <SolidColorBrush x:Key="TextSecondaryBrush" Color="{DynamicResource OndyxnTextSecondary}"/>
+            <SolidColorBrush x:Key="TextTertiaryBrush" Color="{DynamicResource OndyxnTextTertiary}"/>
+            <SolidColorBrush x:Key="TextDisabledBrush" Color="{DynamicResource OndyxnTextDisabled}"/>
+
+            <!-- Accent -->
+            <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource OndyxnAccent}"/>
+            <SolidColorBrush x:Key="AccentSoftBrush" Color="{DynamicResource OndyxnAccentSoft}"/>
+            <SolidColorBrush x:Key="AccentHoverBrush" Color="{DynamicResource OndyxnAccentHover}"/>
+            <SolidColorBrush x:Key="AccentDarkBrush" Color="{DynamicResource OndyxnAccentDark}"/>
+
+            <!-- Borders -->
+            <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource OndyxnBorder}"/>
+            <SolidColorBrush x:Key="BorderSoftBrush" Color="{DynamicResource OndyxnBorderSoft}"/>
+            <SolidColorBrush x:Key="BorderHoverBrush" Color="{DynamicResource OndyxnBorderHover}"/>
 
             <!-- Status -->
-            <SolidColorBrush x:Key="OndyxnSuccess" Color="#4ADE80"/>
-            <SolidColorBrush x:Key="OndyxnWarning" Color="#FBBF24"/>
-            <SolidColorBrush x:Key="OndyxnError" Color="#F87171"/>
-
-            <!-- Gradients -->
-            <LinearGradientBrush x:Key="OndyxnAccentGradient" StartPoint="0%,0%" EndPoint="100%,100%">
-                <GradientStop Color="#00D4FF" Offset="0"/>
-                <GradientStop Color="#7C3AED" Offset="1"/>
-            </LinearGradientBrush>
+            <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource OndyxnSuccess}"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource OndyxnWarning}"/>
+            <SolidColorBrush x:Key="ErrorBrush" Color="{DynamicResource OndyxnError}"/>
+            <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource OndyxnInfo}"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,6 +1,5 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        
         x:Class="Ondyxn.UI.Views.ClearBrowsingDataDialog"
         Title="Clear Browsing Data"
         Width="420" Height="480"
@@ -9,13 +8,18 @@
         ExtendClientAreaToDecorationsHint="True"
         SystemDecorations="None">
 
-    <Border Background="#E0101018" BorderBrush="#20FFFFFF" BorderThickness="1" CornerRadius="12">
+    <Border Background="{DynamicResource BgBaseBrush}"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="12">
         <DockPanel>
             <!-- Title bar -->
-            <Border DockPanel.Dock="Top" Height="40" Background="#08FFFFFF">
+            <Border DockPanel.Dock="Top" Height="40"
+                    Background="{DynamicResource BgElevatedBrush}">
                 <Grid ColumnDefinitions="*,Auto">
                     <TextBlock Grid.Column="0" Text="Clear Browsing Data"
-                               FontSize="14" FontWeight="SemiBold" Foreground="White"
+                               FontSize="13" FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextPrimaryBrush}"
                                VerticalAlignment="Center" Margin="16,0"/>
                     <Button Grid.Column="1" Classes="window-btn" Width="32" Height="28"
                             Click="OnCloseClick" Margin="0,0,8,0">
@@ -29,9 +33,9 @@
                 <StackPanel Spacing="16">
                     <!-- Time range -->
                     <StackPanel Spacing="6">
-                        <TextBlock Text="Time range" FontSize="12" FontWeight="SemiBold" Foreground="#C0FFFFFF"/>
-                        <ComboBox x:Name="TimeRangeComboBox" SelectedIndex="0"
-                                  >
+                        <TextBlock Text="Time range" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <ComboBox x:Name="TimeRangeComboBox" SelectedIndex="0">
                             <ComboBoxItem Content="Last hour"/>
                             <ComboBoxItem Content="Last 24 hours"/>
                             <ComboBoxItem Content="Last 7 days"/>
@@ -42,8 +46,8 @@
 
                     <!-- Data types -->
                     <StackPanel Spacing="10">
-                        <TextBlock Text="Data to clear" FontSize="12" FontWeight="SemiBold" Foreground="#C0FFFFFF"/>
-
+                        <TextBlock Text="Data to clear" FontSize="12" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
                         <CheckBox x:Name="BrowsingHistoryCheck" IsChecked="True" Content="Browsing history"/>
                         <CheckBox x:Name="CookiesCheck" IsChecked="True" Content="Cookies and other site data"/>
                         <CheckBox x:Name="CacheCheck" IsChecked="True" Content="Cached images and files"/>
@@ -53,10 +57,13 @@
                     </StackPanel>
 
                     <!-- Info -->
-                    <Border Background="#10FFFFFF" CornerRadius="8" Padding="12,8"
-                                 BorderBrush="#08FFFFFF" BorderThickness="1">
+                    <Border Background="{DynamicResource BgSurfaceBrush}"
+                            CornerRadius="8" Padding="12,8"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1">
                         <TextBlock Text="Clearing this data will sign you out of most sites."
-                                   FontSize="11" Foreground="#80FFFFFF" TextWrapping="Wrap"/>
+                                   FontSize="11" Foreground="{DynamicResource TextTertiaryBrush}"
+                                   TextWrapping="Wrap"/>
                     </Border>
                 </StackPanel>
             </ScrollViewer>
@@ -64,8 +71,8 @@
             <!-- Buttons -->
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right"
                         Spacing="8" Margin="16,12">
-                <Button Content="Cancel" Classes="tool-btn" Padding="16,8"
-                        Click="OnCloseClick" Foreground="#C0FFFFFF"/>
+                <Button Content="Cancel" Classes="ghost-btn" Padding="16,8"
+                        Click="OnCloseClick"/>
                 <Button Content="Clear data" Classes="accent-btn" Padding="16,8"
                         Click="OnClearClick"/>
             </StackPanel>

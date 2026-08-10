@@ -59,6 +59,11 @@ public partial class SettingsViewModel : ObservableObject
         });
     }
 
+    public void SetSearchEngineTemplate(string template)
+    {
+        SearchEngine = template;
+    }
+
     [RelayCommand]
     private void Cancel()
     {

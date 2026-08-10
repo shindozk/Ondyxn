@@ -77,6 +77,10 @@ public static class KeyboardShortcuts
                     vm.IsSidebarVisible = true;
                     vm.SelectedSidebarIndex = 0;
                     return true;
+
+                case Key.K: // Command palette
+                    vm.ToggleCommandPaletteCommand.Execute(null);
+                    return true;
             }
         }
 

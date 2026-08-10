@@ -24,37 +24,45 @@ public partial class CefBrowserControl : UserControl
         InitializeComponent();
     }
 
-    /// <summary>
-    /// Attaches a BrowserInstance to this control, adding its CEF browser to the visual tree.
-    /// </summary>
-    public void AttachBrowser(BrowserInstance browserInstance)
-    {
-        _logger.LogInformation("AttachBrowser called for {Id}", browserInstance.Id);
-
-        if (_browserInstance is not null)
-            DetachBrowser();
-
-        _browserInstance = browserInstance;
-
-        Dispatcher.UIThread.Post(() =>
+        /// <summary>
+        /// Attaches a BrowserInstance to this control, adding its CEF browser to the visual tree.
+        /// </summary>
+        public void AttachBrowser(BrowserInstance browserInstance)
         {
-            _logger.LogInformation("Adding browser control to visual tree");
-            BrowserHost.Children.Clear();
-            var control = browserInstance.BrowserControl;
-            _logger.LogInformation("Browser control type: {Type}", control?.GetType().Name ?? "null");
-            if (control is not null)
-            {
-                BrowserHost.Children.Add(control);
-                _logger.LogInformation("Browser control added. Children count: {Count}", BrowserHost.Children.Count);
+            _logger.LogInformation("AttachBrowser called for {Id}", browserInstance.Id);
 
-                // Give initial focus to the browser after it's attached
-                Dispatcher.UIThread.Post(() =>
+            if (_browserInstance is not null)
+                DetachBrowser();
+
+            _browserInstance = browserInstance;
+
+            Dispatcher.UIThread.Post(() =>
+            {
+                _logger.LogInformation("Adding browser control to visual tree");
+                BrowserHost.Children.Clear();
+                var control = browserInstance.BrowserControl;
+                _logger.LogInformation("Browser control type: {Type}", control?.GetType().Name ?? "null");
+                if (control is not null)
                 {
-                    control.Focus();
-                }, DispatcherPriority.Input);
-            }
-        });
-    }
+                    // Check if the URL should be blocked before adding to visual tree
+                    if (browserInstance.AdBlockHandler is not null && 
+                        browserInstance.AdBlockHandler.ShouldBlock(browserInstance.Url))
+                    {
+                        _logger.LogInformation("Blocking URL {Url} due to ad blocker", browserInstance.Url);
+                        return;
+                    }
+
+                    BrowserHost.Children.Add(control);
+                    _logger.LogInformation("Browser control added. Children count: {Count}", BrowserHost.Children.Count);
+
+                    // Give initial focus to the browser after it's attached
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        control.Focus();
+                    }, DispatcherPriority.Input);
+                }
+            });
+        }
 
     /// <summary>
     /// Detaches the current browser from this control.

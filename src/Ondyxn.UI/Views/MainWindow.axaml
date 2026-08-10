@@ -3,301 +3,316 @@
         xmlns:vm="using:Ondyxn.UI.ViewModels"
         xmlns:views="using:Ondyxn.UI.Views"
         xmlns:controls="using:Ondyxn.UI.Controls"
-        xmlns:styles="clr-namespace:Material.Styles;assembly=Material.Styles"
         x:Class="Ondyxn.UI.Views.MainWindow"
         x:DataType="vm:BrowserViewModel"
         Title="Ondyxn"
         Width="1280" Height="800"
         MinWidth="900" MinHeight="600"
         WindowStartupLocation="CenterScreen"
-        Background="Transparent"
+        Background="#0A0A0C"
         ExtendClientAreaToDecorationsHint="True"
         SystemDecorations="None">
 
-    <Panel>
-        <!-- Full background image -->
-        <Image Source="avares://Ondyxn.UI/Assets/background.jpg"
-               Stretch="UniformToFill"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               IsHitTestVisible="False"/>
+    <DockPanel LastChildFill="True">
 
-        <!-- Subtle dark overlay -->
-        <Rectangle Fill="#28000000"
-                   IsHitTestVisible="False"/>
+        <!-- ============================================================ -->
+        <!-- TAB STRIP (Top)                                              -->
+        <!-- ============================================================ -->
+        <Border DockPanel.Dock="Top" Height="42"
+                Background="#0A0A0C"
+                BorderBrush="{DynamicResource BorderSoftBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="Auto,*,Auto">
 
-        <DockPanel LastChildFill="True">
-
-            <!-- ===== TAB STRIP ===== -->
-            <Border DockPanel.Dock="Top" Height="40">
-                <Grid ColumnDefinitions="Auto,*,Auto">
-                    <!-- LEFT: Logo -->
-                    <Border Grid.Column="0" Width="32" Height="32"
-                            CornerRadius="16"
-                            Background="#15FFFFFF"
-                            BorderBrush="#10FFFFFF"
-                            BorderThickness="1"
-                            Margin="12,0,0,0"
-                            VerticalAlignment="Center"
-                            Cursor="Hand">
-                        <Panel>
-                            <Ellipse Width="30" Height="30"
-                                     Fill="#08FFFFFF"
-                                     HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"/>
-                            <PathIcon Data="{StaticResource IconLogo}"
-                                      Width="14" Height="14"
-                                      Foreground="#00D4FF"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"/>
-                        </Panel>
-                    </Border>
-
-                    <!-- CENTER: Tabs -->
-                    <ScrollViewer Grid.Column="1"
-                                  HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Disabled"
-                                  VerticalAlignment="Center">
-                        <StackPanel Orientation="Horizontal" Spacing="4" Margin="12,0">
-                            <ItemsControl ItemsSource="{Binding Tabs}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" Spacing="4"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:TabViewModel">
-                                        <Border Classes="tab-pill"
-                                                Classes.active="{Binding IsActive}"
-                                                Tag="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).Tabs}"
-                                                PointerPressed="OnTabPointerPressed"
-                                                PointerMoved="OnTabPointerMoved"
-                                                PointerReleased="OnTabPointerReleased">
-                                            <Grid ColumnDefinitions="18,Auto,Auto,14" Margin="8,0">
-                                                <!-- Favicon -->
-                                                <Panel Grid.Column="0" VerticalAlignment="Center"
-                                                       Width="14" Height="14">
-                                                    <Ellipse Width="7" Height="7"
-                                                             Fill="#00D4FF"
-                                                             Opacity="0.8"
-                                                             IsVisible="{Binding IsLoading}"/>
-                                                    <PathIcon Data="{StaticResource IconLogo}"
-                                                              Width="11" Height="11"
-                                                              Foreground="#A0FFFFFF"
-                                                              IsVisible="{Binding IsLoading, Converter={x:Static BoolConverters.Not}}"/>
-                                                </Panel>
-                                                <TextBlock Grid.Column="1"
-                                                           Text="{Binding Title}"
-                                                           FontSize="12"
-                                                           FontWeight="Normal"
-                                                           Foreground="#D0FFFFFF"
-                                                           VerticalAlignment="Center"
-                                                           TextTrimming="CharacterEllipsis"
-                                                           MaxWidth="120"/>
-                                                <!-- Close -->
-                                                <Button Grid.Column="2"
-                                                        Classes="tab-close"
-                                                        Margin="4,0,0,0"
-                                                        IsVisible="{Binding IsPinned, Converter={x:Static BoolConverters.Not}}"
-                                                        Command="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).CloseTabCommand}"
-                                                        CommandParameter="{Binding}">
-                                                    <PathIcon Data="{StaticResource IconClose}" Width="7" Height="7"/>
-                                                </Button>
-                                            </Grid>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                            <!-- New tab + -->
-                            <Button Classes="tab-new-btn"
-                                    Command="{Binding CreateNewTabCommand}"
-                                    ToolTip.Tip="New tab (Ctrl+T)">
-                                <PathIcon Data="{StaticResource IconPlus}" Width="11" Height="11"/>
-                            </Button>
-                        </StackPanel>
-                    </ScrollViewer>
-
-                    <!-- RIGHT: window controls -->
-                    <StackPanel Grid.Column="2" Orientation="Horizontal"
-                                VerticalAlignment="Center" Margin="0,0,4,0">
-                        <Button Classes="window-btn" Click="Minimize_Click">
-                            <PathIcon Data="{StaticResource IconMinimize}" Width="8" Height="8"/>
-                        </Button>
-                        <Button Classes="window-btn" Click="Maximize_Click">
-                            <PathIcon Data="{StaticResource IconMaximize}" Width="8" Height="8"/>
-                        </Button>
-                        <Button Classes="window-btn window-btn-close" Click="Close_Click">
-                            <PathIcon Data="{StaticResource IconClose}" Width="8" Height="8"/>
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <!-- ===== SIDEBAR ===== -->
-            <Border DockPanel.Dock="Left" Width="48"
-                    IsVisible="{Binding IsSidebarVisible}">
-                <DockPanel>
-                    <!-- Top: main nav -->
-                    <StackPanel DockPanel.Dock="Top" Spacing="2" Margin="4,8,4,0">
-                        <ToggleButton Classes="side-btn" IsChecked="True"
-                                      Command="{Binding GoHomeCommand}"
-                                      ToolTip.Tip="Home">
-                            <PathIcon Data="{StaticResource IconHome}" Width="15" Height="15"/>
-                        </ToggleButton>
-                        <ToggleButton Classes="side-btn"
-                                      Command="{Binding ToggleSidebarCommand}"
-                                      ToolTip.Tip="Bookmarks">
-                            <PathIcon Data="{StaticResource IconBookmarks}" Width="15" Height="15"/>
-                        </ToggleButton>
-                        <ToggleButton Classes="side-btn"
-                                      ToolTip.Tip="History">
-                            <PathIcon Data="{StaticResource IconHistory}" Width="15" Height="15"/>
-                        </ToggleButton>
-                        <ToggleButton Classes="side-btn"
-                                      ToolTip.Tip="Downloads">
-                            <PathIcon Data="{StaticResource IconDownloads}" Width="15" Height="15"/>
-                        </ToggleButton>
-                        <ToggleButton Classes="side-btn"
-                                      ToolTip.Tip="Collections">
-                            <PathIcon Data="{StaticResource IconCollections}" Width="15" Height="15"/>
-                        </ToggleButton>
-                    </StackPanel>
-                    <!-- Spacer -->
-                    <Panel/>
-                    <!-- Bottom: actions -->
-                    <StackPanel DockPanel.Dock="Bottom" Spacing="2" Margin="4,0,4,8">
-                        <ToggleButton Classes="side-btn"
-                                      Command="{Binding TogglePrivateModeCommand}"
-                                      ToolTip.Tip="Private mode">
-                            <PathIcon Data="{StaticResource IconIncognito}" Width="15" Height="15"/>
-                        </ToggleButton>
-                        <ToggleButton Classes="side-btn"
-                                      Command="{Binding ToggleSettingsCommand}"
-                                      ToolTip.Tip="Settings">
-                            <PathIcon Data="{StaticResource IconSettings}" Width="15" Height="15"/>
-                        </ToggleButton>
-                    </StackPanel>
-                </DockPanel>
-            </Border>
-
-            <!-- ===== LOADING PROGRESS BAR ===== -->
-            <Border DockPanel.Dock="Top" Height="3" IsVisible="{Binding IsLoading}">
-                <ProgressBar x:Name="LoadingProgressBar"
-                             Value="100" Minimum="0" Maximum="100"
-                             Foreground="#00D4FF" Background="Transparent"
-                             IsIndeterminate="True"/>
-            </Border>
-
-            <!-- ===== ADDRESS BAR ROW ===== -->
-            <Border DockPanel.Dock="Top" Height="48">
-                <Grid ColumnDefinitions="Auto,*,Auto"
-                      VerticalAlignment="Center"
-                      Margin="8,0">
-                    <!-- LEFT: Navigation -->
-                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
-                        <Button Classes="tool-btn" Command="{Binding GoBackCommand}" ToolTip.Tip="Back">
-                            <PathIcon Data="{StaticResource IconBack}" Width="14" Height="14"/>
-                        </Button>
-                        <Button Classes="tool-btn" Command="{Binding GoForwardCommand}" ToolTip.Tip="Forward">
-                            <PathIcon Data="{StaticResource IconForward}" Width="14" Height="14"/>
-                        </Button>
-                        <Button Classes="tool-btn" Command="{Binding ReloadCommand}" ToolTip.Tip="Reload">
-                            <PathIcon Data="{StaticResource IconReload}" Width="14" Height="14"/>
-                        </Button>
-                        <Button Classes="tool-btn" Command="{Binding GoHomeCommand}" ToolTip.Tip="Home">
-                            <PathIcon Data="{StaticResource IconHome}" Width="14" Height="14"/>
-                        </Button>
-                    </StackPanel>
-
-                    <!-- CENTER: Omnibox -->
-                    <controls:Omnibox Grid.Column="1"
-                                      x:Name="OmniboxControl"
-                                      VerticalAlignment="Center"
-                                      Margin="12,0"/>
-
-                    <!-- RIGHT: Actions -->
-                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
-                        <Button Classes="tool-btn" Command="{Binding ToggleBookmarkCommand}" ToolTip.Tip="Bookmark">
-                            <PathIcon Data="{StaticResource IconStar}" Width="14" Height="14"/>
-                        </Button>
-                        <Button Classes="tool-btn" Command="{Binding ToggleDownloadsCommand}" ToolTip.Tip="Downloads">
-                            <PathIcon Data="{StaticResource IconDownloads}" Width="14" Height="14"/>
-                        </Button>
-                        <Button Classes="tool-btn" ToolTip.Tip="Ad blocker">
-                            <PathIcon Data="{StaticResource IconShieldCheck}" Width="14" Height="14"/>
-                        </Button>
-                        <Button Classes="tool-btn" Command="{Binding ToggleSidebarCommand}" ToolTip.Tip="Sidebar">
-                            <PathIcon Data="{StaticResource IconSidebar}" Width="14" Height="14"/>
-                        </Button>
-                        <!-- Divider -->
-                        <Border Width="1" Height="16" Background="#15FFFFFF" Margin="4,0"/>
-                        <!-- Profile avatar -->
-                        <Border Width="26" Height="26" CornerRadius="13"
-                                Background="#18FFFFFF"
-                                BorderBrush="#10FFFFFF"
-                                BorderThickness="1"
-                                Margin="2,0,4,0"
-                                ToolTip.Tip="Profile"
-                                Cursor="Hand">
-                            <PathIcon Data="{StaticResource IconLogo}"
-                                      Width="12" Height="12"
-                                      Foreground="#90FFFFFF"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"/>
-                        </Border>
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <!-- ===== STATUS BAR ===== -->
-            <Border DockPanel.Dock="Bottom" Height="24">
-                <Grid ColumnDefinitions="*,Auto">
-                    <TextBlock Grid.Column="0"
-                               Text="{Binding StatusText}"
-                               VerticalAlignment="Center" Margin="12,0"
-                               FontSize="11" Foreground="#50FFFFFF"/>
-                    <TextBlock Grid.Column="1"
-                               Text="{Binding ActiveTab.Url}"
-                               FontSize="11" Foreground="#40FFFFFF"
-                               MaxWidth="300" TextTrimming="CharacterEllipsis"
-                               VerticalAlignment="Center" Margin="0,0,12,0"/>
-                </Grid>
-            </Border>
-
-            <!-- ===== CONTENT: CEF browser or New Tab page ===== -->
-            <Panel>
-                <!-- Browser with rounded corners -->
-                <Border CornerRadius="12"
-                        ClipToBounds="True"
-                        Margin="4,2,4,4"
-                        IsVisible="{Binding IsNewTabPage, Converter={x:Static BoolConverters.Not}}">
-                    <controls:CefBrowserControl x:Name="CefBrowserHost"/>
+                <!-- LEFT: Logo -->
+                <Border Grid.Column="0" Width="32" Height="32"
+                        CornerRadius="10"
+                        Background="{DynamicResource BgSurfaceBrush}"
+                        Margin="10,0,6,0"
+                        VerticalAlignment="Center"
+                        Cursor="Hand">
+                    <PathIcon Data="{StaticResource IconLogo}"
+                              Width="16" Height="16"
+                              Foreground="{DynamicResource AccentBrush}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"/>
                 </Border>
-                <views:NewTabPage DataContext="{Binding}"
-                                  IsVisible="{Binding IsNewTabPage}"/>
-                <!-- Find in page overlay -->
-                <controls:FindInPage x:Name="FindInPageControl"
-                                    Margin="4,2,4,4"/>
-                <!-- Settings page overlay -->
-                <Border IsVisible="{Binding IsSettingsVisible}"
-                        Background="#E0000000"
-                        CornerRadius="12"
-                        ClipToBounds="True"
-                        Margin="4,2,4,4">
-                    <Panel>
-                        <views:SettingsPage x:Name="SettingsPageControl"/>
-                        <!-- Close settings button -->
-                        <Button Classes="tool-btn"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"
-                                Margin="0,12,12,0"
-                                Command="{Binding ToggleSettingsCommand}"
-                                ToolTip.Tip="Close settings (Esc)">
-                            <PathIcon Data="{StaticResource IconClose}" Width="14" Height="14"/>
+
+                <!-- CENTER: Tabs -->
+                <ScrollViewer Grid.Column="1"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Disabled"
+                              VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Spacing="3" Margin="8,0">
+                        <ItemsControl ItemsSource="{Binding Tabs}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" Spacing="3"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:TabViewModel">
+                                    <Border Classes="m3-tab"
+                                            Classes.active="{Binding IsActive}"
+                                            Tag="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).Tabs}"
+                                            PointerPressed="OnTabPointerPressed"
+                                            PointerMoved="OnTabPointerMoved"
+                                            PointerReleased="OnTabPointerReleased">
+                                        <Grid ColumnDefinitions="16,Auto,Auto,12" Margin="6,0">
+
+                                            <!-- Favicon -->
+                                            <Panel Grid.Column="0" VerticalAlignment="Center"
+                                                   Width="14" Height="14">
+                                                <Ellipse Width="6" Height="6"
+                                                         Fill="{DynamicResource AccentBrush}"
+                                                         Opacity="0.7"
+                                                         IsVisible="{Binding IsLoading}"/>
+                                                <PathIcon Data="{StaticResource IconLogo}"
+                                                          Width="11" Height="11"
+                                                          Foreground="{DynamicResource TextTertiaryBrush}"
+                                                          IsVisible="{Binding IsLoading, Converter={x:Static BoolConverters.Not}}"/>
+                                            </Panel>
+
+                                            <!-- Tab title -->
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{Binding Title}"
+                                                       FontSize="12.5"
+                                                       FontWeight="Normal"
+                                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                                       VerticalAlignment="Center"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       MaxWidth="140"/>
+
+                                            <!-- Close button -->
+                                            <Button Grid.Column="2"
+                                                    Classes="m3-tab-close"
+                                                    Margin="4,0,0,0"
+                                                    IsVisible="{Binding IsPinned, Converter={x:Static BoolConverters.Not}}"
+                                                    Command="{Binding $parent[ItemsControl].((vm:BrowserViewModel)DataContext).CloseTabCommand}"
+                                                    CommandParameter="{Binding}">
+                                                <PathIcon Data="{StaticResource IconClose}" Width="8" Height="8"/>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!-- New tab button -->
+                        <Button Classes="m3-tab-new"
+                                Command="{Binding CreateNewTabCommand}"
+                                ToolTip.Tip="New tab (Ctrl+T)">
+                            <PathIcon Data="{StaticResource IconPlus}" Width="14" Height="14"/>
                         </Button>
-                    </Panel>
-                </Border>
-            </Panel>
-        </DockPanel>
-    </Panel>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- RIGHT: Window controls -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal"
+                            VerticalAlignment="Center" Margin="0,0,6,0">
+                    <Button Classes="m3-window-btn" Click="Minimize_Click">
+                        <PathIcon Data="{StaticResource IconMinimize}" Width="10" Height="10"/>
+                    </Button>
+                    <Button Classes="m3-window-btn" Click="Maximize_Click">
+                        <PathIcon Data="{StaticResource IconMaximize}" Width="10" Height="10"/>
+                    </Button>
+                    <Button Classes="m3-window-btn m3-window-btn-close" Click="Close_Click">
+                        <PathIcon Data="{StaticResource IconClose}" Width="10" Height="10"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ============================================================ -->
+        <!-- SIDEBAR (Left) — Icon-only, clean minimal                    -->
+        <!-- ============================================================ -->
+        <Border DockPanel.Dock="Left" Width="52"
+                Background="#0A0A0C"
+                BorderBrush="{DynamicResource BorderSoftBrush}"
+                BorderThickness="0,0,1,0"
+                IsVisible="{Binding IsSidebarVisible}">
+            <DockPanel>
+                <!-- Top: Main navigation -->
+                <StackPanel DockPanel.Dock="Top" Spacing="2" Margin="6,8,6,0">
+                    <ToggleButton Classes="m3-side-btn" IsChecked="True"
+                                  Command="{Binding GoHomeCommand}"
+                                  ToolTip.Tip="Home">
+                        <PathIcon Data="{StaticResource IconHome}" Width="18" Height="18"/>
+                    </ToggleButton>
+                    <ToggleButton Classes="m3-side-btn"
+                                  Command="{Binding ToggleBookmarksCommand}"
+                                  ToolTip.Tip="Bookmarks">
+                        <PathIcon Data="{StaticResource IconBookmarks}" Width="18" Height="18"/>
+                    </ToggleButton>
+                    <ToggleButton Classes="m3-side-btn"
+                                  Command="{Binding ToggleHistoryCommand}"
+                                  ToolTip.Tip="History">
+                        <PathIcon Data="{StaticResource IconHistory}" Width="18" Height="18"/>
+                    </ToggleButton>
+                    <ToggleButton Classes="m3-side-btn"
+                                  Command="{Binding ToggleDownloadsCommand}"
+                                  ToolTip.Tip="Downloads">
+                        <PathIcon Data="{StaticResource IconDownloads}" Width="18" Height="18"/>
+                    </ToggleButton>
+                    <ToggleButton Classes="m3-side-btn"
+                                  Command="{Binding ToggleCollectionsCommand}"
+                                  ToolTip.Tip="Collections">
+                        <PathIcon Data="{StaticResource IconCollections}" Width="18" Height="18"/>
+                    </ToggleButton>
+                </StackPanel>
+
+                <!-- Spacer -->
+                <Panel/>
+
+                <!-- Bottom: Actions -->
+                <StackPanel DockPanel.Dock="Bottom" Spacing="2" Margin="6,0,6,8">
+                    <ToggleButton Classes="m3-side-btn"
+                                  Command="{Binding TogglePrivateModeCommand}"
+                                  ToolTip.Tip="Private mode">
+                        <PathIcon Data="{StaticResource IconIncognito}" Width="18" Height="18"/>
+                    </ToggleButton>
+                    <ToggleButton Classes="m3-side-btn"
+                                  Command="{Binding ToggleSettingsCommand}"
+                                  ToolTip.Tip="Settings">
+                        <PathIcon Data="{StaticResource IconSettings}" Width="18" Height="18"/>
+                    </ToggleButton>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- ============================================================ -->
+        <!-- LOADING PROGRESS BAR                                         -->
+        <!-- ============================================================ -->
+        <Border DockPanel.Dock="Top" Height="2" IsVisible="{Binding IsLoading}"
+                Background="#0A0A0C">
+            <ProgressBar x:Name="LoadingProgressBar"
+                         Value="100" Minimum="0" Maximum="100"
+                         Foreground="{DynamicResource AccentBrush}" Background="Transparent"
+                         IsIndeterminate="True"/>
+        </Border>
+
+        <!-- ============================================================ -->
+        <!-- ADDRESS BAR ROW                                              -->
+        <!-- ============================================================ -->
+        <Border DockPanel.Dock="Top" Height="48"
+                Background="#0A0A0C"
+                BorderBrush="{DynamicResource BorderSoftBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid ColumnDefinitions="Auto,*,Auto"
+                  VerticalAlignment="Center"
+                  Margin="8,0">
+
+                <!-- LEFT: Navigation buttons -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
+                    <Button Classes="m3-tool-btn" Command="{Binding GoBackCommand}" ToolTip.Tip="Back">
+                        <PathIcon Data="{StaticResource IconBack}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Classes="m3-tool-btn" Command="{Binding GoForwardCommand}" ToolTip.Tip="Forward">
+                        <PathIcon Data="{StaticResource IconForward}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Classes="m3-tool-btn" Command="{Binding ReloadCommand}" ToolTip.Tip="Reload">
+                        <PathIcon Data="{StaticResource IconReload}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Classes="m3-tool-btn" Command="{Binding GoHomeCommand}" ToolTip.Tip="Home">
+                        <PathIcon Data="{StaticResource IconHome}" Width="16" Height="16"/>
+                    </Button>
+                </StackPanel>
+
+                <!-- CENTER: Omnibox -->
+                <controls:Omnibox Grid.Column="1"
+                                  x:Name="OmniboxControl"
+                                  VerticalAlignment="Center"
+                                  Margin="10,0"/>
+
+                <!-- RIGHT: Actions -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="2" VerticalAlignment="Center">
+                    <Button Classes="m3-tool-btn" Command="{Binding ToggleBookmarkCommand}" ToolTip.Tip="Bookmark">
+                        <PathIcon Data="{StaticResource IconStar}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Classes="m3-tool-btn" Command="{Binding ToggleDownloadsCommand}" ToolTip.Tip="Downloads">
+                        <PathIcon Data="{StaticResource IconDownloads}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Classes="m3-tool-btn" ToolTip.Tip="Privacy shield">
+                        <PathIcon Data="{StaticResource IconShieldCheck}" Width="16" Height="16"/>
+                    </Button>
+                    <Button Classes="m3-tool-btn" Command="{Binding ToggleSidebarCommand}" ToolTip.Tip="Sidebar">
+                        <PathIcon Data="{StaticResource IconSidebar}" Width="16" Height="16"/>
+                    </Button>
+
+                    <!-- Divider -->
+                    <Border Classes="m3-divider" Height="18" Margin="4,0"/>
+
+                    <!-- Profile avatar -->
+                    <Button Classes="m3-avatar-btn" ToolTip.Tip="Profile">
+                        <PathIcon Data="{StaticResource IconUser}" Width="14" Height="14"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- ============================================================ -->
+        <!-- STATUS BAR (Bottom)                                          -->
+        <!-- ============================================================ -->
+        <Border DockPanel.Dock="Bottom" Height="22"
+                Background="#0A0A0C"
+                BorderBrush="{DynamicResource BorderSoftBrush}"
+                BorderThickness="0,1,0,0">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Grid.Column="0"
+                           Text="{Binding StatusText}"
+                           VerticalAlignment="Center" Margin="10,0"
+                           FontSize="11" Foreground="{DynamicResource TextTertiaryBrush}"/>
+                <TextBlock Grid.Column="1"
+                           Text="{Binding ActiveTab.Url}"
+                           FontSize="11" Foreground="{DynamicResource TextDisabledBrush}"
+                           MaxWidth="300" TextTrimming="CharacterEllipsis"
+                           VerticalAlignment="Center" Margin="0,0,10,0"/>
+            </Grid>
+        </Border>
+
+        <!-- ============================================================ -->
+        <!-- CONTENT: CEF browser or New Tab page                         -->
+        <!-- ============================================================ -->
+        <Panel>
+            <!-- Browser with rounded corners -->
+            <Border CornerRadius="10"
+                    ClipToBounds="True"
+                    Margin="6,4,6,6"
+                    IsVisible="{Binding IsNewTabPage, Converter={x:Static BoolConverters.Not}}">
+                <controls:CefBrowserControl x:Name="CefBrowserHost"
+                                            PointerPressed="OnBrowserPointerPressed"/>
+            </Border>
+
+            <!-- New Tab page -->
+            <views:NewTabPage x:Name="NewTabPageControl"
+                              IsVisible="{Binding IsNewTabPage}"/>
+
+            <!-- Find in page overlay -->
+            <controls:FindInPage x:Name="FindInPageControl"
+                                 Margin="6,4,6,6"/>
+
+            <!-- Command Palette overlay -->
+            <views:CommandPalette x:Name="CommandPaletteControl"
+                                  DataContext="{Binding CommandPaletteViewModel}"/>
+
+            <!-- Settings page overlay -->
+            <Border IsVisible="{Binding IsSettingsVisible}"
+                    Background="#E00A0A0C"
+                    CornerRadius="10"
+                    ClipToBounds="True"
+                    Margin="6,4,6,6">
+                <Panel>
+                    <views:SettingsPage x:Name="SettingsPageControl"/>
+                    <Button Classes="m3-tool-btn"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,10,10,0"
+                            Command="{Binding ToggleSettingsCommand}"
+                            ToolTip.Tip="Close settings (Esc)">
+                        <PathIcon Data="{StaticResource IconClose}" Width="16" Height="16"/>
+                    </Button>
+                </Panel>
+            </Border>
+        </Panel>
+    </DockPanel>
 </Window>

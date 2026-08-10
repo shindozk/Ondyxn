@@ -52,4 +52,13 @@ public sealed class OndyxnResourceRequestHandler : CefResourceRequestHandler
     {
         return null!;
     }
+
+    protected override CefReturnValue OnBeforeResourceLoad(CefBrowser browser, CefFrame frame, CefRequest request, CefCallback callback)
+    {
+        if (_adBlockHandler.ShouldBlock(request.Url))
+        {
+            return CefReturnValue.Cancel;
+        }
+        return CefReturnValue.Continue;
+    }
 }

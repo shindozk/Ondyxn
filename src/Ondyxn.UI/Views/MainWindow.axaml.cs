@@ -187,4 +187,18 @@ public partial class MainWindow : Window
         var index = (int)((x - startX) / tabWidth);
         return Math.Clamp(index, 0, tabs.Count - 1);
     }
+
+    private void OnBrowserPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (_viewModel is null) return;
+
+        var props = e.GetCurrentPoint(this).Properties;
+        if (!props.IsLeftButtonPressed && props.IsRightButtonPressed)
+        {
+            var contextMenu = new BrowserContextMenu();
+            contextMenu.WireViewModel(_viewModel);
+            contextMenu.ShowAt(CefBrowserHost);
+            e.Handled = true;
+        }
+    }
 }

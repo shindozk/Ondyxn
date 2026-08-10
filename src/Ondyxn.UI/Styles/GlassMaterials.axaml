@@ -1,12 +1,16 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- ========== Tool button (Material flat icon button) ========== -->
+    <!-- ================================================================ -->
+    <!-- PREMIUM ONDYXN UI STYLES — Arc Browser Inspired                 -->
+    <!-- ================================================================ -->
+
+    <!-- ========== Tool Button (Toolbar icon buttons) ========== -->
     <Style Selector="Button.tool-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#A0FFFFFF"/>
-        <Setter Property="Width" Value="30"/>
-        <Setter Property="Height" Value="30"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
         <Setter Property="CornerRadius" Value="8"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
@@ -14,7 +18,6 @@
         <Setter Property="MinHeight" Value="0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Opacity" Value="0.85"/>
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.15"/>
@@ -23,20 +26,19 @@
         </Setter>
     </Style>
 
-    <Style Selector="Button.tool-btn:pointerover">
-        <Setter Property="Background" Value="#15FFFFFF"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Opacity" Value="1"/>
+    <Style Selector="Button.tool-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
     </Style>
 
-    <Style Selector="Button.tool-btn:pressed">
-        <Setter Property="Background" Value="#20FFFFFF"/>
+    <Style Selector="Button.tool-btn:pressed /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgOverlayBrush}"/>
     </Style>
 
-    <!-- ========== Icon button (generic) ========== -->
+    <!-- ========== Icon Button (Generic) ========== -->
     <Style Selector="Button.icon-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
         <Setter Property="Width" Value="32"/>
         <Setter Property="Height" Value="32"/>
         <Setter Property="CornerRadius" Value="8"/>
@@ -48,16 +50,16 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style Selector="Button.icon-btn:pointerover">
-        <Setter Property="Background" Value="#18FFFFFF"/>
-        <Setter Property="Foreground" Value="White"/>
+    <Style Selector="Button.icon-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
     </Style>
 
-    <!-- ========== Window control buttons ========== -->
+    <!-- ========== Window Control Buttons ========== -->
     <Style Selector="Button.window-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#80FFFFFF"/>
-        <Setter Property="Width" Value="38"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="36"/>
         <Setter Property="Height" Value="28"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
@@ -73,26 +75,26 @@
         </Setter>
     </Style>
 
-    <Style Selector="Button.window-btn:pointerover">
-        <Setter Property="Background" Value="#12FFFFFF"/>
+    <Style Selector="Button.window-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="Button.window-btn-close:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ErrorBrush}"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
-    <Style Selector="Button.window-btn-close:pointerover">
-        <Setter Property="Background" Value="#E81123"/>
-        <Setter Property="Foreground" Value="White"/>
-    </Style>
-
-    <!-- ========== Sidebar button ========== -->
+    <!-- ========== Sidebar Button ========== -->
     <Style Selector="ToggleButton.side-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#80FFFFFF"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
         <Setter Property="Width" Value="40"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="Margin" Value="0,1"/>
+        <Setter Property="Margin" Value="0,2"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -103,23 +105,28 @@
         </Setter>
     </Style>
 
-    <Style Selector="ToggleButton.side-btn:pointerover">
-        <Setter Property="Background" Value="#10FFFFFF"/>
-        <Setter Property="Foreground" Value="White"/>
+    <Style Selector="ToggleButton.side-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
     </Style>
 
-    <Style Selector="ToggleButton.side-btn:checked">
-        <Setter Property="Background" Value="#1200D4FF"/>
-        <Setter Property="Foreground" Value="#00D4FF"/>
+    <Style Selector="ToggleButton.side-btn:checked /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
     </Style>
 
-    <!-- ========== Tab new button ========== -->
+    <Style Selector="ToggleButton.side-btn:checked:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentHoverBrush}"/>
+    </Style>
+
+    <!-- ========== Tab New Button ========== -->
     <Style Selector="Button.tab-new-btn">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#80FFFFFF"/>
-        <Setter Property="Width" Value="24"/>
-        <Setter Property="Height" Value="24"/>
-        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="CornerRadius" Value="7"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Padding" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
@@ -133,18 +140,18 @@
         </Setter>
     </Style>
 
-    <Style Selector="Button.tab-new-btn:pointerover">
-        <Setter Property="Background" Value="#15FFFFFF"/>
-        <Setter Property="Foreground" Value="White"/>
+    <Style Selector="Button.tab-new-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
     </Style>
 
-    <!-- ========== Quick link circles ========== -->
+    <!-- ========== Quick Link Circle ========== -->
     <Style Selector="Border.quick-link">
         <Setter Property="Width" Value="52"/>
         <Setter Property="Height" Value="52"/>
-        <Setter Property="CornerRadius" Value="26"/>
-        <Setter Property="Background" Value="#25FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#18FFFFFF"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="Background" Value="{DynamicResource BgSurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Transitions">
@@ -155,22 +162,167 @@
     </Style>
 
     <Style Selector="Border.quick-link:pointerover">
-        <Setter Property="Background" Value="#35FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#28FFFFFF"/>
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverBrush}"/>
     </Style>
 
-    <!-- ========== Accent button ========== -->
+    <!-- ========== Accent Button ========== -->
     <Style Selector="Button.accent-btn">
-        <Setter Property="Background" Value="{DynamicResource OndyxnAccent}"/>
-        <Setter Property="Foreground" Value="#FF0B0E14"/>
-        <Setter Property="CornerRadius" Value="18"/>
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+        <Setter Property="Foreground" Value="#0A0A0C"/>
+        <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Padding" Value="24,10"/>
+        <Setter Property="Padding" Value="20,10"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
     </Style>
 
-    <Style Selector="Button.accent-btn:pointerover">
-        <Setter Property="Background" Value="{DynamicResource OndyxnAccentLight}"/>
+    <Style Selector="Button.accent-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}"/>
     </Style>
 
-</Styles>
+    <!-- ========== Ghost Button (text only) ========== -->
+    <Style Selector="Button.ghost-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+    </Style>
+
+    <Style Selector="Button.ghost-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+
+    <!-- ========== Card (Border with card styling) ========== -->
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource BgElevatedBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="16"/>
+    </Style>
+
+    <!-- ========== Section Header ========== -->
+    <Style Selector="TextBlock.section-title">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+    </Style>
+
+    <!-- ========== Subtitle ========== -->
+    <Style Selector="TextBlock.section-subtitle">
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,4"/>
+    </Style>
+
+    <!-- ========== Divider ========== -->
+    <Style Selector="Border.divider">
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="Background" Value="{DynamicResource BorderSoftBrush}"/>
+        <Setter Property="Margin" Value="0,4"/>
+    </Style>
+
+    <!-- ========== m3- prefixed aliases for MainWindow compatibility ========== -->
+    <Style Selector="Button.m3-tool-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="Background" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.m3-tool-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="Button.m3-window-btn">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="36"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="CornerRadius" Value="6"/>
+    </Style>
+
+    <Style Selector="Button.m3-window-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="Button.m3-window-btn-close:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource ErrorBrush}"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.m3-avatar-btn">
+        <Setter Property="Background" Value="{DynamicResource BgSurfaceBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="CornerRadius" Value="16"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Button.m3-avatar-btn:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderHoverBrush}"/>
+    </Style>
+
+    <Style Selector="Button.m3-icon-button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style Selector="Button.m3-icon-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+    </Style>
+
+    <Style Selector="Border.m3-divider">
+        <Setter Property="Width" Value="1"/>
+        <Setter Property="Background" Value="{DynamicResource BorderSoftBrush}"/>
+    </Style>
+
+</Styles>

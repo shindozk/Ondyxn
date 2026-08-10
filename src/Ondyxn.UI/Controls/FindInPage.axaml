@@ -1,27 +1,27 @@
 <Border xmlns="https://github.com/avaloniaui"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          x:Class="Ondyxn.UI.Controls.FindInPage"
-         Background="#E0101018"
-         BorderBrush="#20FFFFFF"
+         Background="{DynamicResource BgElevatedBrush}"
+         BorderBrush="{DynamicResource BorderBrush}"
          BorderThickness="1"
-         CornerRadius="8"
+         CornerRadius="10"
          Padding="8,6"
          HorizontalAlignment="Right"
          VerticalAlignment="Top"
-         Margin="0,8,12,0"
+         Margin="0,8,10,0"
          IsVisible="False">
 
     <StackPanel Orientation="Horizontal" Spacing="6">
         <!-- Search input -->
         <TextBox Name="SearchBox"
                  MinWidth="200"
-                 Height="28"
+                 Height="30"
                  FontSize="13"
-                 Background="#15FFFFFF"
-                 BorderBrush="#15FFFFFF"
+                 Background="{DynamicResource BgSurfaceBrush}"
+                 BorderBrush="{DynamicResource BorderBrush}"
                  BorderThickness="1"
-                 CornerRadius="6"
-                 Foreground="White"
+                 CornerRadius="8"
+                 Foreground="{DynamicResource TextPrimaryBrush}"
                  Watermark="Find in page..."
                  KeyDown="OnSearchKeyDown"/>
 
@@ -29,31 +29,31 @@
         <TextBlock Name="MatchCount"
                    Text="0/0"
                    FontSize="11"
-                   Foreground="#80FFFFFF"
+                   Foreground="{DynamicResource TextTertiaryBrush}"
                    VerticalAlignment="Center"
                    MinWidth="40"/>
 
         <!-- Previous match -->
         <Button Classes="tool-btn"
-                Width="24" Height="24"
+                Width="26" Height="26"
                 Click="OnPreviousClick"
-                ToolTip.Tip="Previous (Shift+Enter)">
+                ToolTip.Tip="Previous">
             <PathIcon Data="{StaticResource IconBack}" Width="10" Height="10"/>
         </Button>
 
         <!-- Next match -->
         <Button Classes="tool-btn"
-                Width="24" Height="24"
+                Width="26" Height="26"
                 Click="OnNextClick"
-                ToolTip.Tip="Next (Enter)">
+                ToolTip.Tip="Next">
             <PathIcon Data="{StaticResource IconForward}" Width="10" Height="10"/>
         </Button>
 
         <!-- Close -->
         <Button Classes="tool-btn"
-                Width="24" Height="24"
+                Width="26" Height="26"
                 Click="OnCloseClick"
-                ToolTip.Tip="Close (Escape)">
+                ToolTip.Tip="Close">
             <PathIcon Data="{StaticResource IconClose}" Width="10" Height="10"/>
         </Button>
     </StackPanel>

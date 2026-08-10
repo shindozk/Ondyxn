@@ -5,36 +5,37 @@
              x:DataType="vm:BrowserViewModel">
 
     <Border Classes="omnibox"
-            Padding="14,0"
-            Height="34"
-            MaxWidth="420"
+            Padding="16,0"
+            Height="44"
+            MaxWidth="560"
             HorizontalAlignment="Center">
 
         <Grid ColumnDefinitions="Auto,*,Auto">
             
-            <!-- Left side: Lock icon + URL text combined -->
+            <!-- Left side: Lock icon + URL text -->
             <StackPanel Grid.Column="0" 
                         Orientation="Horizontal"
                         VerticalAlignment="Center"
-                        Spacing="6">
+                        Spacing="8">
                 
-                <!-- Lock icon (green for secure) -->
+                <!-- Lock icon (secure) -->
                 <PathIcon Data="{StaticResource IconLock}"
-                          Width="13" Height="13"
-                          Foreground="#4ADE80"
+                          Width="16" Height="16"
+                          Foreground="{DynamicResource M3PrimaryBrush}"
                           VerticalAlignment="Center"/>
 
                 <!-- URL display (click to edit) -->
                 <TextBlock Name="UrlDisplay"
                            Text="{Binding OmniboxText}"
-                           FontSize="13.5"
-                           FontFamily="Segoe UI, Inter, system-ui"
-                           Foreground="#E0FFFFFF"
+                           FontSize="14"
+                           FontWeight="Regular"
+                           FontFamily="Inter, Segoe UI, system-ui"
+                           Foreground="{DynamicResource M3OnSurfaceBrush}"
                            VerticalAlignment="Center"
                            Cursor="IBeam"
                            IsHitTestVisible="True"
                            TextTrimming="CharacterEllipsis"
-                           MaxWidth="400"/>
+                           MaxWidth="480"/>
                 
                 <!-- Hidden TextBox for editing -->
                 <TextBox Name="UrlTextBox"
@@ -43,25 +44,23 @@
                          KeyDown="Omnibox_KeyDown"
                          Background="Transparent"
                          BorderThickness="0"
-                         FontSize="13.5"
-                         FontFamily="Segoe UI, Inter, system-ui"
-                         Foreground="#E0FFFFFF"
-                         CaretBrush="#4ADE80"
+                         FontSize="14"
+                         FontFamily="Inter, Segoe UI, system-ui"
+                         Foreground="{DynamicResource M3OnSurfaceBrush}"
+                         CaretBrush="{DynamicResource M3PrimaryBrush}"
                          VerticalContentAlignment="Center"
                          Padding="0"
                          MinWidth="300"/>
             </StackPanel>
 
             <!-- Right side: Bookmark star -->
-            <Button Grid.Column="2"
-                    Classes="icon-btn"
-                    Width="30" Height="30"
-                    Margin="8,0,0,0"
+            <Button Grid.Column="1"
+                    Classes="m3-icon-button"
                     Command="{Binding ToggleBookmarkCommand}"
-                    ToolTip.Tip="Bookmark this page">
+                    ToolTip.Tip="Bookmark this page (Ctrl+D)">
                 <PathIcon Data="{StaticResource IconStar}" 
-                          Width="15" Height="15"
-                          Foreground="#A0FFFFFF"/>
+                          Width="18" Height="18"
+                          Foreground="{DynamicResource M3OnSurfaceVariantBrush}"/>
             </Button>
         </Grid>
     </Border>

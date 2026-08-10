@@ -1,15 +1,18 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- ========== Tab pill (liquid glass) ========== -->
-    <Style Selector="Border.tab-pill">
+    <!-- ================================================================ -->
+    <!-- PREMIUM TAB STRIP — Arc Browser Inspired                        -->
+    <!-- ================================================================ -->
+
+    <Style Selector="Border.m3-tab">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="CornerRadius" Value="8"/>
-        <Setter Property="MinHeight" Value="26"/>
-        <Setter Property="MinWidth" Value="50"/>
-        <Setter Property="MaxWidth" Value="150"/>
+        <Setter Property="MinHeight" Value="34"/>
+        <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="MaxWidth" Value="180"/>
+        <Setter Property="Padding" Value="10,0"/>
         <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="ClipToBounds" Value="True"/>
         <Setter Property="Transitions">
             <Transitions>
                 <BrushTransition Property="Background" Duration="0:0:0.12"/>
@@ -17,52 +20,89 @@
         </Setter>
     </Style>
 
-    <!-- Hover state -->
-    <Style Selector="Border.tab-pill:pointerover">
-        <Setter Property="Background" Value="#10FFFFFF"/>
+    <Style Selector="Border.m3-tab:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
     </Style>
 
-    <!-- ========== Active tab pill ========== -->
-    <Style Selector="Border.tab-pill.active">
-        <Setter Property="Background" Value="#18FFFFFF"/>
-        <Setter Property="BorderBrush" Value="#10FFFFFF"/>
-        <Setter Property="BorderThickness" Value="1"/>
+    <Style Selector="Border.m3-tab.active">
+        <Setter Property="Background" Value="{DynamicResource BgSurfaceBrush}"/>
     </Style>
 
-    <Style Selector="Border.tab-pill.active:pointerover">
-        <Setter Property="Background" Value="#20FFFFFF"/>
+    <Style Selector="Border.m3-tab.active:pointerover">
+        <Setter Property="Background" Value="{DynamicResource BgOverlayBrush}"/>
     </Style>
 
-    <!-- ========== Tab close button ========== -->
-    <Style Selector="Button.tab-close">
+    <!-- Tab text -->
+    <Style Selector="Border.m3-tab > Grid > TextBlock">
+        <Setter Property="FontSize" Value="12.5"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+    </Style>
+
+    <Style Selector="Border.m3-tab.active > Grid > TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+    </Style>
+
+    <!-- Tab favicon -->
+    <Style Selector="Border.m3-tab > Grid > Panel > Ellipse">
+        <Setter Property="Fill" Value="{DynamicResource AccentBrush}"/>
+        <Setter Property="Opacity" Value="0.7"/>
+    </Style>
+
+    <Style Selector="Border.m3-tab > Grid > Panel > PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="13"/>
+        <Setter Property="Height" Value="13"/>
+    </Style>
+
+    <Style Selector="Border.m3-tab.active > Grid > Panel > PathIcon">
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+    </Style>
+
+    <!-- Tab close button -->
+    <Style Selector="Button.m3-tab-close">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#70FFFFFF"/>
-        <Setter Property="Width" Value="14"/>
-        <Setter Property="Height" Value="14"/>
-        <Setter Property="CornerRadius" Value="7"/>
-        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="22"/>
+        <Setter Property="Height" Value="22"/>
+        <Setter Property="CornerRadius" Value="6"/>
         <Setter Property="Padding" Value="0"/>
+        <Setter Property="Opacity" Value="0"/>
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="0"/>
-        <Setter Property="Opacity" Value="0"/>
-        <Setter Property="Transitions">
-            <Transitions>
-                <DoubleTransition Property="Opacity" Duration="0:0:0.1"/>
-                <BrushTransition Property="Background" Duration="0:0:0.1"/>
-            </Transitions>
-        </Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <Style Selector="Border.tab-pill:pointerover Button.tab-close">
+    <Style Selector="Border.m3-tab:pointerover Button.m3-tab-close">
         <Setter Property="Opacity" Value="1"/>
     </Style>
 
-    <Style Selector="Button.tab-close:pointerover">
-        <Setter Property="Background" Value="#20FFFFFF"/>
-        <Setter Property="Foreground" Value="White"/>
+    <Style Selector="Button.m3-tab-close:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
     </Style>
 
-    <Style Selector="Button.tab-close:pressed">
-        <Setter Property="Background" Value="#28FFFFFF"/>
+    <!-- New tab button -->
+    <Style Selector="Button.m3-tab-new">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextTertiaryBrush}"/>
+        <Setter Property="Width" Value="32"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
+
+    <Style Selector="Button.m3-tab-new:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgHoverBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+    </Style>
+
 </Styles>
