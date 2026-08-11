@@ -11,7 +11,6 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {GlassColors} from '../theme/colors';
 import {BorderRadius} from '../theme/typography';
 
@@ -82,19 +81,9 @@ export const Glass: React.FC<GlassProps> = ({
         animated && styles.animated,
         style,
       ]}>
-      {/* Top highlight gradient for glass refraction effect */}
-      <LinearGradient
-        colors={[
-          GlassColors.glassGradientTop,
-          'rgba(255,255,255,0.02)',
-          'transparent',
-        ]}
-        start={{x: 0, y: 0}}
-        end={{x: 0, y: 1}}
-        style={[
-          styles.highlightGradient,
-          {borderRadius: roundedStyles[rounded] - 1},
-        ]}
+      {/* Top highlight overlay for glass refraction effect */}
+      <View
+        style={[styles.highlightGradient, {borderRadius: roundedStyles[rounded] - 1}]}
         pointerEvents="none"
       />
       {/* Content */}
@@ -183,6 +172,9 @@ const styles = StyleSheet.create({
   },
   highlightGradient: {
     ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.06)',
   },
   content: {
     flex: 1,

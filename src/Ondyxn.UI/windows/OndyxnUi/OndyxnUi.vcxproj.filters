@@ -21,7 +21,7 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OndyxnUiTemp.h">
+    <ClInclude Include="OndyxnUi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AutolinkedNativeModules.g.h">
@@ -32,7 +32,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OndyxnUiTemp.cpp">
+    <ClCompile Include="OndyxnUi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AutolinkedNativeModules.g.cpp">
@@ -43,7 +43,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="OndyxnUiTemp.rc">
+    <ResourceCompile Include="OndyxnUi.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -51,7 +51,7 @@
     <Image Include="small.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="OndyxnUiTemp.ico">
+    <Image Include="OndyxnUi.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

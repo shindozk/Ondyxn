@@ -2,9 +2,9 @@
 <Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(SolutionDir)\ExperimentalFeatures.props" Condition="Exists('$(SolutionDir)\ExperimentalFeatures.props')" />
   <PropertyGroup>
-    <ProjectGuid>{7ad1b33f-242c-4020-976d-f7186b81e505}</ProjectGuid>
+    <ProjectGuid>{850f7dab-55c8-431b-8fcb-89a23f5e1643}</ProjectGuid>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <EntryPointProjectUniqueName>..\OndyxnUiTemp\OndyxnUiTemp.vcxproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\OndyxnUi\OndyxnUi.vcxproj</EntryPointProjectUniqueName>
     <DebuggerType>NativeOnly</DebuggerType>
     <BackgroundTaskDebugEngines>NativeOnly</BackgroundTaskDebugEngines>
   </PropertyGroup>
@@ -60,7 +60,7 @@
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OndyxnUiTemp\OndyxnUiTemp.vcxproj">
+    <ProjectReference Include="..\OndyxnUi\OndyxnUi.vcxproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
     </ProjectReference>
   </ItemGroup>

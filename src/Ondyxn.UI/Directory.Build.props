@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <!-- Reduce parallelism to avoid C3859 virtual memory errors -->
+    <MaximumNumberOfParallelMPProcesses>1</MaximumNumberOfParallelMPProcesses>
+  </PropertyGroup>
+</Project>

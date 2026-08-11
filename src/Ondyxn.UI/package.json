@@ -15,7 +15,6 @@
     "react": "19.0.0",
     "react-native": "0.78.2",
     "react-native-gesture-handler": "^2.32.0",
-    "react-native-linear-gradient": "^2.8.3",
     "react-native-reanimated": "^3.19.5",
     "react-native-safe-area-context": "^4.14.1",
     "react-native-windows": "^0.78.15"
@@ -46,8 +45,8 @@
   },
   "react-native-windows": {
     "init-windows": {
-      "name": "OndyxnUI",
-      "namespace": "OndyxnUI",
+      "name": "OndyxnUi",
+      "namespace": "OndyxnUi",
       "template": "cpp-app"
     }
   }
