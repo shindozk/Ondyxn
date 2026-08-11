@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Omnibox (Address Bar) Component
- * Ultra-minimal centered design with lock icon
+ * shadcn/ui design with minimal, clean aesthetic
  */
 
 import React, {useState, useRef, useEffect} from 'react';
@@ -10,10 +10,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
-import {MaterialColors, GlassColors} from '../theme/colors';
-import {Typography, Spacing, BorderRadius} from '../theme/typography';
+import {shadcnColors, shadcnRadius} from '../theme/colors';
+import {Button, Separator} from './ui';
 
 interface OmniboxProps {
   url: string;
@@ -47,7 +46,7 @@ function extractHost(url: string): string {
 function extractPath(url: string): string {
   try {
     let rest = url.replace(/^https?:\/\//, '');
-    rest = rest.split(':')[0]; // remove port
+    rest = rest.split(':')[0];
     const pathIdx = rest.indexOf('/');
     return pathIdx >= 0 ? rest.slice(pathIdx) : '/';
   } catch {
@@ -144,6 +143,8 @@ export const Omnibox: React.FC<OmniboxProps> = ({
         </TouchableOpacity>
       </View>
 
+      <Separator orientation="vertical" style={styles.navSeparator} />
+
       {/* Center: Omnibox input */}
       <TouchableOpacity
         onPress={() => {
@@ -172,7 +173,7 @@ export const Omnibox: React.FC<OmniboxProps> = ({
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Search or enter URL"
-            placeholderTextColor={MaterialColors.onSurfaceVariant}
+            placeholderTextColor={shadcnColors.mutedForeground}
             autoCapitalize="none"
             autoCorrect={false}
             selectTextOnFocus
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingVertical: 8,
     gap: 8,
   },
   navButtons: {
@@ -218,49 +219,53 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 2,
   },
+  navSeparator: {
+    height: 20,
+    marginHorizontal: 4,
+  },
   navBtn: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 32,
+    height: 32,
+    borderRadius: shadcnRadius.sm,
     alignItems: 'center',
     justifyContent: 'center',
   },
   navBtnDisabled: {
-    opacity: 0.25,
+    opacity: 0.3,
   },
   navArrow: {
     fontSize: 18,
-    color: MaterialColors.onSurfaceVariant,
+    color: shadcnColors.foreground,
     fontWeight: '300',
     marginTop: -1,
   },
   navArrowDisabled: {
-    color: MaterialColors.onSurfaceVariant,
+    color: shadcnColors.mutedForeground,
   },
   omnibox: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 34,
+    height: 36,
     paddingHorizontal: 14,
-    borderRadius: BorderRadius.full,
-    backgroundColor: GlassColors.omnibox,
+    borderRadius: shadcnRadius.md,
+    backgroundColor: shadcnColors.muted,
     borderWidth: 1,
-    borderColor: GlassColors.omniboxBorder,
+    borderColor: shadcnColors.border,
     gap: 8,
   },
   omniboxFocused: {
-    backgroundColor: GlassColors.omniboxFocused,
-    borderColor: GlassColors.omniboxBorderFocused,
+    backgroundColor: shadcnColors.background,
+    borderColor: shadcnColors.ring,
   },
   lockIcon: {
     fontSize: 12,
   },
   input: {
     flex: 1,
-    ...Typography.bodyMedium,
-    color: MaterialColors.onSurface,
-    fontSize: 13,
+    fontSize: 14,
+    color: shadcnColors.foreground,
+    fontWeight: '400',
     padding: 0,
   },
   urlDisplay: {
@@ -270,16 +275,14 @@ const styles = StyleSheet.create({
     gap: 0,
   },
   urlHost: {
-    ...Typography.bodyMedium,
-    color: MaterialColors.onSurface,
-    fontSize: 13,
+    fontSize: 14,
+    color: shadcnColors.foreground,
     fontWeight: '400',
   },
   urlPath: {
-    ...Typography.bodyMedium,
-    color: MaterialColors.onSurfaceVariant,
-    fontSize: 13,
-    fontWeight: '300',
+    fontSize: 14,
+    color: shadcnColors.mutedForeground,
+    fontWeight: '400',
   },
   loadingIndicator: {
     width: 16,
@@ -288,13 +291,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loadingDot: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: MaterialColors.primary,
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: shadcnColors.primary,
   },
   rightSpacer: {
-    width: 108, // space for window controls
+    width: 108,
   },
 });
 

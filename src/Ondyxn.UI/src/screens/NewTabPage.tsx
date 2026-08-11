@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - New Tab Page
- * Clean minimal design with centered search and quick links
+ * shadcn/ui design with minimal, clean aesthetic
  */
 
 import React, {useState} from 'react';
@@ -13,13 +13,12 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import {MaterialColors, GlassColors} from '../theme/colors';
-import {Typography, Spacing, BorderRadius} from '../theme/typography';
-import {Glass} from '../components/Glass';
+import {shadcnColors, zinc, shadcnRadius} from '../theme/colors';
+import {Card, CardContent, Input, Button} from '../components/ui';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
-/** Extract hostname from URL string without using URL API (not implemented in RN) */
+/** Extract hostname from URL string without using URL API */
 function extractHostname(url: string): string {
   try {
     let host = url.replace(/^https?:\/\//, '');
@@ -80,22 +79,15 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
       </View>
 
       {/* Search bar */}
-      <Glass variant="light" rounded="full" style={styles.searchContainer}>
-        <View style={styles.searchInner}>
-          <Text style={styles.searchIcon}>🔍</Text>
-          <TextInput
-            style={styles.searchInput}
-            value={searchValue}
-            onChangeText={setSearchValue}
-            onSubmitEditing={handleSearch}
-            placeholder="Search the web..."
-            placeholderTextColor={MaterialColors.onSurfaceVariant}
-            autoCapitalize="none"
-            autoCorrect={false}
-            returnKeyType="search"
-          />
-        </View>
-      </Glass>
+      <View style={styles.searchContainer}>
+        <Input
+          value={searchValue}
+          onChangeText={setSearchValue}
+          placeholder="Search the web..."
+          onSubmitEditing={handleSearch}
+          returnKeyType="search"
+        />
+      </View>
 
       {/* Quick links grid */}
       <View style={styles.quickLinksSection}>
@@ -106,24 +98,26 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
               onPress={() => onNavigate(link.url)}
               activeOpacity={0.7}
               style={styles.quickLinkWrapper}>
-              <Glass variant="default" rounded="lg" style={styles.quickLink}>
-                <View
-                  style={[
-                    styles.quickLinkIcon,
-                    {backgroundColor: link.color + '20'},
-                  ]}>
-                  <Text
-                    style={[styles.quickLinkIconText, {color: link.color}]}>
-                    {link.icon}
+              <Card style={styles.quickLink}>
+                <CardContent style={styles.quickLinkContent}>
+                  <View
+                    style={[
+                      styles.quickLinkIcon,
+                      {backgroundColor: link.color + '20'},
+                    ]}>
+                    <Text
+                      style={[styles.quickLinkIconText, {color: link.color}]}>
+                      {link.icon}
+                    </Text>
+                  </View>
+                  <Text style={styles.quickLinkTitle} numberOfLines={1}>
+                    {link.title}
                   </Text>
-                </View>
-                <Text style={styles.quickLinkTitle} numberOfLines={1}>
-                  {link.title}
-                </Text>
-                <Text style={styles.quickLinkUrl} numberOfLines={1}>
-                  {extractHostname(link.url)}
-                </Text>
-              </Glass>
+                  <Text style={styles.quickLinkUrl} numberOfLines={1}>
+                    {extractHostname(link.url)}
+                  </Text>
+                </CardContent>
+              </Card>
             </TouchableOpacity>
           ))}
         </View>
@@ -132,7 +126,7 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
       {/* Footer */}
       <View style={styles.footer}>
         <Text style={styles.footerText}>
-          Built with React Native Windows · Material You
+          Built with React Native Windows · shadcn/ui
         </Text>
       </View>
     </ScrollView>
@@ -142,49 +136,32 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: shadcnColors.background,
   },
   contentContainer: {
-    padding: Spacing.xl,
+    padding: 24,
     alignItems: 'center',
   },
   hero: {
     alignItems: 'center',
     marginTop: 60,
-    marginBottom: Spacing.xl,
+    marginBottom: 24,
   },
   greeting: {
-    ...Typography.displaySmall,
-    color: MaterialColors.onSurface,
+    fontSize: 36,
     fontWeight: '600',
+    color: shadcnColors.foreground,
+    letterSpacing: -0.5,
   },
   subtitle: {
-    ...Typography.bodyLarge,
-    color: MaterialColors.onSurfaceVariant,
-    marginTop: Spacing.xs,
+    fontSize: 16,
+    color: shadcnColors.mutedForeground,
+    marginTop: 8,
   },
   searchContainer: {
     width: '100%',
     maxWidth: 560,
-    height: 44,
     marginBottom: 48,
-  },
-  searchInner: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    gap: 10,
-  },
-  searchIcon: {
-    fontSize: 14,
-  },
-  searchInput: {
-    flex: 1,
-    ...Typography.bodyMedium,
-    color: MaterialColors.onSurface,
-    fontSize: 14,
-    padding: 0,
   },
   quickLinksSection: {
     width: '100%',
@@ -199,6 +176,9 @@ const styles = StyleSheet.create({
     width: (560 - 12 * 3) / 4,
   },
   quickLink: {
+    margin: 0,
+  },
+  quickLinkContent: {
     alignItems: 'center',
     paddingVertical: 16,
     paddingHorizontal: 8,
@@ -216,24 +196,23 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   quickLinkTitle: {
-    ...Typography.labelMedium,
-    color: MaterialColors.onSurface,
-    fontSize: 11,
+    fontSize: 12,
+    fontWeight: '500',
+    color: shadcnColors.foreground,
   },
   quickLinkUrl: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    fontSize: 9,
+    fontSize: 10,
+    color: shadcnColors.mutedForeground,
   },
   footer: {
     marginTop: 60,
-    paddingBottom: Spacing.xl,
+    paddingBottom: 24,
     alignItems: 'center',
   },
   footerText: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    opacity: 0.3,
+    fontSize: 12,
+    color: shadcnColors.mutedForeground,
+    opacity: 0.5,
   },
 });
 

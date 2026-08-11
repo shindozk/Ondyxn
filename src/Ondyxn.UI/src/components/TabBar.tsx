@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Tab Bar Component
- * Ultra-minimal transparent tabs inspired by modern browsers
+ * shadcn/ui design with minimal, clean aesthetic
  */
 
 import React from 'react';
@@ -12,11 +12,11 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {MaterialColors, GlassColors} from '../theme/colors';
-import {Typography, Spacing, BorderRadius} from '../theme/typography';
+import {shadcnColors, zinc, shadcnRadius} from '../theme/colors';
+import {Badge} from './ui';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
-const TAB_HEIGHT = 32;
+const TAB_HEIGHT = 36;
 
 interface Tab {
   id: string;
@@ -46,7 +46,7 @@ export const TabBar: React.FC<TabBarProps> = ({
       {/* Drag region / title bar area */}
       <View style={styles.dragRegion} />
 
-      {/* Tabs - centered */}
+      {/* Tabs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -78,17 +78,14 @@ export const TabBar: React.FC<TabBarProps> = ({
               {tab.title || 'New Tab'}
             </Text>
 
-            {/* Close button - only on hover/active */}
-            {tabs.length > 1 && (
+            {/* Close button - only on active */}
+            {tabs.length > 1 && tab.id === activeTabId && (
               <TouchableOpacity
                 onPress={e => {
                   e.stopPropagation?.();
                   onTabClose(tab.id);
                 }}
-                style={[
-                  styles.closeButton,
-                  tab.id === activeTabId && styles.closeButtonVisible,
-                ]}
+                style={styles.closeButton}
                 hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}>
                 <Text style={styles.closeIcon}>×</Text>
               </TouchableOpacity>
@@ -102,16 +99,16 @@ export const TabBar: React.FC<TabBarProps> = ({
         <Text style={styles.newTabIcon}>+</Text>
       </TouchableOpacity>
 
-      {/* Window controls - minimal */}
+      {/* Window controls */}
       <View style={styles.windowControls}>
         <TouchableOpacity style={styles.windowButton}>
-          <Text style={styles.windowIcon}>─</Text>
+          <View style={styles.windowMinimize} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.windowButton}>
-          <Text style={styles.windowIcon}>□</Text>
+          <View style={styles.windowMaximize} />
         </TouchableOpacity>
         <TouchableOpacity style={[styles.windowButton, styles.windowClose]}>
-          <Text style={[styles.windowIcon, styles.windowCloseIcon]}>×</Text>
+          <View style={styles.windowCloseIcon} />
         </TouchableOpacity>
       </View>
     </View>
@@ -122,10 +119,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 38,
-    backgroundColor: GlassColors.chromeBackground,
+    height: 44,
+    backgroundColor: shadcnColors.background,
     borderBottomWidth: 1,
-    borderBottomColor: GlassColors.chromeBorder,
+    borderBottomColor: shadcnColors.border,
   },
   dragRegion: {
     width: 14,
@@ -133,89 +130,97 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flex: 1,
-    maxHeight: 38,
+    maxHeight: 44,
   },
   tabsScroll: {
     alignItems: 'center',
     paddingHorizontal: 4,
     gap: 2,
-    height: 38,
+    height: 44,
   },
   tab: {
     flexDirection: 'row',
     alignItems: 'center',
     height: TAB_HEIGHT,
-    paddingHorizontal: 12,
-    borderRadius: BorderRadius.sm,
-    gap: 6,
-    maxWidth: 200,
-    minWidth: 60,
+    paddingHorizontal: 14,
+    borderRadius: shadcnRadius.sm,
+    gap: 8,
+    maxWidth: 220,
+    minWidth: 80,
   },
   tabActive: {
-    backgroundColor: GlassColors.tabActive,
+    backgroundColor: shadcnColors.muted,
   },
   tabTitle: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    fontSize: 12,
+    fontSize: 13,
+    color: shadcnColors.mutedForeground,
     fontWeight: '400',
   },
   tabTitleActive: {
-    color: MaterialColors.onSurface,
+    color: shadcnColors.foreground,
     fontWeight: '500',
   },
   closeButton: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
-    opacity: 0,
-  },
-  closeButtonVisible: {
-    opacity: 0.6,
+    backgroundColor: 'transparent',
   },
   closeIcon: {
     fontSize: 14,
-    color: MaterialColors.onSurfaceVariant,
+    color: shadcnColors.mutedForeground,
     fontWeight: '300',
-    marginTop: -1,
   },
   newTabButton: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 8,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: shadcnColors.muted,
   },
   newTabIcon: {
     fontSize: 16,
-    color: MaterialColors.onSurfaceVariant,
+    color: shadcnColors.mutedForeground,
     fontWeight: '300',
   },
   windowControls: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 0,
-    marginRight: 4,
+    marginRight: 8,
   },
   windowButton: {
     width: 36,
-    height: 38,
+    height: 44,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  windowIcon: {
-    fontSize: 10,
-    color: MaterialColors.onSurfaceVariant,
-    fontWeight: '200',
+  windowMinimize: {
+    width: 10,
+    height: 1,
+    backgroundColor: shadcnColors.mutedForeground,
+  },
+  windowMaximize: {
+    width: 10,
+    height: 10,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: shadcnColors.mutedForeground,
   },
   windowClose: {},
   windowCloseIcon: {
-    fontSize: 14,
-    fontWeight: '300',
+    width: 10,
+    height: 10,
+    position: 'absolute',
+    borderTopWidth: 1.5,
+    borderLeftWidth: 1.5,
+    borderColor: shadcnColors.mutedForeground,
+    transform: [{rotate: '45deg'}],
+    marginTop: 0,
   },
   loadingBar: {
     position: 'absolute',
@@ -223,12 +228,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 2,
-    backgroundColor: 'rgba(255,255,255,0.02)',
+    backgroundColor: zinc[800],
   },
   loadingBarFill: {
     height: '100%',
     width: '60%',
-    backgroundColor: MaterialColors.primary,
+    backgroundColor: shadcnColors.foreground,
     borderRadius: 1,
   },
 });

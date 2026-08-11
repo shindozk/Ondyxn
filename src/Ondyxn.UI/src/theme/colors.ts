@@ -1,84 +1,113 @@
 /**
- * Ondyxn Browser - Material You Color System
- * Ultra-transparent Liquid Glass design
+ * Ondyxn Browser - shadcn/ui Color System
+ * Dark theme with zinc palette matching shadcn/ui exactly
  */
-
-export const MaterialColors = {
-  // Primary palette (Cyan)
-  primary: '#06B6D4',
-  primaryLight: '#22D3EE',
-  primaryDark: '#0891B2',
-  onPrimary: '#FFFFFF',
-  primaryContainer: '#0E7490',
-  onPrimaryContainer: '#CFFAFE',
-
-  // Secondary palette (Purple)
-  secondary: '#8B5CF6',
-  secondaryLight: '#A78BFA',
-  secondaryDark: '#7C3AED',
-  onSecondary: '#FFFFFF',
-
-  // Neutral palette - ultra dark
-  background: '#0A0A0C',
-  onBackground: '#FAFAFA',
-  surface: '#111114',
-  onSurface: '#F4F4F5',
-  surfaceVariant: '#18181B',
-  onSurfaceVariant: '#A1A1AA',
-  surfaceContainer: '#1C1C1F',
-  surfaceContainerLow: '#141416',
-  surfaceContainerHigh: '#232326',
-  surfaceContainerHighest: '#2A2A2D',
-
-  // Outline
-  outline: '#27272A',
-  outlineVariant: '#3F3F46',
-
-  // Success / Error
-  success: '#10B981',
-  error: '#EF4444',
-
-  // Warning
-  warning: '#F59E0B',
-};
 
 /**
- * Liquid Glass effect colors - ultra transparent
- * Designed to show the desktop/page content through the chrome
+ * shadcn/ui Dark Theme Colors (Zinc)
+ * Based on CSS variables from ui.shadcn.com
+ * Converted from oklch to hex for React Native
  */
+export const shadcnColors = {
+  // Core semantic tokens
+  background: '#09090B',       // hsl(240, 10%, 3.9%)
+  foreground: '#FAFAFA',       // hsl(0, 0%, 98%)
+  
+  card: '#09090B',             // hsl(240, 10%, 3.9%)
+  cardForeground: '#FAFAFA',   // hsl(0, 0%, 98%)
+  
+  popover: '#09090B',          // hsl(240, 10%, 3.9%)
+  popoverForeground: '#FAFAFA', // hsl(0, 0%, 98%)
+  
+  primary: '#FAFAFA',          // hsl(0, 0%, 98%)
+  primaryForeground: '#18181B', // hsl(240, 5.9%, 10%)
+  
+  secondary: '#27272A',        // hsl(240, 3.7%, 15.9%)
+  secondaryForeground: '#FAFAFA', // hsl(0, 0%, 98%)
+  
+  muted: '#27272A',            // hsl(240, 3.7%, 15.9%)
+  mutedForeground: '#A1A1AA',  // hsl(240, 5%, 64.9%)
+  
+  accent: '#27272A',           // hsl(240, 3.7%, 15.9%)
+  accentForeground: '#FAFAFA', // hsl(0, 0%, 98%)
+  
+  destructive: '#7F1D1D',      // hsl(0, 62.8%, 30.6%)
+  destructiveForeground: '#FAFAFA', // hsl(0, 0%, 98%)
+  
+  border: '#27272A',           // hsl(240, 3.7%, 15.9%)
+  input: '#27272A',            // hsl(240, 3.7%, 15.9%)
+  ring: '#D4D4D8',             // hsl(240, 5.9%, 83.9%)
+  
+  // Chart colors
+  chart1: '#FAFAFA',
+  chart2: '#A1A1AA',
+  chart3: '#52525B',
+  chart4: '#3F3F46',
+  chart5: '#27272A',
+  
+  // Sidebar
+  sidebar: '#09090B',
+  sidebarForeground: '#FAFAFA',
+  sidebarPrimary: '#FAFAFA',
+  sidebarPrimaryForeground: '#18181B',
+  sidebarAccent: '#27272A',
+  sidebarAccentForeground: '#FAFAFA',
+  sidebarBorder: '#27272A',
+  sidebarRing: '#D4D4D8',
+} as const;
+
+/**
+ * Zinc color scale from shadcn/ui
+ * For additional UI elements
+ */
+export const zinc = {
+  50: '#FAFAFA',
+  100: '#F4F4F5',
+  200: '#E4E4E7',
+  300: '#D4D4D8',
+  400: '#A1A1AA',
+  500: '#71717A',
+  600: '#52525B',
+  700: '#3F3F46',
+  800: '#27272A',
+  900: '#18181B',
+  950: '#09090B',
+} as const;
+
+/**
+ * shadcn/ui radius scale
+ */
+export const shadcnRadius = {
+  sm: 6,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  '2xl': 20,
+  '3xl': 24,
+  full: 9999,
+} as const;
+
+// Alias for backwards compatibility
+export const MaterialColors = shadcnColors;
 export const GlassColors = {
-  // Chrome glass (tab bar, omnibox area)
-  chromeBackground: 'rgba(18, 18, 22, 0.65)',
-  chromeBorder: 'rgba(255, 255, 255, 0.06)',
-
-  // Glass surfaces
-  glassBackground: 'rgba(15, 15, 20, 0.55)',
-  glassBackgroundLight: 'rgba(25, 25, 30, 0.50)',
-  glassBackgroundUltra: 'rgba(15, 15, 20, 0.70)',
-  glassBorder: 'rgba(255, 255, 255, 0.06)',
-  glassBorderLight: 'rgba(255, 255, 255, 0.10)',
-  glassHighlight: 'rgba(255, 255, 255, 0.03)',
-  glassShadow: 'rgba(0, 0, 0, 0.3)',
-
-  // Tab glass
-  tabActive: 'rgba(255, 255, 255, 0.08)',
-  tabHover: 'rgba(255, 255, 255, 0.05)',
+  glassBackground: shadcnColors.secondary + '90',
+  glassBackgroundLight: shadcnColors.secondary + 'B0',
+  glassBackgroundUltra: shadcnColors.secondary + 'CC',
+  glassBorder: shadcnColors.border,
+  glassBorderLight: shadcnColors.border,
+  glassHighlight: zinc[700] + '40',
+  glassShadow: '#00000060',
+  tabActive: shadcnColors.accent,
+  tabHover: zinc[800],
   tabInactive: 'transparent',
-
-  // Omnibox glass
-  omnibox: 'rgba(255, 255, 255, 0.06)',
-  omniboxFocused: 'rgba(255, 255, 255, 0.10)',
-  omniboxBorder: 'rgba(255, 255, 255, 0.08)',
-  omniboxBorderFocused: 'rgba(6, 182, 212, 0.40)',
-
-  // Sidebar glass
-  sidebar: 'rgba(12, 12, 16, 0.80)',
-  sidebarBorder: 'rgba(255, 255, 255, 0.04)',
-
-  // Gradient overlays
-  glassGradientTop: 'rgba(255, 255, 255, 0.04)',
-  glassGradientBottom: 'rgba(0, 0, 0, 0.08)',
+  omnibox: shadcnColors.input,
+  omniboxFocused: zinc[800],
+  omniboxBorder: shadcnColors.border,
+  omniboxBorderFocused: zinc[500],
+  sidebar: shadcnColors.background,
+  sidebarBorder: shadcnColors.border,
+  chromeBackground: shadcnColors.background,
+  chromeBorder: shadcnColors.border,
 };
 
-export type AppColors = typeof MaterialColors;
-export type GlassColorSet = typeof GlassColors;
+export type AppColors = typeof shadcnColors;

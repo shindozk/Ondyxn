@@ -1,5 +1,6 @@
 /**
- * Ondyxn Browser - Material You Typography System
+ * Ondyxn Browser - shadcn/ui Typography System
+ * Based on shadcn/ui's default Inter font stack
  */
 
 import {TextStyle} from 'react-native';
@@ -27,30 +28,34 @@ export const Typography = {
   headlineLarge: {
     fontSize: 32,
     lineHeight: 40,
-    fontWeight: '500' as TextStyle['fontWeight'],
+    fontWeight: '600' as TextStyle['fontWeight'],
+    letterSpacing: -0.2,
   },
   headlineMedium: {
     fontSize: 28,
     lineHeight: 36,
-    fontWeight: '500' as TextStyle['fontWeight'],
+    fontWeight: '600' as TextStyle['fontWeight'],
+    letterSpacing: -0.2,
   },
   headlineSmall: {
     fontSize: 24,
     lineHeight: 32,
-    fontWeight: '500' as TextStyle['fontWeight'],
+    fontWeight: '600' as TextStyle['fontWeight'],
+    letterSpacing: -0.1,
   },
 
   // Title
   titleLarge: {
     fontSize: 22,
     lineHeight: 28,
-    fontWeight: '500' as TextStyle['fontWeight'],
+    fontWeight: '600' as TextStyle['fontWeight'],
+    letterSpacing: -0.2,
   },
   titleMedium: {
     fontSize: 16,
     lineHeight: 24,
     fontWeight: '500' as TextStyle['fontWeight'],
-    letterSpacing: 0.15,
+    letterSpacing: 0.1,
   },
   titleSmall: {
     fontSize: 14,
@@ -113,9 +118,11 @@ export const Spacing = {
 
 export const BorderRadius = {
   xs: 4,
-  sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 24,
+  sm: 6,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  '2xl': 20,
+  '3xl': 24,
   full: 9999,
 };

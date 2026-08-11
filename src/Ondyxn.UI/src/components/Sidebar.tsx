@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Sidebar Component
- * Transparent Liquid Glass sidebar
+ * shadcn/ui design with minimal, clean aesthetic
  */
 
 import React, {useState} from 'react';
@@ -11,8 +11,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {MaterialColors, GlassColors} from '../theme/colors';
-import {Typography, Spacing, BorderRadius} from '../theme/typography';
+import {shadcnColors, zinc, shadcnRadius} from '../theme/colors';
+import {Badge, Separator, ScrollArea} from './ui';
 
 const SIDEBAR_WIDTH = 240;
 
@@ -143,12 +143,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           ))}
         </View>
 
+        <Separator />
+
         {/* Content */}
-        <ScrollView style={styles.contentArea}>
+        <ScrollArea style={styles.contentArea}>
           <View style={styles.sectionContent}>
             {renderContent()}
           </View>
-        </ScrollView>
+        </ScrollArea>
       </View>
     </View>
   );
@@ -173,51 +175,48 @@ const styles = StyleSheet.create({
   },
   sidebar: {
     flex: 1,
-    backgroundColor: GlassColors.sidebar,
+    backgroundColor: shadcnColors.background,
     borderRightWidth: 1,
-    borderRightColor: GlassColors.sidebarBorder,
+    borderRightColor: shadcnColors.border,
   },
   sectionTabs: {
     flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: GlassColors.glassBorder,
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
-    gap: 2,
+    padding: 8,
+    gap: 4,
   },
   sectionTab: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 6,
-    borderRadius: BorderRadius.sm,
+    paddingVertical: 8,
+    borderRadius: shadcnRadius.sm,
   },
   sectionTabActive: {
-    backgroundColor: 'rgba(6, 182, 212, 0.10)',
+    backgroundColor: shadcnColors.muted,
   },
   sectionTabIcon: {
     fontSize: 14,
-    color: MaterialColors.onSurfaceVariant,
+    color: shadcnColors.mutedForeground,
   },
   sectionTabIconActive: {
-    color: MaterialColors.primary,
+    color: shadcnColors.foreground,
   },
   contentArea: {
     flex: 1,
   },
   sectionContent: {
-    padding: Spacing.sm,
+    padding: 8,
     gap: 2,
   },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: Spacing.sm,
-    borderRadius: BorderRadius.sm,
-    gap: Spacing.sm,
+    padding: 10,
+    borderRadius: shadcnRadius.sm,
+    gap: 10,
   },
   itemIcon: {
     fontSize: 13,
-    color: MaterialColors.primary,
+    color: shadcnColors.mutedForeground,
     width: 18,
     textAlign: 'center',
   },
@@ -225,15 +224,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemTitle: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurface,
-    fontSize: 12,
+    fontSize: 13,
+    color: shadcnColors.foreground,
+    fontWeight: '400',
   },
   itemSubtitle: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    fontSize: 10,
-    marginTop: 1,
+    fontSize: 11,
+    color: shadcnColors.mutedForeground,
+    marginTop: 2,
   },
   emptyState: {
     alignItems: 'center',
@@ -241,22 +239,21 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   emptyIcon: {
-    fontSize: 28,
-    color: MaterialColors.onSurfaceVariant,
-    opacity: 0.3,
-    marginBottom: Spacing.sm,
+    fontSize: 24,
+    color: shadcnColors.mutedForeground,
+    opacity: 0.4,
+    marginBottom: 12,
   },
   emptyText: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    opacity: 0.6,
+    fontSize: 13,
+    color: shadcnColors.mutedForeground,
+    opacity: 0.7,
   },
   emptySubtext: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    opacity: 0.4,
+    fontSize: 11,
+    color: shadcnColors.mutedForeground,
+    opacity: 0.5,
     marginTop: 4,
-    fontSize: 10,
   },
 });
 

@@ -1,11 +1,11 @@
 /**
  * Ondyxn Browser - Main Application
- * Ultra-transparent Liquid Glass design with Material You
+ * shadcn/ui design with dark theme
  */
 
 import React, {useState, useCallback} from 'react';
 import {View, StyleSheet, StatusBar, Dimensions} from 'react-native';
-import {MaterialColors, GlassColors} from './src/theme/colors';
+import {shadcnColors, shadcnRadius} from './src/theme/colors';
 import {TabBar} from './src/components/TabBar';
 import {Omnibox} from './src/components/Omnibox';
 import {Sidebar} from './src/components/Sidebar';
@@ -204,7 +204,7 @@ function extractHost(url: string): string {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MaterialColors.background,
+    backgroundColor: shadcnColors.background,
   },
   contentWrapper: {
     flex: 1,
@@ -213,13 +213,15 @@ const styles = StyleSheet.create({
   },
   contentArea: {
     flex: 1,
-    backgroundColor: MaterialColors.surface,
-    borderRadius: 12,
+    backgroundColor: shadcnColors.card,
+    borderRadius: shadcnRadius.lg,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: shadcnColors.border,
   },
   webPlaceholder: {
     flex: 1,
-    backgroundColor: MaterialColors.background,
+    backgroundColor: shadcnColors.background,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -232,8 +234,8 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.08)',
-    borderTopColor: MaterialColors.primary,
+    borderColor: shadcnColors.border,
+    borderTopColor: shadcnColors.primary,
   },
 });
 

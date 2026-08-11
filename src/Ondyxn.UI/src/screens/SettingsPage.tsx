@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Settings Page
- * Ultra-transparent Liquid Glass design with Material You
+ * shadcn/ui design with minimal, clean aesthetic
  */
 
 import React, {useState} from 'react';
@@ -10,12 +10,9 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Switch,
-  Dimensions,
 } from 'react-native';
-import {MaterialColors, GlassColors} from '../theme/colors';
-import {Typography, Spacing, BorderRadius} from '../theme/typography';
-import {Glass} from '../components/Glass';
+import {shadcnColors, shadcnRadius} from '../theme/colors';
+import {Card, CardHeader, CardTitle, CardContent, Separator, Switch, Badge} from '../components/ui';
 
 interface SettingsProps {
   onBack: () => void;
@@ -59,7 +56,7 @@ export const SettingsPage: React.FC<SettingsProps> = ({onBack}) => {
       icon: '🎨',
       items: [
         {id: 'theme', label: 'Theme', type: 'select', options: ['System', 'Light', 'Dark'], selectedOption: settings.theme === 'dark' ? 'Dark' : settings.theme === 'light' ? 'Light' : 'System'},
-        {id: 'accentColor', label: 'Accent Color', type: 'select', options: ['Cyan', 'Purple', 'Rose', 'Green', 'Orange'], selectedOption: 'Cyan'},
+        {id: 'accentColor', label: 'Accent Color', type: 'select', options: ['Zinc', 'Blue', 'Green', 'Red'], selectedOption: 'Zinc'},
       ],
     },
     {
@@ -109,63 +106,57 @@ export const SettingsPage: React.FC<SettingsProps> = ({onBack}) => {
 
       <ScrollView contentContainerStyle={styles.content}>
         {sections.map(section => (
-          <View key={section.title} style={styles.section}>
-            <View style={styles.sectionHeader}>
-              <Text style={styles.sectionIcon}>{section.icon}</Text>
-              <Text style={styles.sectionTitle}>{section.title}</Text>
-            </View>
-
-            <Glass variant="default" rounded="lg" style={styles.sectionContent}>
+          <Card key={section.title} style={styles.section}>
+            <CardHeader>
+              <CardTitle style={styles.sectionTitle}>
+                <Text>{section.icon} </Text>
+                {section.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent style={styles.sectionContent}>
               {section.items.map((item, index) => (
-                <View
-                  key={item.id}
-                  style={[
-                    styles.settingItem,
-                    index < section.items.length - 1 && styles.settingItemBorder,
-                  ]}>
-                  <Text style={styles.settingLabel}>{item.label}</Text>
+                <View key={item.id}>
+                  <View style={styles.settingItem}>
+                    <Text style={styles.settingLabel}>{item.label}</Text>
 
-                  {item.type === 'toggle' && (
-                    <Switch
-                      value={item.value as boolean}
-                      onValueChange={() => toggleSetting(item.id)}
-                      trackColor={{
-                        false: '#27272A',
-                        true: MaterialColors.primary + '50',
-                      }}
-                      thumbColor={
-                        item.value ? MaterialColors.primary : '#52525B'
-                      }
-                    />
-                  )}
+                    {item.type === 'toggle' && (
+                      <Switch
+                        checked={item.value as boolean}
+                        onCheckedChange={() => toggleSetting(item.id)}
+                      />
+                    )}
 
-                  {item.type === 'select' && (
-                    <View style={styles.selectContainer}>
-                      <Text style={styles.selectValue}>
-                        {item.selectedOption}
-                      </Text>
-                      <Text style={styles.selectArrow}>›</Text>
-                    </View>
-                  )}
+                    {item.type === 'select' && (
+                      <TouchableOpacity style={styles.selectContainer}>
+                        <Text style={styles.selectValue}>
+                          {item.selectedOption}
+                        </Text>
+                        <Text style={styles.selectArrow}>›</Text>
+                      </TouchableOpacity>
+                    )}
 
-                  {item.type === 'info' && (
-                    <View style={styles.infoContainer}>
-                      <Text style={styles.infoValue} numberOfLines={1}>
-                        {typeof item.value === 'string' ? item.value : ''}
-                      </Text>
-                    </View>
+                    {item.type === 'info' && (
+                      <View style={styles.infoContainer}>
+                        <Badge variant="secondary">
+                          {typeof item.value === 'string' ? item.value : ''}
+                        </Badge>
+                      </View>
+                    )}
+                  </View>
+                  {index < section.items.length - 1 && (
+                    <Separator />
                   )}
                 </View>
               ))}
-            </Glass>
-          </View>
+            </CardContent>
+          </Card>
         ))}
 
         {/* Version info */}
         <View style={styles.versionInfo}>
           <Text style={styles.versionText}>Ondyxn Browser v1.0.0</Text>
           <Text style={styles.versionSubtext}>
-            Built with React Native Windows · Material You
+            Built with React Native Windows · shadcn/ui
           </Text>
         </View>
       </ScrollView>
@@ -176,55 +167,47 @@ export const SettingsPage: React.FC<SettingsProps> = ({onBack}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MaterialColors.background,
+    backgroundColor: shadcnColors.background,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: GlassColors.chromeBorder,
-    gap: Spacing.md,
+    borderBottomColor: shadcnColors.border,
+    gap: 12,
   },
   backButton: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 32,
+    height: 32,
+    borderRadius: shadcnRadius.sm,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: shadcnColors.muted,
   },
   backIcon: {
     fontSize: 18,
-    color: MaterialColors.onSurface,
+    color: shadcnColors.foreground,
     fontWeight: '300',
   },
   headerTitle: {
-    ...Typography.titleMedium,
-    color: MaterialColors.onSurface,
+    fontSize: 16,
+    fontWeight: '500',
+    color: shadcnColors.foreground,
   },
   content: {
-    padding: Spacing.lg,
-    gap: Spacing.xl,
+    padding: 16,
+    gap: 16,
   },
   section: {
-    gap: Spacing.sm,
-  },
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: Spacing.xs,
-    gap: Spacing.sm,
-  },
-  sectionIcon: {
-    fontSize: 12,
+    margin: 0,
   },
   sectionTitle: {
-    ...Typography.labelMedium,
-    color: MaterialColors.onSurfaceVariant,
-    textTransform: 'uppercase' as const,
-    letterSpacing: 1,
+    fontSize: 14,
+    fontWeight: '500',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   sectionContent: {
     padding: 0,
@@ -233,59 +216,45 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: Spacing.lg,
-    paddingVertical: Spacing.md,
-  },
-  settingItemBorder: {
-    borderBottomWidth: 1,
-    borderBottomColor: GlassColors.glassBorder,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
   },
   settingLabel: {
-    ...Typography.bodyMedium,
-    color: MaterialColors.onSurface,
-    fontSize: 13,
+    fontSize: 14,
+    color: shadcnColors.foreground,
   },
   selectContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: Spacing.xs,
+    gap: 4,
   },
   selectValue: {
-    ...Typography.bodySmall,
-    color: MaterialColors.primary,
-    fontSize: 12,
+    fontSize: 13,
+    color: shadcnColors.mutedForeground,
   },
   selectArrow: {
     fontSize: 16,
-    color: MaterialColors.onSurfaceVariant,
+    color: shadcnColors.mutedForeground,
     fontWeight: '300',
   },
   infoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  infoValue: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    maxWidth: 180,
-    fontSize: 11,
-  },
   versionInfo: {
     alignItems: 'center',
-    paddingVertical: Spacing.xxl,
-    gap: Spacing.xs,
+    paddingVertical: 32,
+    gap: 4,
   },
   versionText: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    opacity: 0.4,
-    fontSize: 11,
+    fontSize: 12,
+    color: shadcnColors.mutedForeground,
+    opacity: 0.5,
   },
   versionSubtext: {
-    ...Typography.bodySmall,
-    color: MaterialColors.onSurfaceVariant,
-    opacity: 0.25,
-    fontSize: 10,
+    fontSize: 11,
+    color: shadcnColors.mutedForeground,
+    opacity: 0.3,
   },
 });
 
