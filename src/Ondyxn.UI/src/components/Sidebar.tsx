@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Sidebar Component
- * Material You design with Liquid Glass effect
+ * Transparent Liquid Glass sidebar
  */
 
 import React, {useState} from 'react';
@@ -10,13 +10,11 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
 } from 'react-native';
 import {MaterialColors, GlassColors} from '../theme/colors';
 import {Typography, Spacing, BorderRadius} from '../theme/typography';
-import {Glass} from './Glass';
 
-const SIDEBAR_WIDTH = 260;
+const SIDEBAR_WIDTH = 240;
 
 type SidebarSection = 'bookmarks' | 'history' | 'downloads' | 'settings';
 
@@ -24,7 +22,6 @@ interface BookmarkItem {
   id: string;
   title: string;
   url: string;
-  favicon?: string;
 }
 
 interface HistoryItem {
@@ -59,12 +56,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   history = [],
   downloads = [],
 }) => {
-  const [activeSection, setActiveSection] =
-    useState<SidebarSection>('bookmarks');
+  const [activeSection, setActiveSection] = useState<SidebarSection>('bookmarks');
 
-  if (!isVisible) {
-    return null;
-  }
+  if (!isVisible) return null;
 
   const sections: {key: SidebarSection; icon: string; label: string}[] = [
     {key: 'bookmarks', icon: '★', label: 'Bookmarks'},
@@ -73,158 +67,77 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {key: 'settings', icon: '⚙', label: 'Settings'},
   ];
 
-  const renderBookmarks = () => (
-    <View style={styles.sectionContent}>
-      {bookmarks.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyIcon}>★</Text>
-          <Text style={styles.emptyText}>No bookmarks yet</Text>
-          <Text style={styles.emptySubtext}>
-            Press Ctrl+D to bookmark this page
-          </Text>
-        </View>
-      ) : (
-        bookmarks.map(item => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => onNavigate(item.url)}
-            style={styles.listItem}>
-            <Text style={styles.itemIcon}>★</Text>
-            <View style={styles.itemText}>
-              <Text style={styles.itemTitle} numberOfLines={1}>
-                {item.title}
-              </Text>
-              <Text style={styles.itemSubtitle} numberOfLines={1}>
-                {item.url}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))
-      )}
-    </View>
-  );
-
-  const renderHistory = () => (
-    <View style={styles.sectionContent}>
-      {history.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyIcon}>◷</Text>
-          <Text style={styles.emptyText}>No history yet</Text>
-        </View>
-      ) : (
-        history.map(item => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => onNavigate(item.url)}
-            style={styles.listItem}>
-            <Text style={styles.itemIcon}>◷</Text>
-            <View style={styles.itemText}>
-              <Text style={styles.itemTitle} numberOfLines={1}>
-                {item.title}
-              </Text>
-              <Text style={styles.itemSubtitle} numberOfLines={1}>
-                {new Date(item.timestamp).toLocaleDateString()}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))
-      )}
-    </View>
-  );
-
-  const renderDownloads = () => (
-    <View style={styles.sectionContent}>
-      {downloads.length === 0 ? (
-        <View style={styles.emptyState}>
-          <Text style={styles.emptyIcon}>↓</Text>
-          <Text style={styles.emptyText}>No downloads</Text>
-        </View>
-      ) : (
-        downloads.map(item => (
-          <View key={item.id} style={styles.downloadItem}>
-            <Text style={styles.itemIcon}>
-              {item.status === 'completed' ? '✓' : '↓'}
-            </Text>
-            <View style={styles.itemText}>
-              <Text style={styles.itemTitle} numberOfLines={1}>
-                {item.fileName}
-              </Text>
-              {item.status === 'downloading' && (
-                <View style={styles.progressBar}>
-                  <View
-                    style={[
-                      styles.progressFill,
-                      {width: `${item.progress * 100}%`},
-                    ]}
-                  />
-                </View>
-              )}
-              {item.size && (
-                <Text style={styles.itemSubtitle}>{item.size}</Text>
-              )}
-            </View>
-          </View>
-        ))
-      )}
-    </View>
-  );
-
-  const renderSettings = () => (
-    <View style={styles.sectionContent}>
-      <Text style={[styles.itemTitle, {paddingHorizontal: 12}]}>
-        Settings
-      </Text>
-      <Text
-        style={[
-          styles.emptySubtext,
-          {paddingHorizontal: 12, marginTop: 8},
-        ]}>
-        Settings page will open in the main view
-      </Text>
-    </View>
-  );
-
   const renderContent = () => {
     switch (activeSection) {
       case 'bookmarks':
-        return renderBookmarks();
+        return bookmarks.length === 0 ? (
+          <EmptyState icon="★" text="No bookmarks yet" sub="Press Ctrl+D to bookmark" />
+        ) : (
+          bookmarks.map(item => (
+            <TouchableOpacity key={item.id} onPress={() => onNavigate(item.url)} style={styles.listItem}>
+              <Text style={styles.itemIcon}>★</Text>
+              <View style={styles.itemText}>
+                <Text style={styles.itemTitle} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.itemSubtitle} numberOfLines={1}>{item.url}</Text>
+              </View>
+            </TouchableOpacity>
+          ))
+        );
       case 'history':
-        return renderHistory();
+        return history.length === 0 ? (
+          <EmptyState icon="◷" text="No history yet" />
+        ) : (
+          history.map(item => (
+            <TouchableOpacity key={item.id} onPress={() => onNavigate(item.url)} style={styles.listItem}>
+              <Text style={styles.itemIcon}>◷</Text>
+              <View style={styles.itemText}>
+                <Text style={styles.itemTitle} numberOfLines={1}>{item.title}</Text>
+                <Text style={styles.itemSubtitle} numberOfLines={1}>
+                  {new Date(item.timestamp).toLocaleDateString()}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))
+        );
       case 'downloads':
-        return renderDownloads();
+        return downloads.length === 0 ? (
+          <EmptyState icon="↓" text="No downloads" />
+        ) : (
+          downloads.map(item => (
+            <View key={item.id} style={styles.listItem}>
+              <Text style={styles.itemIcon}>{item.status === 'completed' ? '✓' : '↓'}</Text>
+              <View style={styles.itemText}>
+                <Text style={styles.itemTitle} numberOfLines={1}>{item.fileName}</Text>
+                {item.size && <Text style={styles.itemSubtitle}>{item.size}</Text>}
+              </View>
+            </View>
+          ))
+        );
       case 'settings':
-        return renderSettings();
+        return (
+          <View style={styles.listItem}>
+            <Text style={styles.itemIcon}>⚙</Text>
+            <View style={styles.itemText}>
+              <Text style={styles.itemTitle}>Settings</Text>
+              <Text style={styles.itemSubtitle}>Configure browser preferences</Text>
+            </View>
+          </View>
+        );
     }
   };
 
   return (
     <View style={styles.container}>
-      <Glass variant="sidebar" style={styles.sidebar}>
+      <View style={styles.sidebar}>
         {/* Section tabs */}
         <View style={styles.sectionTabs}>
           {sections.map(section => (
             <TouchableOpacity
               key={section.key}
               onPress={() => setActiveSection(section.key)}
-              style={[
-                styles.sectionTab,
-                activeSection === section.key && styles.sectionTabActive,
-              ]}>
-              <Text
-                style={[
-                  styles.sectionTabIcon,
-                  activeSection === section.key &&
-                    styles.sectionTabIconActive,
-                ]}>
+              style={[styles.sectionTab, activeSection === section.key && styles.sectionTabActive]}>
+              <Text style={[styles.sectionTabIcon, activeSection === section.key && styles.sectionTabIconActive]}>
                 {section.icon}
-              </Text>
-              <Text
-                style={[
-                  styles.sectionTabLabel,
-                  activeSection === section.key &&
-                    styles.sectionTabLabelActive,
-                ]}>
-                {section.label}
               </Text>
             </TouchableOpacity>
           ))}
@@ -232,26 +145,37 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Content */}
         <ScrollView style={styles.contentArea}>
-          {renderContent()}
+          <View style={styles.sectionContent}>
+            {renderContent()}
+          </View>
         </ScrollView>
-      </Glass>
+      </View>
     </View>
   );
 };
+
+const EmptyState: React.FC<{icon: string; text: string; sub?: string}> = ({icon, text, sub}) => (
+  <View style={styles.emptyState}>
+    <Text style={styles.emptyIcon}>{icon}</Text>
+    <Text style={styles.emptyText}>{text}</Text>
+    {sub && <Text style={styles.emptySubtext}>{sub}</Text>}
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     left: 0,
-    top: 42,
+    top: 0,
     bottom: 0,
     width: SIDEBAR_WIDTH,
     zIndex: 100,
   },
   sidebar: {
     flex: 1,
+    backgroundColor: GlassColors.sidebar,
     borderRightWidth: 1,
-    borderRightColor: GlassColors.glassBorder,
+    borderRightColor: GlassColors.sidebarBorder,
   },
   sectionTabs: {
     flexDirection: 'row',
@@ -259,32 +183,22 @@ const styles = StyleSheet.create({
     borderBottomColor: GlassColors.glassBorder,
     paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
-    gap: 4,
+    gap: 2,
   },
   sectionTab: {
     flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
-    paddingVertical: Spacing.xs,
+    paddingVertical: 6,
     borderRadius: BorderRadius.sm,
-    gap: 2,
   },
   sectionTabActive: {
-    backgroundColor: 'rgba(6, 182, 212, 0.12)',
+    backgroundColor: 'rgba(6, 182, 212, 0.10)',
   },
   sectionTabIcon: {
     fontSize: 14,
     color: MaterialColors.onSurfaceVariant,
   },
   sectionTabIconActive: {
-    color: MaterialColors.primary,
-  },
-  sectionTabLabel: {
-    ...Typography.labelSmall,
-    color: MaterialColors.onSurfaceVariant,
-    fontSize: 9,
-  },
-  sectionTabLabelActive: {
     color: MaterialColors.primary,
   },
   contentArea: {
@@ -302,9 +216,9 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   itemIcon: {
-    fontSize: 14,
+    fontSize: 13,
     color: MaterialColors.primary,
-    width: 20,
+    width: 18,
     textAlign: 'center',
   },
   itemText: {
@@ -321,45 +235,28 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 1,
   },
-  downloadItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: Spacing.sm,
-    borderRadius: BorderRadius.sm,
-    gap: Spacing.sm,
-  },
-  progressBar: {
-    height: 3,
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    borderRadius: 1.5,
-    marginTop: 4,
-    overflow: 'hidden',
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: MaterialColors.primary,
-    borderRadius: 1.5,
-  },
   emptyState: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: Spacing.xxxl,
+    paddingVertical: 40,
   },
   emptyIcon: {
-    fontSize: 32,
+    fontSize: 28,
     color: MaterialColors.onSurfaceVariant,
-    opacity: 0.4,
-    marginBottom: Spacing.md,
+    opacity: 0.3,
+    marginBottom: Spacing.sm,
   },
   emptyText: {
-    ...Typography.titleMedium,
+    ...Typography.bodySmall,
     color: MaterialColors.onSurfaceVariant,
-    marginBottom: Spacing.xs,
+    opacity: 0.6,
   },
   emptySubtext: {
     ...Typography.bodySmall,
     color: MaterialColors.onSurfaceVariant,
-    opacity: 0.6,
+    opacity: 0.4,
+    marginTop: 4,
+    fontSize: 10,
   },
 });
 

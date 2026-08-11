@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - New Tab Page
- * Material You design with bento grid layout
+ * Clean minimal design with centered search and quick links
  */
 
 import React, {useState} from 'react';
@@ -22,16 +22,10 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 /** Extract hostname from URL string without using URL API (not implemented in RN) */
 function extractHostname(url: string): string {
   try {
-    // Remove protocol
     let host = url.replace(/^https?:\/\//, '');
-    // Remove path/query/hash
     host = host.split('/')[0];
-    // Remove port
     host = host.split(':')[0];
-    // Remove www.
-    if (host.startsWith('www.')) {
-      host = host.slice(4);
-    }
+    if (host.startsWith('www.')) host = host.slice(4);
     return host;
   } catch {
     return url;
@@ -86,7 +80,7 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
       </View>
 
       {/* Search bar */}
-      <Glass variant="light" rounded="lg" style={styles.searchContainer}>
+      <Glass variant="light" rounded="full" style={styles.searchContainer}>
         <View style={styles.searchInner}>
           <Text style={styles.searchIcon}>🔍</Text>
           <TextInput
@@ -105,7 +99,6 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
 
       {/* Quick links grid */}
       <View style={styles.quickLinksSection}>
-        <Text style={styles.sectionTitle}>Quick Links</Text>
         <View style={styles.quickLinksGrid}>
           {quickLinks.map(link => (
             <TouchableOpacity
@@ -149,7 +142,7 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: MaterialColors.background,
+    backgroundColor: 'transparent',
   },
   contentContainer: {
     padding: Spacing.xl,
@@ -157,7 +150,7 @@ const styles = StyleSheet.create({
   },
   hero: {
     alignItems: 'center',
-    marginTop: Spacing.xxxl,
+    marginTop: 60,
     marginBottom: Spacing.xl,
   },
   greeting: {
@@ -172,9 +165,9 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     width: '100%',
-    maxWidth: 600,
-    height: 48,
-    marginBottom: Spacing.xxl,
+    maxWidth: 560,
+    height: 44,
+    marginBottom: 48,
   },
   searchInner: {
     flex: 1,
@@ -184,37 +177,32 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   searchIcon: {
-    fontSize: 16,
+    fontSize: 14,
   },
   searchInput: {
     flex: 1,
-    ...Typography.bodyLarge,
+    ...Typography.bodyMedium,
     color: MaterialColors.onSurface,
+    fontSize: 14,
     padding: 0,
   },
   quickLinksSection: {
     width: '100%',
-    maxWidth: 600,
-  },
-  sectionTitle: {
-    ...Typography.titleMedium,
-    color: MaterialColors.onSurfaceVariant,
-    marginBottom: Spacing.md,
-    paddingHorizontal: Spacing.xs,
+    maxWidth: 560,
   },
   quickLinksGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: Spacing.sm,
+    gap: 12,
   },
   quickLinkWrapper: {
-    width: (SCREEN_WIDTH - 64 - Spacing.sm * 2) / 4,
+    width: (560 - 12 * 3) / 4,
   },
   quickLink: {
     alignItems: 'center',
-    paddingVertical: Spacing.lg,
-    paddingHorizontal: Spacing.sm,
-    gap: Spacing.sm,
+    paddingVertical: 16,
+    paddingHorizontal: 8,
+    gap: 8,
   },
   quickLinkIcon: {
     width: 40,
@@ -224,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   quickLinkIconText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
   },
   quickLinkTitle: {
@@ -238,14 +226,14 @@ const styles = StyleSheet.create({
     fontSize: 9,
   },
   footer: {
-    marginTop: Spacing.xxxl,
+    marginTop: 60,
     paddingBottom: Spacing.xl,
     alignItems: 'center',
   },
   footerText: {
     ...Typography.bodySmall,
     color: MaterialColors.onSurfaceVariant,
-    opacity: 0.4,
+    opacity: 0.3,
   },
 });
 

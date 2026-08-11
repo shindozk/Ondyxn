@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Material You Color System
- * Based on Material Design 3 color tokens with Liquid Glass support
+ * Ultra-transparent Liquid Glass design
  */
 
 export const MaterialColors = {
@@ -17,21 +17,11 @@ export const MaterialColors = {
   secondaryLight: '#A78BFA',
   secondaryDark: '#7C3AED',
   onSecondary: '#FFFFFF',
-  secondaryContainer: '#6D28D9',
-  onSecondaryContainer: '#EDE9FE',
 
-  // Tertiary palette (Rose)
-  tertiary: '#F43F5E',
-  tertiaryLight: '#FB7185',
-  tertiaryDark: '#E11D48',
-  onTertiary: '#FFFFFF',
-  tertiaryContainer: '#BE123C',
-  onTertiaryContainer: '#FFE4E6',
-
-  // Neutral palette
-  background: '#09090B',
+  // Neutral palette - ultra dark
+  background: '#0A0A0C',
   onBackground: '#FAFAFA',
-  surface: '#0F0F12',
+  surface: '#111114',
   onSurface: '#F4F4F5',
   surfaceVariant: '#18181B',
   onSurfaceVariant: '#A1A1AA',
@@ -40,41 +30,54 @@ export const MaterialColors = {
   surfaceContainerHigh: '#232326',
   surfaceContainerHighest: '#2A2A2D',
 
-  // Error
-  error: '#EF4444',
-  errorLight: '#F87171',
-  onError: '#FFFFFF',
-  errorContainer: '#B91C1C',
-  onErrorContainer: '#FEE2E2',
-
   // Outline
   outline: '#27272A',
   outlineVariant: '#3F3F46',
 
-  // Success
+  // Success / Error
   success: '#10B981',
-  successLight: '#34D399',
-  onSuccess: '#FFFFFF',
+  error: '#EF4444',
 
   // Warning
   warning: '#F59E0B',
-  warningLight: '#FBBF24',
-  onWarning: '#000000',
 };
 
+/**
+ * Liquid Glass effect colors - ultra transparent
+ * Designed to show the desktop/page content through the chrome
+ */
 export const GlassColors = {
-  // Liquid Glass effect colors
-  glassBackground: 'rgba(15, 15, 18, 0.72)',
-  glassBackgroundLight: 'rgba(30, 30, 35, 0.65)',
-  glassBackgroundUltra: 'rgba(15, 15, 18, 0.85)',
-  glassBorder: 'rgba(255, 255, 255, 0.08)',
-  glassBorderLight: 'rgba(255, 255, 255, 0.12)',
-  glassHighlight: 'rgba(255, 255, 255, 0.04)',
-  glassShadow: 'rgba(0, 0, 0, 0.4)',
+  // Chrome glass (tab bar, omnibox area)
+  chromeBackground: 'rgba(18, 18, 22, 0.65)',
+  chromeBorder: 'rgba(255, 255, 255, 0.06)',
+
+  // Glass surfaces
+  glassBackground: 'rgba(15, 15, 20, 0.55)',
+  glassBackgroundLight: 'rgba(25, 25, 30, 0.50)',
+  glassBackgroundUltra: 'rgba(15, 15, 20, 0.70)',
+  glassBorder: 'rgba(255, 255, 255, 0.06)',
+  glassBorderLight: 'rgba(255, 255, 255, 0.10)',
+  glassHighlight: 'rgba(255, 255, 255, 0.03)',
+  glassShadow: 'rgba(0, 0, 0, 0.3)',
+
+  // Tab glass
+  tabActive: 'rgba(255, 255, 255, 0.08)',
+  tabHover: 'rgba(255, 255, 255, 0.05)',
+  tabInactive: 'transparent',
+
+  // Omnibox glass
+  omnibox: 'rgba(255, 255, 255, 0.06)',
+  omniboxFocused: 'rgba(255, 255, 255, 0.10)',
+  omniboxBorder: 'rgba(255, 255, 255, 0.08)',
+  omniboxBorderFocused: 'rgba(6, 182, 212, 0.40)',
+
+  // Sidebar glass
+  sidebar: 'rgba(12, 12, 16, 0.80)',
+  sidebarBorder: 'rgba(255, 255, 255, 0.04)',
 
   // Gradient overlays
-  glassGradientTop: 'rgba(255, 255, 255, 0.06)',
-  glassGradientBottom: 'rgba(0, 0, 0, 0.1)',
+  glassGradientTop: 'rgba(255, 255, 255, 0.04)',
+  glassGradientBottom: 'rgba(0, 0, 0, 0.08)',
 };
 
 export type AppColors = typeof MaterialColors;

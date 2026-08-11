@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Omnibox (Address Bar) Component
- * Material You design with Liquid Glass effect
+ * Ultra-minimal centered design with lock icon
  */
 
 import React, {useState, useRef, useEffect} from 'react';
@@ -14,9 +14,6 @@ import {
 } from 'react-native';
 import {MaterialColors, GlassColors} from '../theme/colors';
 import {Typography, Spacing, BorderRadius} from '../theme/typography';
-import {Glass} from './Glass';
-
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 interface OmniboxProps {
   url: string;
@@ -28,8 +25,34 @@ interface OmniboxProps {
   onForward?: () => void;
   onReload?: () => void;
   onStop?: () => void;
+  onHome?: () => void;
   canGoBack?: boolean;
   canGoForward?: boolean;
+}
+
+/** Extract hostname from URL without URL API */
+function extractHost(url: string): string {
+  try {
+    let host = url.replace(/^https?:\/\//, '');
+    host = host.split('/')[0];
+    host = host.split(':')[0];
+    if (host.startsWith('www.')) host = host.slice(4);
+    return host;
+  } catch {
+    return url;
+  }
+}
+
+/** Extract path from URL without URL API */
+function extractPath(url: string): string {
+  try {
+    let rest = url.replace(/^https?:\/\//, '');
+    rest = rest.split(':')[0]; // remove port
+    const pathIdx = rest.indexOf('/');
+    return pathIdx >= 0 ? rest.slice(pathIdx) : '/';
+  } catch {
+    return '/';
+  }
 }
 
 export const Omnibox: React.FC<OmniboxProps> = ({
@@ -42,6 +65,7 @@ export const Omnibox: React.FC<OmniboxProps> = ({
   onForward,
   onReload,
   onStop,
+  onHome,
   canGoBack = false,
   canGoForward = false,
 }) => {
@@ -58,7 +82,6 @@ export const Omnibox: React.FC<OmniboxProps> = ({
   const handleSubmit = () => {
     let navigateUrl = inputValue.trim();
 
-    // Auto-add https if no protocol
     if (
       !navigateUrl.startsWith('http://') &&
       !navigateUrl.startsWith('https://') &&
@@ -76,89 +99,77 @@ export const Omnibox: React.FC<OmniboxProps> = ({
     onNavigate(navigateUrl);
   };
 
-  const getDisplayUrl = () => {
-    if (isFocused) {
-      return inputValue;
-    }
-    try {
-      const parsed = new URL(url);
-      return parsed.hostname + parsed.pathname;
-    } catch {
-      return url;
-    }
-  };
-
-  const isGoogle = url?.includes('google');
-  const isYouTube = url?.includes('youtube');
-  const isGitHub = url?.includes('github');
-
-  const getSiteIcon = () => {
-    if (isSecure || isGoogle || isYouTube || isGitHub) {
-      return '🔒';
-    }
-    return '🌐';
-  };
+  const hostname = extractHost(url);
+  const pathname = extractPath(url);
+  const isAboutPage = url.startsWith('about:');
 
   return (
     <View style={styles.container}>
-      {/* Navigation buttons */}
+      {/* Left: Navigation buttons */}
       <View style={styles.navButtons}>
         <TouchableOpacity
           onPress={onBack}
           disabled={!canGoBack}
-          style={[styles.navButton, !canGoBack && styles.navButtonDisabled]}>
-          <Text
-            style={[
-              styles.navIcon,
-              !canGoBack && styles.navIconDisabled,
-            ]}>
+          style={[styles.navBtn, !canGoBack && styles.navBtnDisabled]}
+          hitSlop={{top: 6, bottom: 6, left: 6, right: 6}}>
+          <Text style={[styles.navArrow, !canGoBack && styles.navArrowDisabled]}>
             ‹
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={onForward}
           disabled={!canGoForward}
-          style={[styles.navButton, !canGoForward && styles.navButtonDisabled]}>
-          <Text
-            style={[
-              styles.navIcon,
-              !canGoForward && styles.navIconDisabled,
-            ]}>
+          style={[styles.navBtn, !canGoForward && styles.navBtnDisabled]}
+          hitSlop={{top: 6, bottom: 6, left: 6, right: 6}}>
+          <Text style={[styles.navArrow, !canGoForward && styles.navArrowDisabled]}>
             ›
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={isLoading ? onStop : onReload}
-          style={styles.navButton}>
-          <Text style={styles.navIcon}>
-            {isLoading ? '✕' : '↻'}
+          style={styles.navBtn}
+          hitSlop={{top: 6, bottom: 6, left: 6, right: 6}}>
+          <Text style={styles.navArrow}>
+            {isLoading ? '×' : '↻'}
           </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={onHome}
+          style={styles.navBtn}
+          hitSlop={{top: 6, bottom: 6, left: 6, right: 6}}>
+          <Text style={styles.navArrow}>⌂</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Omnibox input */}
-      <Glass variant="omnibox" rounded="full" borderWidth={0} style={styles.omniboxContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            setIsFocused(true);
-            inputRef.current?.focus();
-          }}
-          activeOpacity={0.9}
-          style={styles.omniboxInner}>
-          {/* Site security icon */}
-          <Text style={styles.siteIcon}>{getSiteIcon()}</Text>
+      {/* Center: Omnibox input */}
+      <TouchableOpacity
+        onPress={() => {
+          setIsFocused(true);
+          inputRef.current?.focus();
+        }}
+        activeOpacity={0.9}
+        style={[
+          styles.omnibox,
+          isFocused && styles.omniboxFocused,
+        ]}>
+        {/* Lock / site icon */}
+        {!isAboutPage && (
+          <Text style={styles.lockIcon}>
+            {isSecure ? '🔒' : '🌐'}
+          </Text>
+        )}
 
-          {/* URL input */}
+        {isFocused ? (
           <TextInput
             ref={inputRef}
             style={styles.input}
-            value={isFocused ? inputValue : getDisplayUrl()}
+            value={inputValue}
             onChangeText={setInputValue}
             onSubmitEditing={handleSubmit}
-            onFocus={() => {
-              setIsFocused(true);
-              setInputValue(url);
-            }}
+            onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             placeholder="Search or enter URL"
             placeholderTextColor={MaterialColors.onSurfaceVariant}
@@ -167,22 +178,29 @@ export const Omnibox: React.FC<OmniboxProps> = ({
             selectTextOnFocus
             returnKeyType="go"
           />
+        ) : (
+          <View style={styles.urlDisplay}>
+            <Text style={styles.urlHost} numberOfLines={1}>
+              {isAboutPage ? title || 'New Tab' : hostname}
+            </Text>
+            {!isAboutPage && (
+              <Text style={styles.urlPath} numberOfLines={1}>
+                {pathname}
+              </Text>
+            )}
+          </View>
+        )}
 
-          {/* Loading indicator */}
-          {isLoading && (
-            <View style={styles.loadingIndicator}>
-              <View style={styles.loadingDot} />
-            </View>
-          )}
-        </TouchableOpacity>
-      </Glass>
+        {/* Loading spinner */}
+        {isLoading && (
+          <View style={styles.loadingIndicator}>
+            <View style={styles.loadingDot} />
+          </View>
+        )}
+      </TouchableOpacity>
 
-      {/* Action buttons */}
-      <View style={styles.actionButtons}>
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>⋯</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Right: Window controls spacer */}
+      <View style={styles.rightSpacer} />
     </View>
   );
 };
@@ -191,48 +209,52 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
-    gap: Spacing.sm,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    gap: 8,
   },
   navButtons: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 2,
   },
-  navButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+  navBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.04)',
   },
-  navButtonDisabled: {
-    opacity: 0.3,
+  navBtnDisabled: {
+    opacity: 0.25,
   },
-  navIcon: {
+  navArrow: {
     fontSize: 18,
-    color: MaterialColors.onSurface,
+    color: MaterialColors.onSurfaceVariant,
     fontWeight: '300',
-    marginTop: -2,
+    marginTop: -1,
   },
-  navIconDisabled: {
+  navArrowDisabled: {
     color: MaterialColors.onSurfaceVariant,
   },
-  omniboxContainer: {
-    flex: 1,
-    height: 40,
-  },
-  omniboxInner: {
+  omnibox: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    height: 34,
     paddingHorizontal: 14,
+    borderRadius: BorderRadius.full,
+    backgroundColor: GlassColors.omnibox,
+    borderWidth: 1,
+    borderColor: GlassColors.omniboxBorder,
     gap: 8,
   },
-  siteIcon: {
-    fontSize: 13,
+  omniboxFocused: {
+    backgroundColor: GlassColors.omniboxFocused,
+    borderColor: GlassColors.omniboxBorderFocused,
+  },
+  lockIcon: {
+    fontSize: 12,
   },
   input: {
     flex: 1,
@@ -241,6 +263,24 @@ const styles = StyleSheet.create({
     fontSize: 13,
     padding: 0,
   },
+  urlDisplay: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 0,
+  },
+  urlHost: {
+    ...Typography.bodyMedium,
+    color: MaterialColors.onSurface,
+    fontSize: 13,
+    fontWeight: '400',
+  },
+  urlPath: {
+    ...Typography.bodyMedium,
+    color: MaterialColors.onSurfaceVariant,
+    fontSize: 13,
+    fontWeight: '300',
+  },
   loadingIndicator: {
     width: 16,
     height: 16,
@@ -248,27 +288,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loadingDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
     backgroundColor: MaterialColors.primary,
   },
-  actionButtons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  actionButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.04)',
-  },
-  actionIcon: {
-    fontSize: 16,
-    color: MaterialColors.onSurfaceVariant,
+  rightSpacer: {
+    width: 108, // space for window controls
   },
 });
 

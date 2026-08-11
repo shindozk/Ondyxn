@@ -1,16 +1,10 @@
 /**
  * Ondyxn Browser - Liquid Glass Effect Component
- * Inspired by Apple's Liquid Glass design language
+ * Ultra-transparent glass for browser chrome
  */
 
 import React from 'react';
-import {
-  View,
-  ViewStyle,
-  StyleSheet,
-  Platform,
-  Dimensions,
-} from 'react-native';
+import {View, ViewStyle, StyleSheet} from 'react-native';
 import {GlassColors} from '../theme/colors';
 import {BorderRadius} from '../theme/typography';
 
@@ -18,13 +12,9 @@ interface GlassProps {
   children: React.ReactNode;
   style?: ViewStyle;
   variant?: 'default' | 'light' | 'ultra' | 'tab' | 'sidebar' | 'omnibox';
-  blurIntensity?: number;
   borderWidth?: number;
   rounded?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  animated?: boolean;
 }
-
-const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 const variantStyles: Record<string, ViewStyle> = {
   default: {
@@ -40,16 +30,16 @@ const variantStyles: Record<string, ViewStyle> = {
     borderColor: GlassColors.glassBorder,
   },
   tab: {
-    backgroundColor: 'rgba(15, 15, 18, 0.6)',
-    borderColor: 'rgba(255, 255, 255, 0.06)',
+    backgroundColor: GlassColors.tabActive,
+    borderColor: 'transparent',
   },
   sidebar: {
-    backgroundColor: 'rgba(12, 12, 15, 0.78)',
-    borderColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: GlassColors.sidebar,
+    borderColor: GlassColors.sidebarBorder,
   },
   omnibox: {
-    backgroundColor: 'rgba(20, 20, 24, 0.7)',
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: GlassColors.omnibox,
+    borderColor: GlassColors.omniboxBorder,
   },
 };
 
@@ -67,7 +57,6 @@ export const Glass: React.FC<GlassProps> = ({
   variant = 'default',
   borderWidth = 1,
   rounded = 'md',
-  animated = false,
 }) => {
   return (
     <View
@@ -78,12 +67,11 @@ export const Glass: React.FC<GlassProps> = ({
           borderRadius: roundedStyles[rounded],
           borderWidth: borderWidth,
         },
-        animated && styles.animated,
         style,
       ]}>
-      {/* Top highlight overlay for glass refraction effect */}
+      {/* Subtle top highlight for glass refraction */}
       <View
-        style={[styles.highlightGradient, {borderRadius: roundedStyles[rounded] - 1}]}
+        style={[styles.highlight, {borderRadius: roundedStyles[rounded] - 1}]}
         pointerEvents="none"
       />
       {/* Content */}
@@ -92,7 +80,7 @@ export const Glass: React.FC<GlassProps> = ({
   );
 };
 
-// Glass Button with press ripple
+// Glass Button
 interface GlassButtonProps {
   children: React.ReactNode;
   onPress?: () => void;
@@ -104,7 +92,6 @@ interface GlassButtonProps {
 
 export const GlassButton: React.FC<GlassButtonProps> = ({
   children,
-  onPress,
   style,
   variant = 'default',
   size = 'md',
@@ -163,24 +150,15 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
-    // Subtle shadow for depth
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  highlightGradient: {
+  highlight: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.03)',
+    backgroundColor: 'rgba(255,255,255,0.02)',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.06)',
+    borderBottomColor: 'rgba(255,255,255,0.04)',
   },
   content: {
     flex: 1,
-  },
-  animated: {
-    // Reanimated would go here for glass shimmer
   },
   button: {
     borderWidth: 1,

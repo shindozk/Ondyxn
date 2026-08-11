@@ -1,9 +1,9 @@
 /**
  * Ondyxn Browser - Tab Bar Component
- * Material You design with Liquid Glass tabs
+ * Ultra-minimal transparent tabs inspired by modern browsers
  */
 
-import React, {useState} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -14,12 +14,9 @@ import {
 } from 'react-native';
 import {MaterialColors, GlassColors} from '../theme/colors';
 import {Typography, Spacing, BorderRadius} from '../theme/typography';
-import {Glass} from './Glass';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
-const TAB_MAX_WIDTH = 200;
-const TAB_MIN_WIDTH = 60;
-const TAB_HEIGHT = 36;
+const TAB_HEIGHT = 32;
 
 interface Tab {
   id: string;
@@ -44,22 +41,12 @@ export const TabBar: React.FC<TabBarProps> = ({
   onTabClose,
   onNewTab,
 }) => {
-  const tabCount = tabs.length;
-  const tabWidth = Math.min(
-    TAB_MAX_WIDTH,
-    Math.max(TAB_MIN_WIDTH, (SCREEN_WIDTH - 100) / Math.min(tabCount, 8)),
-  );
-
   return (
     <View style={styles.container}>
-      {/* Traffic light area (window controls) */}
-      <View style={styles.windowControls}>
-        <View style={[styles.trafficLight, {backgroundColor: '#EF4444'}]} />
-        <View style={[styles.trafficLight, {backgroundColor: '#F59E0B'}]} />
-        <View style={[styles.trafficLight, {backgroundColor: '#10B981'}]} />
-      </View>
+      {/* Drag region / title bar area */}
+      <View style={styles.dragRegion} />
 
-      {/* Tabs scroll area */}
+      {/* Tabs - centered */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -69,22 +56,12 @@ export const TabBar: React.FC<TabBarProps> = ({
           <TouchableOpacity
             key={tab.id}
             onPress={() => onTabSelect(tab.id)}
-            activeOpacity={0.7}
+            activeOpacity={0.8}
             style={[
               styles.tab,
-              {
-                width: tabWidth,
-                backgroundColor:
-                  tab.id === activeTabId
-                    ? 'rgba(255,255,255,0.08)'
-                    : 'transparent',
-                borderColor:
-                  tab.id === activeTabId
-                    ? 'rgba(255,255,255,0.12)'
-                    : 'transparent',
-              },
+              tab.id === activeTabId && styles.tabActive,
             ]}>
-            {/* Loading indicator bar */}
+            {/* Loading indicator */}
             {tab.isLoading && (
               <View style={styles.loadingBar}>
                 <View style={styles.loadingBarFill} />
@@ -94,31 +71,28 @@ export const TabBar: React.FC<TabBarProps> = ({
             <Text
               style={[
                 styles.tabTitle,
-                {
-                  color:
-                    tab.id === activeTabId
-                      ? MaterialColors.onSurface
-                      : MaterialColors.onSurfaceVariant,
-                },
+                tab.id === activeTabId && styles.tabTitleActive,
               ]}
               numberOfLines={1}
               ellipsizeMode="tail">
               {tab.title || 'New Tab'}
             </Text>
 
-            {/* Close button */}
-            <TouchableOpacity
-              onPress={e => {
-                e.stopPropagation?.();
-                onTabClose(tab.id);
-              }}
-              style={[
-                styles.closeButton,
-                tab.id === activeTabId && styles.closeButtonVisible,
-              ]}
-              hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}>
-              <Text style={styles.closeIcon}>×</Text>
-            </TouchableOpacity>
+            {/* Close button - only on hover/active */}
+            {tabs.length > 1 && (
+              <TouchableOpacity
+                onPress={e => {
+                  e.stopPropagation?.();
+                  onTabClose(tab.id);
+                }}
+                style={[
+                  styles.closeButton,
+                  tab.id === activeTabId && styles.closeButtonVisible,
+                ]}
+                hitSlop={{top: 8, bottom: 8, left: 8, right: 8}}>
+                <Text style={styles.closeIcon}>×</Text>
+              </TouchableOpacity>
+            )}
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -127,6 +101,19 @@ export const TabBar: React.FC<TabBarProps> = ({
       <TouchableOpacity onPress={onNewTab} style={styles.newTabButton}>
         <Text style={styles.newTabIcon}>+</Text>
       </TouchableOpacity>
+
+      {/* Window controls - minimal */}
+      <View style={styles.windowControls}>
+        <TouchableOpacity style={styles.windowButton}>
+          <Text style={styles.windowIcon}>─</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.windowButton}>
+          <Text style={styles.windowIcon}>□</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.windowButton, styles.windowClose]}>
+          <Text style={[styles.windowIcon, styles.windowCloseIcon]}>×</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -135,44 +122,47 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 42,
-    backgroundColor: MaterialColors.surface,
+    height: 38,
+    backgroundColor: GlassColors.chromeBackground,
     borderBottomWidth: 1,
-    borderBottomColor: GlassColors.glassBorder,
+    borderBottomColor: GlassColors.chromeBorder,
   },
-  windowControls: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    paddingHorizontal: 14,
-  },
-  trafficLight: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+  dragRegion: {
+    width: 14,
+    height: '100%',
   },
   tabsContainer: {
     flex: 1,
+    maxHeight: 38,
   },
   tabsScroll: {
     alignItems: 'center',
     paddingHorizontal: 4,
     gap: 2,
+    height: 38,
   },
   tab: {
     flexDirection: 'row',
     alignItems: 'center',
     height: TAB_HEIGHT,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     borderRadius: BorderRadius.sm,
-    borderWidth: 1,
-    marginHorizontal: 1,
-    overflow: 'hidden',
+    gap: 6,
+    maxWidth: 200,
+    minWidth: 60,
+  },
+  tabActive: {
+    backgroundColor: GlassColors.tabActive,
   },
   tabTitle: {
     ...Typography.bodySmall,
-    flex: 1,
+    color: MaterialColors.onSurfaceVariant,
     fontSize: 12,
+    fontWeight: '400',
+  },
+  tabTitleActive: {
+    color: MaterialColors.onSurface,
+    fontWeight: '500',
   },
   closeButton: {
     width: 16,
@@ -180,31 +170,51 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    marginLeft: 6,
     opacity: 0,
   },
   closeButtonVisible: {
-    opacity: 1,
+    opacity: 0.6,
   },
   closeIcon: {
-    fontSize: 12,
+    fontSize: 14,
     color: MaterialColors.onSurfaceVariant,
-    fontWeight: '600',
+    fontWeight: '300',
     marginTop: -1,
   },
   newTabButton: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 12,
+    marginRight: 8,
     backgroundColor: 'rgba(255,255,255,0.04)',
   },
   newTabIcon: {
-    fontSize: 18,
+    fontSize: 16,
     color: MaterialColors.onSurfaceVariant,
+    fontWeight: '300',
+  },
+  windowControls: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 0,
+    marginRight: 4,
+  },
+  windowButton: {
+    width: 36,
+    height: 38,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  windowIcon: {
+    fontSize: 10,
+    color: MaterialColors.onSurfaceVariant,
+    fontWeight: '200',
+  },
+  windowClose: {},
+  windowCloseIcon: {
+    fontSize: 14,
     fontWeight: '300',
   },
   loadingBar: {
@@ -213,7 +223,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 2,
-    backgroundColor: 'rgba(255,255,255,0.04)',
+    backgroundColor: 'rgba(255,255,255,0.02)',
   },
   loadingBarFill: {
     height: '100%',

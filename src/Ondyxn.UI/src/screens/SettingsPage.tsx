@@ -1,6 +1,6 @@
 /**
  * Ondyxn Browser - Settings Page
- * Material You design with form controls
+ * Ultra-transparent Liquid Glass design with Material You
  */
 
 import React, {useState} from 'react';
@@ -130,11 +130,11 @@ export const SettingsPage: React.FC<SettingsProps> = ({onBack}) => {
                       value={item.value as boolean}
                       onValueChange={() => toggleSetting(item.id)}
                       trackColor={{
-                        false: '#3f3f46',
-                        true: MaterialColors.primary + '60',
+                        false: '#27272A',
+                        true: MaterialColors.primary + '50',
                       }}
                       thumbColor={
-                        item.value ? MaterialColors.primary : '#71717a'
+                        item.value ? MaterialColors.primary : '#52525B'
                       }
                     />
                   )}
@@ -165,7 +165,7 @@ export const SettingsPage: React.FC<SettingsProps> = ({onBack}) => {
         <View style={styles.versionInfo}>
           <Text style={styles.versionText}>Ondyxn Browser v1.0.0</Text>
           <Text style={styles.versionSubtext}>
-            Built with React Native Windows
+            Built with React Native Windows · Material You
           </Text>
         </View>
       </ScrollView>
@@ -184,24 +184,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: GlassColors.glassBorder,
+    borderBottomColor: GlassColors.chromeBorder,
     gap: Spacing.md,
   },
   backButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(255,255,255,0.04)',
   },
   backIcon: {
-    fontSize: 20,
+    fontSize: 18,
     color: MaterialColors.onSurface,
     fontWeight: '300',
   },
   headerTitle: {
-    ...Typography.titleLarge,
+    ...Typography.titleMedium,
     color: MaterialColors.onSurface,
   },
   content: {
@@ -218,11 +218,13 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   sectionIcon: {
-    fontSize: 14,
+    fontSize: 12,
   },
   sectionTitle: {
-    ...Typography.titleSmall,
+    ...Typography.labelMedium,
     color: MaterialColors.onSurfaceVariant,
+    textTransform: 'uppercase' as const,
+    letterSpacing: 1,
   },
   sectionContent: {
     padding: 0,
@@ -241,6 +243,7 @@ const styles = StyleSheet.create({
   settingLabel: {
     ...Typography.bodyMedium,
     color: MaterialColors.onSurface,
+    fontSize: 13,
   },
   selectContainer: {
     flexDirection: 'row',
@@ -250,10 +253,12 @@ const styles = StyleSheet.create({
   selectValue: {
     ...Typography.bodySmall,
     color: MaterialColors.primary,
+    fontSize: 12,
   },
   selectArrow: {
     fontSize: 16,
     color: MaterialColors.onSurfaceVariant,
+    fontWeight: '300',
   },
   infoContainer: {
     flexDirection: 'row',
@@ -262,7 +267,8 @@ const styles = StyleSheet.create({
   infoValue: {
     ...Typography.bodySmall,
     color: MaterialColors.onSurfaceVariant,
-    maxWidth: 200,
+    maxWidth: 180,
+    fontSize: 11,
   },
   versionInfo: {
     alignItems: 'center',
@@ -270,14 +276,16 @@ const styles = StyleSheet.create({
     gap: Spacing.xs,
   },
   versionText: {
-    ...Typography.bodyMedium,
+    ...Typography.bodySmall,
     color: MaterialColors.onSurfaceVariant,
-    opacity: 0.5,
+    opacity: 0.4,
+    fontSize: 11,
   },
   versionSubtext: {
     ...Typography.bodySmall,
     color: MaterialColors.onSurfaceVariant,
-    opacity: 0.3,
+    opacity: 0.25,
+    fontSize: 10,
   },
 });
 

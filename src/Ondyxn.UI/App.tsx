@@ -1,12 +1,11 @@
 /**
  * Ondyxn Browser - Main Application
- * Material You design with Liquid Glass effects
- * Built with React Native Windows
+ * Ultra-transparent Liquid Glass design with Material You
  */
 
 import React, {useState, useCallback} from 'react';
-import {View, StyleSheet, SafeAreaView, StatusBar, Dimensions} from 'react-native';
-import {MaterialColors} from './src/theme/colors';
+import {View, StyleSheet, StatusBar, Dimensions} from 'react-native';
+import {MaterialColors, GlassColors} from './src/theme/colors';
 import {TabBar} from './src/components/TabBar';
 import {Omnibox} from './src/components/Omnibox';
 import {Sidebar} from './src/components/Sidebar';
@@ -54,7 +53,7 @@ const App: React.FC = () => {
     (url: string) => {
       updateTab(activeTabId, {
         url,
-        title: getDomainFromUrl(url),
+        title: extractHost(url),
         isLoading: true,
       });
     },
@@ -102,25 +101,25 @@ const App: React.FC = () => {
   );
 
   const handleBack = useCallback(() => {
-    // Simulate back navigation
     updateTab(activeTabId, {canGoBack: false});
   }, [activeTabId, updateTab]);
 
   const handleForward = useCallback(() => {
-    // Simulate forward navigation
     updateTab(activeTabId, {canGoForward: false});
   }, [activeTabId, updateTab]);
 
   const handleReload = useCallback(() => {
     updateTab(activeTabId, {isLoading: true});
-    setTimeout(() => {
-      updateTab(activeTabId, {isLoading: false});
-    }, 1500);
+    setTimeout(() => updateTab(activeTabId, {isLoading: false}), 1500);
   }, [activeTabId, updateTab]);
 
   const handleStop = useCallback(() => {
     updateTab(activeTabId, {isLoading: false});
   }, [activeTabId, updateTab]);
+
+  const handleHome = useCallback(() => {
+    handleNavigate('about:newtab');
+  }, [handleNavigate]);
 
   const renderContent = () => {
     if (showSettings) {
@@ -131,25 +130,19 @@ const App: React.FC = () => {
       return <NewTabPage onNavigate={handleNavigate} />;
     }
 
-    // For actual web content, a native WebView2 module would render here
-    // This is a placeholder that would be replaced by the native module
+    // WebView2 native module would render here
     return (
       <View style={styles.webPlaceholder}>
-        {/* Native WebView2 would be rendered here by the Windows native module */}
         <View style={styles.webPlaceholderContent}>
-          <View style={styles.webPlaceholderIcon}>
-            <View style={styles.spinningIcon}>
-              {/* Would show the actual webpage via WebView2 native module */}
-            </View>
-          </View>
+          <View style={styles.loadingSpinner} />
         </View>
       </View>
     );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={MaterialColors.surface} />
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
 
       {/* Tab bar */}
       <TabBar
@@ -171,32 +164,38 @@ const App: React.FC = () => {
         onForward={handleForward}
         onReload={handleReload}
         onStop={handleStop}
+        onHome={handleHome}
         canGoBack={activeTab.canGoBack}
         canGoForward={activeTab.canGoForward}
       />
 
-      {/* Main content area */}
-      <View style={styles.mainContent}>
-        {/* Sidebar */}
-        <Sidebar
-          isVisible={sidebarVisible}
-          onNavigate={handleNavigate}
-          onClose={() => setSidebarVisible(false)}
-        />
-
-        {/* Web content / New tab / Settings */}
+      {/* Main content area with rounded corners */}
+      <View style={styles.contentWrapper}>
         <View style={styles.contentArea}>
+          {/* Sidebar overlay */}
+          {sidebarVisible && (
+            <Sidebar
+              isVisible={sidebarVisible}
+              onNavigate={handleNavigate}
+              onClose={() => setSidebarVisible(false)}
+            />
+          )}
+
+          {/* Web content / New tab / Settings */}
           {renderContent()}
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
-function getDomainFromUrl(url: string): string {
+function extractHost(url: string): string {
   try {
-    const parsed = new URL(url);
-    return parsed.hostname;
+    let host = url.replace(/^https?:\/\//, '');
+    host = host.split('/')[0];
+    host = host.split(':')[0];
+    if (host.startsWith('www.')) host = host.slice(4);
+    return host;
   } catch {
     return url;
   }
@@ -207,12 +206,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: MaterialColors.background,
   },
-  mainContent: {
+  contentWrapper: {
     flex: 1,
-    flexDirection: 'row',
+    paddingHorizontal: 8,
+    paddingBottom: 8,
   },
   contentArea: {
     flex: 1,
+    backgroundColor: MaterialColors.surface,
+    borderRadius: 12,
+    overflow: 'hidden',
   },
   webPlaceholder: {
     flex: 1,
@@ -224,20 +227,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 16,
   },
-  webPlaceholderIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: 'rgba(255,255,255,0.04)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  spinningIcon: {
+  loadingSpinner: {
     width: 24,
     height: 24,
     borderRadius: 12,
     borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: 'rgba(255,255,255,0.08)',
     borderTopColor: MaterialColors.primary,
   },
 });
