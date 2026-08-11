@@ -11,7 +11,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {shadcnColors, shadcnRadius} from '../theme/colors';
+import {shadcnColors, shadcnRadius, zinc} from '../theme/colors';
 import {Button, Separator} from './ui';
 
 interface OmniboxProps {
@@ -167,12 +167,12 @@ export const Omnibox: React.FC<OmniboxProps> = ({
           <TextInput
             ref={inputRef}
             style={styles.input}
-            value={inputValue}
+            value={isAboutPage ? '' : inputValue}
             onChangeText={setInputValue}
             onSubmitEditing={handleSubmit}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Search or enter URL"
+            placeholder={isAboutPage ? 'Search or enter URL' : hostname}
             placeholderTextColor={shadcnColors.mutedForeground}
             autoCapitalize="none"
             autoCorrect={false}
@@ -182,7 +182,7 @@ export const Omnibox: React.FC<OmniboxProps> = ({
         ) : (
           <View style={styles.urlDisplay}>
             <Text style={styles.urlHost} numberOfLines={1}>
-              {isAboutPage ? title || 'New Tab' : hostname}
+              {isAboutPage ? 'New Tab' : hostname}
             </Text>
             {!isAboutPage && (
               <Text style={styles.urlPath} numberOfLines={1}>
@@ -249,14 +249,14 @@ const styles = StyleSheet.create({
     height: 36,
     paddingHorizontal: 14,
     borderRadius: shadcnRadius.md,
-    backgroundColor: shadcnColors.muted,
+    backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: shadcnColors.border,
+    borderColor: 'transparent',
     gap: 8,
   },
   omniboxFocused: {
-    backgroundColor: shadcnColors.background,
-    borderColor: shadcnColors.ring,
+    backgroundColor: shadcnColors.muted,
+    borderColor: zinc[600],
   },
   lockIcon: {
     fontSize: 12,
@@ -267,17 +267,20 @@ const styles = StyleSheet.create({
     color: shadcnColors.foreground,
     fontWeight: '400',
     padding: 0,
+    textAlign: 'center',
   },
   urlDisplay: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 0,
   },
   urlHost: {
     fontSize: 14,
     color: shadcnColors.foreground,
     fontWeight: '400',
+    textAlign: 'center',
   },
   urlPath: {
     fontSize: 14,
