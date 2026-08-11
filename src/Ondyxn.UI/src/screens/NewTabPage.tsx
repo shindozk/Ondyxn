@@ -19,6 +19,25 @@ import {Glass} from '../components/Glass';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
+/** Extract hostname from URL string without using URL API (not implemented in RN) */
+function extractHostname(url: string): string {
+  try {
+    // Remove protocol
+    let host = url.replace(/^https?:\/\//, '');
+    // Remove path/query/hash
+    host = host.split('/')[0];
+    // Remove port
+    host = host.split(':')[0];
+    // Remove www.
+    if (host.startsWith('www.')) {
+      host = host.slice(4);
+    }
+    return host;
+  } catch {
+    return url;
+  }
+}
+
 interface QuickLink {
   id: string;
   title: string;
@@ -109,7 +128,7 @@ export const NewTabPage: React.FC<NewTabPageProps> = ({
                   {link.title}
                 </Text>
                 <Text style={styles.quickLinkUrl} numberOfLines={1}>
-                  {new URL(link.url).hostname}
+                  {extractHostname(link.url)}
                 </Text>
               </Glass>
             </TouchableOpacity>
